@@ -4,11 +4,21 @@ import { Settings as SettingsIcon, HelpCircle, X, Activity } from 'lucide-react'
 import { useSettings } from '../contexts/SettingsContext';
 
 export function SettingsAndHelper() {
-  const { settings, setSettings, showSettings, setShowSettings, showHelper, setShowHelper } = useSettings();
+  const {
+    settings,
+    setSettings,
+    showSettings,
+    setShowSettings,
+    showHelper,
+    setShowHelper,
+    offlineState,
+    downloadOfflineContent,
+  } = useSettings();
   const [localSettings, setLocalSettings] = useState(settings);
   const [apiUsage, setApiUsage] = useState<{ count: number, limit: number } | null>(null);
   const [checkingUsage, setCheckingUsage] = useState(false);
   const [usageError, setUsageError] = useState('');
+  const [downloadError, setDownloadError] = useState('');
 
   // Sync local state when context changes
   React.useEffect(() => {
@@ -18,6 +28,18 @@ export function SettingsAndHelper() {
   const handleSaveSettings = () => {
     setSettings(localSettings);
     setShowSettings(false);
+  };
+
+  const handleDownloadOffline = async () => {
+    setDownloadError('');
+    try {
+      await downloadOfflineContent({
+        apiKey: localSettings.elevenLabsApiKey,
+        childName: localSettings.childName,
+      });
+    } catch (error) {
+      setDownloadError(error instanceof Error ? error.message : 'No se pudo descargar el contenido offline');
+    }
   };
 
   const checkApiUsage = async () => {
@@ -152,6 +174,49 @@ export function SettingsAndHelper() {
                       <li>Accede a <a href="https://elevenlabs.io/app/developers/api-keys" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline font-medium">este enlace</a>.</li>
                       <li>Crea una nueva API Key y cópiala aquí.</li>
                     </ol>
+                  </div>
+                </div>
+
+                <div className="bg-[#f3efe6] p-4 rounded-lg border border-stone-300 space-y-3">
+                  <div className="flex items-center justify-between gap-3">
+                    <div>
+                      <p className="text-sm font-bold text-stone-800">Modo offline</p>
+                      <p className="text-xs text-stone-600">
+                        Descarga imagenes, textos, sonidos y narraciones para usar el juego sin internet.
+                      </p>
+                    </div>
+                    <button
+                      onClick={handleDownloadOffline}
+                      disabled={offlineState.status === 'downloading'}
+                      className="rounded-lg bg-stone-800 px-3 py-2 text-sm font-bold text-white transition hover:bg-stone-900 disabled:opacity-50"
+                    >
+                      {offlineState.status === 'downloading' ? 'Descargando...' : 'Descargar todo'}
+                    </button>
+                  </div>
+
+                  <div className="space-y-2">
+                    <div className="h-3 overflow-hidden rounded-full bg-stone-200">
+                      <div
+                        className="h-full bg-stone-700 transition-all"
+                        style={{ width: `${offlineState.progress}%` }}
+                      />
+                    </div>
+                    <div className="flex items-center justify-between text-xs text-stone-600">
+                      <span>{offlineState.label}</span>
+                      <span>{offlineState.progress}%</span>
+                    </div>
+                    <div className="text-xs text-stone-600">
+                      <p>Datos base: {offlineState.coreReady ? 'listos' : 'pendientes'}</p>
+                      <p>Narraciones descargadas: {offlineState.missionAudioCount} / {offlineState.totalMissionAudio}</p>
+                      {offlineState.lastDownloadedAt && (
+                        <p>Ultima descarga: {new Date(offlineState.lastDownloadedAt).toLocaleString()}</p>
+                      )}
+                    </div>
+                    {downloadError && (
+                      <div className="rounded border border-red-300 bg-red-100 p-2 text-xs text-red-800">
+                        {downloadError}
+                      </div>
+                    )}
                   </div>
                 </div>
 

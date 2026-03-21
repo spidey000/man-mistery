@@ -3,8 +3,9 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Star, LogOut, HelpCircle, CheckCircle, Volume2, Pickaxe, Brush, Search, Gem, Map as MapIcon, BookOpen, Loader2, MapPin, HelpCircle as RiddleIcon } from 'lucide-react';
 import objectsData from '../data/man_exposicion_permanente_objetos.json';
 import { useSettings } from '../contexts/SettingsContext';
-import { generateTTS } from '../services/elevenlabs';
+import { fetchTTSBlob } from '../services/elevenlabs';
 import { SettingsAndHelper } from '../components/SettingsAndHelper';
+import { cacheMissionAudio, getCachedMissionAudioUrl, getFallbackAudioUrl, getSuccessSoundUrl } from '../services/offlineCache';
 
 interface Props {
   onExit: () => void;
@@ -231,7 +232,7 @@ export function Quest({ onExit }: Props) {
       setHintLevel(0);
       
       // Play success sound
-      const audio = new Audio('https://cdn.pixabay.com/download/audio/2021/08/04/audio_0625c1539c.mp3?filename=success-1-6297.mp3');
+      const audio = new Audio(await getSuccessSoundUrl());
       audio.play().catch(() => {});
     } else {
       setIsError(true);
@@ -302,19 +303,22 @@ export function Quest({ onExit }: Props) {
       return;
     }
 
-    if (!settings.elevenLabsApiKey) {
-      setAudioError('Configura la API Key en Ajustes (⚙️)');
-      setTimeout(() => setAudioError(''), 3000);
-      return;
-    }
-
     setIsPlayingAudio(true);
     setAudioError('');
 
     try {
-      const promptText = buildSpokenPrompt(currentMission);
-      
-      const audioUrl = await generateTTS(promptText, settings.elevenLabsApiKey);
+      let audioUrl = await getCachedMissionAudioUrl(currentMission.id, settings.childName);
+
+      if (!audioUrl && settings.elevenLabsApiKey && navigator.onLine) {
+        const promptText = buildSpokenPrompt(currentMission);
+        const blob = await fetchTTSBlob(promptText, settings.elevenLabsApiKey);
+        await cacheMissionAudio(currentMission.id, settings.childName, blob);
+        audioUrl = URL.createObjectURL(blob);
+      }
+
+      if (!audioUrl) {
+        audioUrl = getFallbackAudioUrl();
+      }
       
       const audio = new Audio(audioUrl);
       audioRef.current = audio;

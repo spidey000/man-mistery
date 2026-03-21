@@ -1,4 +1,4 @@
-export async function generateTTS(text: string, apiKey: string, voiceId: string = 'pNInz6obpgDQGcFmaJgB') {
+export async function fetchTTSBlob(text: string, apiKey: string, voiceId: string = 'pNInz6obpgDQGcFmaJgB') {
   if (!apiKey) {
     throw new Error('API Key de ElevenLabs no configurada');
   }
@@ -28,6 +28,10 @@ export async function generateTTS(text: string, apiKey: string, voiceId: string 
     throw new Error(errorData.detail?.message || 'Error al generar el audio');
   }
 
-  const audioBlob = await response.blob();
+  return response.blob();
+}
+
+export async function generateTTS(text: string, apiKey: string, voiceId: string = 'pNInz6obpgDQGcFmaJgB') {
+  const audioBlob = await fetchTTSBlob(text, apiKey, voiceId);
   return URL.createObjectURL(audioBlob);
 }
