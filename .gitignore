@@ -1,0 +1,27 @@
+node_modules/
+build/
+dist/
+coverage/
+.DS_Store
+*.log
+.env*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyc
+venv/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+Thumbs.db
+
+# Secrets
+*.pem
+*.key
+secrets/

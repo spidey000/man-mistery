@@ -1,0 +1,972 @@
+{
+  "museum": {
+    "name": "Museo Arqueológico Nacional",
+    "city": "Madrid",
+    "experience_name": "La Llave del Tiempo",
+    "target_age": 8,
+    "language": "es-ES",
+    "route_duration_minutes": 90
+  },
+  "objects": [
+    {
+      "id": "obj_001",
+      "name": "Ídolo oculado",
+      "room": "Sala 5",
+      "culture": "Prehistoria",
+      "lore_text": "¡Rápido, joven arqueólogo! Soy el Profesor Ardanza. La malvada 'Sociedad del Eclipse' quiere robar los secretos del museo para reescribir la historia. Debemos encontrar la Llave del Tiempo antes que ellos. Nuestro primer contacto dejó un mensaje oculto en la mirada de piedra más antigua de la Sala 5.",
+      "action_prompt": "Busca una figura cilíndrica de piedra con dos enormes ojos grabados. Lee su tarjeta informativa para descubrir cuándo fue creada. ¿En qué milenio a.C. se talló?",
+      "expected_format": "Un número (ej. 3 o III)",
+      "possible_answers": [
+        {
+          "type": "canonical",
+          "value": "3"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "tres"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "iii"
+        }
+      ],
+      "hint_ladder_template": {
+        "hint_1": "Lee la cartela junto a la pieza.",
+        "hint_2": "Busca la fecha. Dice 'III milenio a.C.'.",
+        "hint_3": "El número romano III equivale al...",
+        "hint_4": "La respuesta empieza por la letra '3'.",
+        "hint_5": "La respuesta exacta que buscas es: 3"
+      },
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Idolo_oculado.jpg/800px-Idolo_oculado.jpg",
+      "success_description": "Este ídolo de piedra tiene más de 5000 años. Los antiguos habitantes de la Península Ibérica lo usaban en sus rituales mágicos. ¡Sus grandes ojos lo veían todo!"
+    },
+    {
+      "id": "obj_002",
+      "name": "Vaso Campaniforme",
+      "room": "Sala 5",
+      "culture": "Prehistoria",
+      "lore_text": "¡Bien hecho! Los agentes del Eclipse nos pisan los talones. El milenio que descubriste es la clave: los antiguos usaban el sonido para comunicarse a largas distancias. Busca en esta misma sala un objeto de barro que serviría para dar la alarma.",
+      "action_prompt": "Encuentra una vasija rojiza decorada con líneas y puntos. Piensa en su forma invertida. ¿A qué objeto sonoro de las iglesias se parece?",
+      "expected_format": "Una palabra",
+      "possible_answers": [
+        {
+          "type": "canonical",
+          "value": "campana"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "una campana"
+        }
+      ],
+      "hint_ladder_template": {
+        "hint_1": "Fíjate en la forma de la vasija.",
+        "hint_2": "Si la pones boca abajo hace 'ding-dong'.",
+        "hint_3": "Tiene forma de...",
+        "hint_4": "La respuesta empieza por la letra 'C'.",
+        "hint_5": "La respuesta exacta que buscas es: CAMPANA"
+      },
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Vaso_campaniforme_de_Ciempozuelos_%28M.A.N._Inv.32252%29_01.jpg/800px-Vaso_campaniforme_de_Ciempozuelos_%28M.A.N._Inv.32252%29_01.jpg",
+      "success_description": "Hace miles de años, esta forma de vasija se puso de moda en toda Europa. ¡Fue la primera gran tendencia internacional de la historia!"
+    },
+    {
+      "id": "obj_003",
+      "name": "Bicha de Balazote",
+      "room": "Sala 12",
+      "culture": "Íbera",
+      "lore_text": "¡Una campana! Exacto. Su sonido imaginario nos advierte: los malos se dirigen a la Sala 12. Ardanza dice que allí hay un guardián de piedra que protege el siguiente fragmento del mapa. Es un ser mitológico que asusta a los intrusos.",
+      "action_prompt": "Busca una estatua gris con cabeza de hombre barbudo. Su cuerpo pertenece a un animal con cuernos muy fuerte. ¿De qué animal es el cuerpo?",
+      "expected_format": "Una palabra (ej. toro)",
+      "possible_answers": [
+        {
+          "type": "canonical",
+          "value": "toro"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "un toro"
+        }
+      ],
+      "hint_ladder_template": {
+        "hint_1": "Mira su cuerpo, no su cabeza.",
+        "hint_2": "Es un animal muy fuerte que tiene cuernos y muge.",
+        "hint_3": "La cabeza es de hombre, pero el cuerpo es de un...",
+        "hint_4": "La respuesta empieza por la letra 'T'.",
+        "hint_5": "La respuesta exacta que buscas es: TORO"
+      },
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Bicha_de_Balazote_%28M.A.N._Madrid%29_01.jpg/800px-Bicha_de_Balazote_%28M.A.N._Madrid%29_01.jpg",
+      "success_description": "Los íberos creían en criaturas mágicas que protegían las tumbas importantes. Esta mezcla de hombre y toro daba mucho miedo a los ladrones."
+    },
+    {
+      "id": "obj_004",
+      "name": "Dama de Elche",
+      "room": "Sala 13",
+      "culture": "Íbera",
+      "lore_text": "¡El toro nos ha dejado pasar! Pero la Sociedad del Eclipse ha bloqueado la puerta principal. El diario de Ardanza revela un pasadizo secreto en la Sala 13, custodiado por la gran reina de piedra. Ella tiene el poder de 'hacer rodar' el tiempo.",
+      "action_prompt": "Busca el busto de una mujer íbera muy detallado. Fíjate en los dos grandes adornos redondos que lleva a los lados de la cara. ¿A qué parte de un coche se parecen?",
+      "expected_format": "Una palabra en plural (ej. ruedas)",
+      "possible_answers": [
+        {
+          "type": "canonical",
+          "value": "ruedas"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "rueda"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "ensaimadas"
+        }
+      ],
+      "hint_ladder_template": {
+        "hint_1": "Fíjate en lo que lleva a los lados de la cara.",
+        "hint_2": "Son redondos y giran en los coches.",
+        "hint_3": "Sus adornos parecen dos...",
+        "hint_4": "La respuesta empieza por la letra 'R'.",
+        "hint_5": "La respuesta exacta que buscas es: RUEDAS"
+      },
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Dama_de_Elche_%28M.A.N._Madrid%29_01.jpg/800px-Dama_de_Elche_%28M.A.N._Madrid%29_01.jpg",
+      "success_description": "Es la escultura más famosa de España. Sus adornos laterales se llaman 'rodetes' y dentro de la estatua hay un hueco secreto donde guardaban cenizas."
+    },
+    {
+      "id": "obj_005",
+      "name": "Dama de Baza",
+      "room": "Sala 13",
+      "culture": "Íbera",
+      "lore_text": "Las ruedas de la Dama han abierto el pasadizo. Ardanza nos avisa: 'La Sociedad del Eclipse busca a la hermana de la Dama de Elche en esta misma sala'. Ella está sentada en un trono y guarda un secreto bajo su asiento.",
+      "action_prompt": "Encuentra a la otra gran dama de piedra que está sentada en una silla con alas. ¿Qué animal tiene las alas que decoran su trono?",
+      "expected_format": "Una palabra",
+      "possible_answers": [
+        {
+          "type": "canonical",
+          "value": "pajaro"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "ave"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "paloma"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "águila"
+        }
+      ],
+      "hint_ladder_template": {
+        "hint_1": "Mira los laterales de la silla donde está sentada.",
+        "hint_2": "Tienen plumas y sirven para volar.",
+        "hint_3": "Son alas de un...",
+        "hint_4": "La respuesta empieza por la letra 'P'.",
+        "hint_5": "La respuesta exacta que buscas es: PAJARO"
+      },
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Dama_de_Baza_%28M.A.N._Madrid%29_01.jpg/800px-Dama_de_Baza_%28M.A.N._Madrid%29_01.jpg",
+      "success_description": "A diferencia de la Dama de Elche, esta conserva sus colores originales. Era una tumba: debajo de su silla encontraron armas y tesoros quemados."
+    },
+    {
+      "id": "obj_006",
+      "name": "Monumento de Pozo Moro",
+      "room": "Sala 11",
+      "culture": "Íbera",
+      "lore_text": "¡Un pájaro! Ese es el símbolo de la libertad. Los agentes del Eclipse han huido hacia la Sala 11, buscando un monumento gigante en forma de torre. Ardanza dice que en sus paredes hay monstruos tallados.",
+      "action_prompt": "Busca una torre de piedra muy alta sostenida por leones. En uno de sus relieves hay un monstruo con dos cabezas que saca la lengua. ¿Qué animal parece?",
+      "expected_format": "Una palabra",
+      "possible_answers": [
+        {
+          "type": "canonical",
+          "value": "serpiente"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "culebra"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "dragon"
+        }
+      ],
+      "hint_ladder_template": {
+        "hint_1": "Busca los dibujos tallados en la piedra de la torre.",
+        "hint_2": "Es un reptil largo que repta por el suelo.",
+        "hint_3": "Tiene lengua bífida y hace 'hssss'. Es una...",
+        "hint_4": "La respuesta empieza por la letra 'S'.",
+        "hint_5": "La respuesta exacta que buscas es: SERPIENTE"
+      },
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Monumento_de_Pozo_Moro_%28M.A.N._Madrid%29_01.jpg/800px-Monumento_de_Pozo_Moro_%28M.A.N._Madrid%29_01.jpg",
+      "success_description": "Este monumento es una tumba gigante de un rey íbero. Los relieves cuentan historias mitológicas para proteger el alma del difunto en su viaje."
+    },
+    {
+      "id": "obj_007",
+      "name": "Esfinge de Agost",
+      "room": "Sala 12",
+      "culture": "Íbera",
+      "lore_text": "La serpiente nos indica el camino venenoso que han tomado. Han vuelto a la Sala 12. 'Busca a la criatura de los enigmas', susurra Ardanza por el comunicador. 'Tiene cuerpo de león y alas, pero no es un pájaro'.",
+      "action_prompt": "Encuentra una estatua de piedra que parece un león sentado, pero tiene alas y cabeza humana. ¿Qué le falta en la cara porque se ha roto con el tiempo?",
+      "expected_format": "Una palabra",
+      "possible_answers": [
+        {
+          "type": "canonical",
+          "value": "nariz"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "la nariz"
+        }
+      ],
+      "hint_ladder_template": {
+        "hint_1": "Mírale bien a la cara.",
+        "hint_2": "Está justo en el centro del rostro y sirve para oler.",
+        "hint_3": "Le falta la...",
+        "hint_4": "La respuesta empieza por la letra 'N'.",
+        "hint_5": "La respuesta exacta que buscas es: NARIZ"
+      },
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Esfinge_de_Agost_%28M.A.N._Madrid%29_01.jpg/800px-Esfinge_de_Agost_%28M.A.N._Madrid%29_01.jpg",
+      "success_description": "Las esfinges eran criaturas mágicas que los íberos copiaron de los griegos y egipcios. Se colocaban en las tumbas para asustar a los malos espíritus."
+    },
+    {
+      "id": "obj_008",
+      "name": "Toro de Osuna",
+      "room": "Sala 14",
+      "culture": "Íbera",
+      "lore_text": "Sin nariz no pueden olernos. ¡Aprovechemos la ventaja! Avanzamos a la Sala 14. La Sociedad del Eclipse busca un animal de piedra que representa la fuerza bruta. Ardanza nos advierte que está herido.",
+      "action_prompt": "Busca una gran estatua de un toro de piedra. Míralo de cerca. ¿Qué le falta en la cabeza que lo haría muy peligroso?",
+      "expected_format": "Una palabra en plural",
+      "possible_answers": [
+        {
+          "type": "canonical",
+          "value": "cuernos"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "los cuernos"
+        }
+      ],
+      "hint_ladder_template": {
+        "hint_1": "Fíjate en la parte superior de su cabeza.",
+        "hint_2": "Los toros los usan para embestir.",
+        "hint_3": "Le faltan los...",
+        "hint_4": "La respuesta empieza por la letra 'C'.",
+        "hint_5": "La respuesta exacta que buscas es: CUERNOS"
+      },
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Toro_de_Osuna_%28M.A.N._Madrid%29_01.jpg/800px-Toro_de_Osuna_%28M.A.N._Madrid%29_01.jpg",
+      "success_description": "Este toro decoraba un monumento funerario. Los íberos adoraban a los toros porque representaban la fuerza, la valentía y la protección."
+    },
+    {
+      "id": "obj_009",
+      "name": "Tesoro de Aliseda",
+      "room": "Sala 10",
+      "culture": "Tartésica",
+      "lore_text": "Los cuernos rotos simbolizan que el Eclipse está perdiendo fuerza. Ardanza nos envía a la Sala 10. 'Allí brilla el oro de un reino perdido llamado Tartessos. Busca las joyas de una antigua princesa'.",
+      "action_prompt": "Encuentra una vitrina llena de joyas de oro muy detalladas (collares, pulseras...). Hay un cinturón de oro con pequeños dibujos. ¿Qué animal que da leche y hace 'beee' aparece en el cinturón?",
+      "expected_format": "Una palabra",
+      "possible_answers": [
+        {
+          "type": "canonical",
+          "value": "oveja"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "cabra"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "carnero"
+        }
+      ],
+      "hint_ladder_template": {
+        "hint_1": "Mira de cerca los cuadraditos del cinturón de oro.",
+        "hint_2": "Es un animal con cuernos enrollados o lana.",
+        "hint_3": "Parece una...",
+        "hint_4": "La respuesta empieza por la letra 'O'.",
+        "hint_5": "La respuesta exacta que buscas es: OVEJA"
+      },
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Tesoro_de_Aliseda_%28M.A.N._Madrid%29_01.jpg/800px-Tesoro_de_Aliseda_%28M.A.N._Madrid%29_01.jpg",
+      "success_description": "Este tesoro perteneció a una mujer muy rica de Tartessos. Las joyas están hechas con técnicas increíbles, soldando bolitas de oro minúsculas."
+    },
+    {
+      "id": "obj_010",
+      "name": "Cuenco de Axtroki",
+      "room": "Sala 15",
+      "culture": "Edad del Bronce",
+      "lore_text": "El oro nos guía. Los secuaces del Eclipse han sido vistos en la Sala 15, buscando unos cuencos mágicos que parecen sombreros de oro. Ardanza dice que los usaban en ceremonias secretas.",
+      "action_prompt": "Busca dos cuencos de oro brillante con decoraciones geométricas. Si te los pusieras en la cabeza, ¿qué prenda de vestir parecerían?",
+      "expected_format": "Una palabra",
+      "possible_answers": [
+        {
+          "type": "canonical",
+          "value": "sombrero"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "gorro"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "casco"
+        }
+      ],
+      "hint_ladder_template": {
+        "hint_1": "Tienen forma de media esfera hueca.",
+        "hint_2": "Se ponen en la cabeza para protegerse del sol.",
+        "hint_3": "Parecen un...",
+        "hint_4": "La respuesta empieza por la letra 'S'.",
+        "hint_5": "La respuesta exacta que buscas es: SOMBRERO"
+      },
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Cuencos_de_Axtroki_%28M.A.N._Madrid%29_01.jpg/800px-Cuencos_de_Axtroki_%28M.A.N._Madrid%29_01.jpg",
+      "success_description": "Estos cuencos de oro puro se encontraron en el País Vasco. Se cree que los sacerdotes los usaban en rituales dedicados al sol."
+    },
+    {
+      "id": "obj_011",
+      "name": "Lex Flavia Malacitana",
+      "room": "Sala 20",
+      "culture": "Roma",
+      "lore_text": "¡Sombreros de oro! Qué elegantes. Pero la aventura se pone seria. Hemos entrado en la zona de Roma (Sala 20). La Sociedad del Eclipse quiere alterar las leyes antiguas. Ardanza nos pide que encontremos las tablas de bronce donde están escritas.",
+      "action_prompt": "Busca unas grandes tablas de metal verde/marrón llenas de letras grabadas. ¿En qué idioma antiguo, que usaban los romanos, están escritas?",
+      "expected_format": "Una palabra",
+      "possible_answers": [
+        {
+          "type": "canonical",
+          "value": "latin"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "latín"
+        }
+      ],
+      "hint_ladder_template": {
+        "hint_1": "Los romanos no hablaban español ni inglés.",
+        "hint_2": "Es el idioma del que viene el español.",
+        "hint_3": "Están escritas en...",
+        "hint_4": "La respuesta empieza por la letra 'L'.",
+        "hint_5": "La respuesta exacta que buscas es: LATIN"
+      },
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Lex_Flavia_Malacitana_%28M.A.N._Madrid%29_01.jpg/800px-Lex_Flavia_Malacitana_%28M.A.N._Madrid%29_01.jpg",
+      "success_description": "Estas tablas de bronce contienen las leyes de la ciudad de Málaga en la época romana. ¡Eran como la constitución de la ciudad!"
+    },
+    {
+      "id": "obj_012",
+      "name": "Mosaico de los Trabajos de Hércules",
+      "room": "Sala 21",
+      "culture": "Roma",
+      "lore_text": "El latín es la clave para descifrar el siguiente paso. Ardanza nos dirige a la Sala 21. 'Busca en el suelo', nos dice. 'Los romanos hacían alfombras de piedra con miles de cuadraditos'.",
+      "action_prompt": "Encuentra un gran mosaico en el suelo que muestra a un héroe musculoso luchando contra monstruos. ¿Cómo se llaman los cuadraditos de piedra que forman el dibujo?",
+      "expected_format": "Una palabra en plural",
+      "possible_answers": [
+        {
+          "type": "canonical",
+          "value": "teselas"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "piedrecitas"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "piedras"
+        }
+      ],
+      "hint_ladder_template": {
+        "hint_1": "Lee la información sobre cómo se hacen los mosaicos.",
+        "hint_2": "Empieza por 'T' y rima con 'abuelas'.",
+        "hint_3": "Se llaman...",
+        "hint_4": "La respuesta empieza por la letra 'T'.",
+        "hint_5": "La respuesta exacta que buscas es: TESELAS"
+      },
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Mosaico_de_los_Trabajos_de_H%C3%A9rcules_%28M.A.N._Madrid%29_01.jpg/800px-Mosaico_de_los_Trabajos_de_H%C3%A9rcules_%28M.A.N._Madrid%29_01.jpg",
+      "success_description": "Este impresionante mosaico muestra las 12 pruebas del héroe Hércules, como luchar contra el león de Nemea. ¡Hacerlo requería muchísima paciencia!"
+    },
+    {
+      "id": "obj_013",
+      "name": "Puteal de la Moncloa",
+      "room": "Sala 21",
+      "culture": "Roma",
+      "lore_text": "¡Teselas! Cada una es como un píxel de una pantalla antigua. Los del Eclipse están confundidos. Ardanza nos manda buscar un objeto cilíndrico en la misma sala. 'Era el brocal de un pozo mágico', afirma.",
+      "action_prompt": "Busca un cilindro de piedra decorado con figuras que servía para sacar agua de un pozo. ¿Qué herramienta necesitarías atar a una cuerda para sacar el agua de dentro?",
+      "expected_format": "Una palabra",
+      "possible_answers": [
+        {
+          "type": "canonical",
+          "value": "cubo"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "cubo de agua"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "balde"
+        }
+      ],
+      "hint_ladder_template": {
+        "hint_1": "Piensa en cómo se saca agua de un pozo profundo.",
+        "hint_2": "Es un recipiente con un asa.",
+        "hint_3": "Necesitas un...",
+        "hint_4": "La respuesta empieza por la letra 'C'.",
+        "hint_5": "La respuesta exacta que buscas es: CUBO"
+      },
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Puteal_de_la_Moncloa_%28M.A.N._Madrid%29_01.jpg/800px-Puteal_de_la_Moncloa_%28M.A.N._Madrid%29_01.jpg",
+      "success_description": "Un 'puteal' era el borde de piedra de un pozo. Este está decorado con escenas del nacimiento de la diosa Atenea. ¡Era un pozo muy lujoso!"
+    },
+    {
+      "id": "obj_014",
+      "name": "Sarcófago de Husillos",
+      "room": "Sala 22",
+      "culture": "Roma",
+      "lore_text": "Con el cubo sacamos agua y... ¡una pista mojada! Nos lleva a la Sala 22. La Sociedad del Eclipse busca una tumba romana de mármol. Ardanza dice que cuenta una historia muy triste sobre un héroe y su amigo.",
+      "action_prompt": "Encuentra un sarcófago de mármol blanco con muchas figuras talladas en relieve. En la escena, ¿qué están haciendo los personajes con sus espadas y escudos?",
+      "expected_format": "Una palabra",
+      "possible_answers": [
+        {
+          "type": "canonical",
+          "value": "luchar"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "luchando"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "pelear"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "peleando"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "batalla"
+        }
+      ],
+      "hint_ladder_template": {
+        "hint_1": "Mira la acción de las figuras centrales.",
+        "hint_2": "Tienen armas y se atacan unos a otros.",
+        "hint_3": "Están en medio de una...",
+        "hint_4": "La respuesta empieza por la letra 'L'.",
+        "hint_5": "La respuesta exacta que buscas es: LUCHAR"
+      },
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Sarc%C3%B3fago_de_Husillos_%28M.A.N._Madrid%29_01.jpg/800px-Sarc%C3%B3fago_de_Husillos_%28M.A.N._Madrid%29_01.jpg",
+      "success_description": "Este sarcófago romano cuenta la historia de Orestes. Fue tan famoso que artistas del Renacimiento viajaban para copiar sus figuras perfectas."
+    },
+    {
+      "id": "obj_015",
+      "name": "Estatua de Livia",
+      "room": "Sala 20",
+      "culture": "Roma",
+      "lore_text": "La batalla nos recuerda que no debemos rendirnos. Volvemos a la Sala 20. Ardanza ha detectado a la líder del Eclipse cerca de la estatua de la mujer más poderosa de Roma. 'Busca a la emperatriz sin cabeza', ordena.",
+      "action_prompt": "Encuentra la estatua de una mujer romana con un vestido lleno de pliegues. Como le falta la cabeza, ¿qué parte del cuerpo es la más alta que le queda?",
+      "expected_format": "Una palabra",
+      "possible_answers": [
+        {
+          "type": "canonical",
+          "value": "cuello"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "el cuello"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "hombros"
+        }
+      ],
+      "hint_ladder_template": {
+        "hint_1": "Mira la parte superior de la estatua rota.",
+        "hint_2": "Está justo debajo de donde iría la cabeza.",
+        "hint_3": "Le queda un trozo de...",
+        "hint_4": "La respuesta empieza por la letra 'C'.",
+        "hint_5": "La respuesta exacta que buscas es: CUELLO"
+      },
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Estatua_de_Livia_%28M.A.N._Madrid%29_01.jpg/800px-Estatua_de_Livia_%28M.A.N._Madrid%29_01.jpg",
+      "success_description": "Livia fue la esposa del primer emperador romano, Augusto. A menudo las cabezas de las estatuas se hacían aparte y se encajaban, por eso muchas se han perdido."
+    },
+    {
+      "id": "obj_016",
+      "name": "Bote de Zamora",
+      "room": "Sala 24",
+      "culture": "Al-Andalus",
+      "lore_text": "El cuello de la estatua señalaba hacia la zona de Al-Andalus (Sala 24). ¡El Eclipse nos lleva ventaja! Ardanza nos pide buscar un pequeño bote cilíndrico de marfil, tallado con una precisión increíble.",
+      "action_prompt": "Busca un bote cilíndrico blanco con tapa, lleno de dibujos de hojas y animales. ¿De qué material, que viene de los colmillos de los elefantes, está hecho?",
+      "expected_format": "Una palabra",
+      "possible_answers": [
+        {
+          "type": "canonical",
+          "value": "marfil"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "de marfil"
+        }
+      ],
+      "hint_ladder_template": {
+        "hint_1": "Lee la cartela para ver el material.",
+        "hint_2": "Es blanco y duro, se saca de los elefantes.",
+        "hint_3": "Está hecho de...",
+        "hint_4": "La respuesta empieza por la letra 'M'.",
+        "hint_5": "La respuesta exacta que buscas es: MARFIL"
+      },
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Bote_de_Zamora_%28M.A.N._Madrid%29_01.jpg/800px-Bote_de_Zamora_%28M.A.N._Madrid%29_01.jpg",
+      "success_description": "Este bote de marfil fue un regalo para un príncipe califal. Se usaba para guardar perfumes o joyas valiosas. ¡Es una obra maestra de la talla!"
+    },
+    {
+      "id": "obj_017",
+      "name": "Ciervo de Medina Azahara",
+      "room": "Sala 24",
+      "culture": "Al-Andalus",
+      "lore_text": "El marfil nos ha dado la pista. En la misma sala, los malos buscan un animal de bronce que escupía agua. Ardanza dice: 'Es un surtidor de una fuente mágica de un palacio destruido'.",
+      "action_prompt": "Encuentra la estatua de bronce de un animal con cuernos ramificados. Su cuerpo está cubierto de dibujos circulares. ¿Qué animal del bosque es?",
+      "expected_format": "Una palabra",
+      "possible_answers": [
+        {
+          "type": "canonical",
+          "value": "ciervo"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "un ciervo"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "venado"
+        }
+      ],
+      "hint_ladder_template": {
+        "hint_1": "Mira sus cuernos y su forma.",
+        "hint_2": "Es el animal de Bambi.",
+        "hint_3": "Es un...",
+        "hint_4": "La respuesta empieza por la letra 'C'.",
+        "hint_5": "La respuesta exacta que buscas es: CIERVO"
+      },
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Ciervo_de_Medina_Azahara_%28M.A.N._Madrid%29_01.jpg/800px-Ciervo_de_Medina_Azahara_%28M.A.N._Madrid%29_01.jpg",
+      "success_description": "Este ciervo de bronce era el surtidor de una fuente en la lujosa ciudad palatina de Medina Azahara. El agua salía por su boca."
+    },
+    {
+      "id": "obj_018",
+      "name": "Astrolabio de Toledo",
+      "room": "Sala 25",
+      "culture": "Al-Andalus",
+      "lore_text": "¡Un ciervo! Ágil y rápido. Debemos ser como él. Pasamos a la Sala 25. La Sociedad del Eclipse intenta usar un antiguo GPS de bronce para encontrar la Llave del Tiempo. ¡Debemos detenerlos!",
+      "action_prompt": "Busca un disco de bronce lleno de números y líneas que servía para mirar las estrellas y navegar. ¿Qué forma geométrica tiene este instrumento?",
+      "expected_format": "Una palabra",
+      "possible_answers": [
+        {
+          "type": "canonical",
+          "value": "circulo"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "redondo"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "circular"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "esfera"
+        }
+      ],
+      "hint_ladder_template": {
+        "hint_1": "Fíjate en su forma exterior.",
+        "hint_2": "Es como una pizza o una moneda.",
+        "hint_3": "Tiene forma de...",
+        "hint_4": "La respuesta empieza por la letra 'C'.",
+        "hint_5": "La respuesta exacta que buscas es: CIRCULO"
+      },
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Astrolabio_de_Toledo_%28M.A.N._Madrid%29_01.jpg/800px-Astrolabio_de_Toledo_%28M.A.N._Madrid%29_01.jpg",
+      "success_description": "El astrolabio era el 'smartphone' de los astrónomos antiguos. Servía para saber la hora, la posición de las estrellas y orientarse en los viajes."
+    },
+    {
+      "id": "obj_019",
+      "name": "Corona de Recesvinto",
+      "room": "Sala 23",
+      "culture": "Visigoda",
+      "lore_text": "El círculo nos lleva de vuelta a la Sala 23. Ardanza nos informa: 'El Eclipse ha descubierto el Tesoro de Guarrazar. Quieren robar la corona del rey visigodo'. ¡Corre!",
+      "action_prompt": "Busca la corona de oro más grande que cuelga del techo. De ella cuelgan letras de oro. ¿De qué color son las grandes piedras preciosas redondas (zafiros) que la decoran?",
+      "expected_format": "Un color",
+      "possible_answers": [
+        {
+          "type": "canonical",
+          "value": "azul"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "azules"
+        }
+      ],
+      "hint_ladder_template": {
+        "hint_1": "Mira las piedras grandes que adornan la corona.",
+        "hint_2": "Es el color del cielo y del mar.",
+        "hint_3": "Son de color...",
+        "hint_4": "La respuesta empieza por la letra 'A'.",
+        "hint_5": "La respuesta exacta que buscas es: AZUL"
+      },
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Corona_de_Recesvinto_%28M.A.N._Madrid%29_01.jpg/800px-Corona_de_Recesvinto_%28M.A.N._Madrid%29_01.jpg",
+      "success_description": "Los reyes visigodos no se ponían estas coronas en la cabeza. Las regalaban a las iglesias para colgarlas sobre el altar como símbolo de devoción."
+    },
+    {
+      "id": "obj_020",
+      "name": "Crucifijo de Don Fernando y Doña Sancha",
+      "room": "Sala 26",
+      "culture": "Románico",
+      "lore_text": "El azul zafiro nos da paz. Hemos salvado la corona. Ahora, a la Sala 26. Ardanza dice que la Llave del Tiempo está vinculada a una cruz de marfil muy antigua, regalo de unos reyes.",
+      "action_prompt": "Encuentra una cruz blanca tallada con muchísimo detalle. En la parte de abajo hay una figura pequeña de un hombre que parece estar saliendo de una tumba. ¿Qué está haciendo ese hombre?",
+      "expected_format": "Una acción (ej. resucitar, salir)",
+      "possible_answers": [
+        {
+          "type": "canonical",
+          "value": "resucitar"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "salir"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "levantarse"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "despertar"
+        }
+      ],
+      "hint_ladder_template": {
+        "hint_1": "Mira la base de la cruz.",
+        "hint_2": "Es Adán saliendo de su tumba.",
+        "hint_3": "Está volviendo a la vida, está...",
+        "hint_4": "La respuesta empieza por la letra 'R'.",
+        "hint_5": "La respuesta exacta que buscas es: RESUCITAR"
+      },
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Crucifijo_de_don_Fernando_y_do%C3%B1a_Sancha_%28M.A.N._Madrid%29_01.jpg/800px-Crucifijo_de_don_Fernando_y_do%C3%B1a_Sancha_%28M.A.N._Madrid%29_01.jpg",
+      "success_description": "Esta cruz de marfil es una joya del arte románico. Fue un regalo de los reyes de León y está llena de pequeños detalles y personajes bíblicos."
+    },
+    {
+      "id": "obj_021",
+      "name": "Arqueta de las Bienaventuranzas",
+      "room": "Sala 26",
+      "culture": "Románico",
+      "lore_text": "La resurrección nos da esperanza. En la misma sala, los agentes del Eclipse intentan abrir una cajita mágica. Ardanza nos advierte: 'Solo el corazón puro puede ver lo que guarda la Arqueta'.",
+      "action_prompt": "Busca una caja rectangular (arqueta) decorada con arcos y figuras de marfil. ¿Qué forma tiene el tejado o tapa de esta caja?",
+      "expected_format": "Una forma (ej. piramide, triangular)",
+      "possible_answers": [
+        {
+          "type": "canonical",
+          "value": "piramide"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "triangulo"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "triangular"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "tejado"
+        }
+      ],
+      "hint_ladder_template": {
+        "hint_1": "Fíjate en la parte superior de la caja.",
+        "hint_2": "Parece el tejado de una casa a dos aguas.",
+        "hint_3": "Tiene forma de...",
+        "hint_4": "La respuesta empieza por la letra 'P'.",
+        "hint_5": "La respuesta exacta que buscas es: PIRAMIDE"
+      },
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Arqueta_de_las_Bienaventuranzas_%28M.A.N._Madrid%29_01.jpg/800px-Arqueta_de_las_Bienaventuranzas_%28M.A.N._Madrid%29_01.jpg",
+      "success_description": "Esta arqueta guardaba reliquias sagradas. Sus placas de marfil muestran escenas de ángeles y santos bajo arcos de herradura."
+    },
+    {
+      "id": "obj_022",
+      "name": "Báculo del Papa Luna",
+      "room": "Sala 27",
+      "culture": "Gótico",
+      "lore_text": "¡Un tejado! Como el que nos protege. Avanzamos a la Sala 27. El Eclipse busca el bastón de mando de un Papa rebelde. Ardanza dice que con él intentarán controlar el tiempo.",
+      "action_prompt": "Encuentra un bastón largo de plata dorada con la parte superior enroscada. En el centro de la espiral hay una pequeña capilla. ¿Qué figura religiosa hay dentro de esa capillita?",
+      "expected_format": "Una palabra",
+      "possible_answers": [
+        {
+          "type": "canonical",
+          "value": "virgen"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "maria"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "santo"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "papa"
+        }
+      ],
+      "hint_ladder_template": {
+        "hint_1": "Mira dentro del círculo que forma la parte de arriba del bastón.",
+        "hint_2": "Es una figura con un niño o en actitud de rezo.",
+        "hint_3": "Es la...",
+        "hint_4": "La respuesta empieza por la letra 'V'.",
+        "hint_5": "La respuesta exacta que buscas es: VIRGEN"
+      },
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/B%C3%A1culo_del_Papa_Luna_%28M.A.N._Madrid%29_01.jpg/800px-B%C3%A1culo_del_Papa_Luna_%28M.A.N._Madrid%29_01.jpg",
+      "success_description": "Este espectacular bastón (báculo) perteneció a Benedicto XIII, el famoso 'Papa Luna', que se mantuvo firme en sus ideas hasta el final ('mantenerse en sus trece')."
+    },
+    {
+      "id": "obj_023",
+      "name": "Sepulcro de Doña Aldonza de Mendoza",
+      "room": "Sala 27",
+      "culture": "Gótico",
+      "lore_text": "La Virgen protege nuestro camino. En esta misma sala descansa una noble dama. Ardanza nos susurra: 'El Eclipse quiere despertar a los muertos de alabastro. ¡Encuentra la tumba de Doña Aldonza!'",
+      "action_prompt": "Busca una gran tumba blanca donde hay una mujer esculpida tumbada leyendo un libro. A sus pies hay un animal que simboliza la fidelidad. ¿Qué animal es?",
+      "expected_format": "Una palabra",
+      "possible_answers": [
+        {
+          "type": "canonical",
+          "value": "perro"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "un perro"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "can"
+        }
+      ],
+      "hint_ladder_template": {
+        "hint_1": "Mira a los pies de la figura de la mujer.",
+        "hint_2": "Es el mejor amigo del hombre.",
+        "hint_3": "Es un...",
+        "hint_4": "La respuesta empieza por la letra 'P'.",
+        "hint_5": "La respuesta exacta que buscas es: PERRO"
+      },
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Sepulcro_de_do%C3%B1a_Aldonza_de_Mendoza_%28M.A.N._Madrid%29_01.jpg/800px-Sepulcro_de_do%C3%B1a_Aldonza_de_Mendoza_%28M.A.N._Madrid%29_01.jpg",
+      "success_description": "En la Edad Media, esculpir un perro a los pies del difunto significaba lealtad, mientras que un león significaba valor."
+    },
+    {
+      "id": "obj_024",
+      "name": "Ábaco Neperiano",
+      "room": "Sala 28",
+      "culture": "Edad Moderna",
+      "lore_text": "¡Un perro fiel! Como nosotros con el Profesor Ardanza. Llegamos a la Sala 28. La Sociedad del Eclipse está usando una calculadora antigua de madera para descifrar el código final. ¡Tenemos que pararlos!",
+      "action_prompt": "Encuentra una caja de madera llena de varillas con números, que parece un juego de mesa. ¿Para qué asignatura del colegio crees que servía este invento?",
+      "expected_format": "Una palabra",
+      "possible_answers": [
+        {
+          "type": "canonical",
+          "value": "matematicas"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "mates"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "calculo"
+        }
+      ],
+      "hint_ladder_template": {
+        "hint_1": "Está lleno de números.",
+        "hint_2": "Sirve para multiplicar y dividir.",
+        "hint_3": "Es para la clase de...",
+        "hint_4": "La respuesta empieza por la letra 'M'.",
+        "hint_5": "La respuesta exacta que buscas es: MATEMATICAS"
+      },
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Abaco_neperiano_%28M.A.N._Madrid%29_01.jpg/800px-Abaco_neperiano_%28M.A.N._Madrid%29_01.jpg",
+      "success_description": "Inventado por John Napier, este ábaco era la 'calculadora' del siglo XVII. Permitía hacer multiplicaciones complejas moviendo las varillas."
+    },
+    {
+      "id": "obj_025",
+      "name": "Momia Guanche",
+      "room": "Sala 34",
+      "culture": "Canarias",
+      "lore_text": "¡Matemáticas! El código está resuelto. El mapa nos lleva a las Islas Canarias (Sala 34). Ardanza advierte: 'El Eclipse busca los secretos de la vida eterna en los cuerpos conservados del pasado'.",
+      "action_prompt": "Busca el cuerpo envuelto en pieles de un antiguo habitante de Tenerife. ¿De qué animal crees que son las pieles que lo envuelven para protegerlo?",
+      "expected_format": "Una palabra",
+      "possible_answers": [
+        {
+          "type": "canonical",
+          "value": "cabra"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "oveja"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "animal"
+        }
+      ],
+      "hint_ladder_template": {
+        "hint_1": "Lee la información sobre cómo preparaban a sus difuntos.",
+        "hint_2": "Usaban pieles de los animales que pastoreaban.",
+        "hint_3": "Son pieles de...",
+        "hint_4": "La respuesta empieza por la letra 'C'.",
+        "hint_5": "La respuesta exacta que buscas es: CABRA"
+      },
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Momia_guanche_%28M.A.N._Madrid%29_01.jpg/800px-Momia_guanche_%28M.A.N._Madrid%29_01.jpg",
+      "success_description": "Los guanches, antiguos habitantes de Canarias, momificaban a sus muertos más importantes envolviéndolos cuidadosamente en pieles de cabra cosidas."
+    },
+    {
+      "id": "obj_026",
+      "name": "Estatua orante de Pedro I",
+      "room": "Sala 27",
+      "culture": "Gótico",
+      "lore_text": "Las pieles nos protegen del frío, pero la persecución se calienta. Volvemos a la Sala 27. El Eclipse busca a un rey rezando. Ardanza dice: 'Él sabe dónde está la cámara secreta'.",
+      "action_prompt": "Encuentra la estatua de alabastro de un rey arrodillado rezando. Le llamaban Pedro I 'El Cruel'. ¿Qué tiene en las manos mientras reza?",
+      "expected_format": "Una palabra",
+      "possible_answers": [
+        {
+          "type": "canonical",
+          "value": "nada"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "vacias"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "juntas"
+        }
+      ],
+      "hint_ladder_template": {
+        "hint_1": "Fíjate bien en sus manos.",
+        "hint_2": "Están juntas en posición de rezo.",
+        "hint_3": "No sujeta...",
+        "hint_4": "La respuesta empieza por la letra 'N'.",
+        "hint_5": "La respuesta exacta que buscas es: NADA"
+      },
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Estatua_orante_de_Pedro_I_%28M.A.N._Madrid%29_01.jpg/800px-Estatua_orante_de_Pedro_I_%28M.A.N._Madrid%29_01.jpg",
+      "success_description": "Esta estatua muestra al rey Pedro I de Castilla. Aunque le apodaban 'El Cruel', aquí se le representa humilde y rezando por su alma."
+    },
+    {
+      "id": "obj_027",
+      "name": "Cuadrante solar de Yecla",
+      "room": "Sala 21",
+      "culture": "Roma",
+      "lore_text": "Manos vacías, mente abierta. Regresamos a Roma (Sala 21). El tiempo se acaba. Ardanza grita por la radio: '¡El Eclipse está manipulando el reloj de sol antiguo! Detenlos antes de que cambien la hora'.",
+      "action_prompt": "Busca un bloque de piedra con líneas grabadas que servía para dar la hora con la sombra del sol. ¿Qué forma tiene la piedra?",
+      "expected_format": "Una palabra",
+      "possible_answers": [
+        {
+          "type": "canonical",
+          "value": "semicirculo"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "media luna"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "curva"
+        }
+      ],
+      "hint_ladder_template": {
+        "hint_1": "Mira la forma del hueco donde están las líneas.",
+        "hint_2": "Es la mitad de un círculo.",
+        "hint_3": "Tiene forma de...",
+        "hint_4": "La respuesta empieza por la letra 'S'.",
+        "hint_5": "La respuesta exacta que buscas es: SEMICIRCULO"
+      },
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Cuadrante_solar_de_Yecla_%28M.A.N._Madrid%29_01.jpg/800px-Cuadrante_solar_de_Yecla_%28M.A.N._Madrid%29_01.jpg",
+      "success_description": "Los romanos no tenían relojes de pulsera. Usaban estos cuadrantes solares donde una varilla de metal proyectaba una sombra que marcaba la hora."
+    },
+    {
+      "id": "obj_028",
+      "name": "Tesoro de los Quimbayas",
+      "room": "Sala de América",
+      "culture": "América Precolombina",
+      "lore_text": "¡El tiempo vuelve a fluir correctamente! El mapa nos lleva a un continente lejano. Ardanza nos guía a la exposición de América. 'El Eclipse busca el oro de los Quimbayas, figuras que brillan como el sol'.",
+      "action_prompt": "Busca una vitrina llena de figuras humanas y vasijas de oro puro muy brillantes. Muchas de las figuras humanas están sentadas. ¿Qué tienen en las manos algunas de ellas?",
+      "expected_format": "Una palabra en plural",
+      "possible_answers": [
+        {
+          "type": "canonical",
+          "value": "vasijas"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "cuencos"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "recipientes"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "botellas"
+        }
+      ],
+      "hint_ladder_template": {
+        "hint_1": "Fíjate en las figuras humanas sentadas.",
+        "hint_2": "Sujetan algo para beber o guardar cosas.",
+        "hint_3": "Tienen pequeñas...",
+        "hint_4": "La respuesta empieza por la letra 'V'.",
+        "hint_5": "La respuesta exacta que buscas es: VASIJAS"
+      },
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Tesoro_de_los_Quimbayas_%28M.A.N._Madrid%29_01.jpg/800px-Tesoro_de_los_Quimbayas_%28M.A.N._Madrid%29_01.jpg",
+      "success_description": "Este increíble tesoro de oro fue regalado a España por Colombia en el siglo XIX. Los Quimbayas eran maestros orfebres que hacían figuras perfectas."
+    },
+    {
+      "id": "obj_029",
+      "name": "Crátera de la locura de Heracles",
+      "room": "Sala 36",
+      "culture": "Grecia",
+      "lore_text": "Las vasijas de oro nos han dado la energía final. ¡Corremos a la Sala 36! Ardanza avisa: 'El líder del Eclipse está acorralado junto al gran jarrón griego de la locura. ¡Es el momento de actuar!'",
+      "action_prompt": "Encuentra un jarrón griego enorme pintado con figuras rojas sobre fondo negro. Muestra a un héroe volviéndose loco. ¿Qué arma lleva el héroe en la mano?",
+      "expected_format": "Una palabra",
+      "possible_answers": [
+        {
+          "type": "canonical",
+          "value": "espada"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "cuchillo"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "arma"
+        }
+      ],
+      "hint_ladder_template": {
+        "hint_1": "Mira al personaje principal en el centro.",
+        "hint_2": "Lleva algo afilado en la mano.",
+        "hint_3": "Es una...",
+        "hint_4": "La respuesta empieza por la letra 'E'.",
+        "hint_5": "La respuesta exacta que buscas es: ESPADA"
+      },
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Cr%C3%A1tera_de_la_locura_de_Heracles_%28M.A.N._Madrid%29_01.jpg/800px-Cr%C3%A1tera_de_la_locura_de_Heracles_%28M.A.N._Madrid%29_01.jpg",
+      "success_description": "Este jarrón (crátera) se usaba para mezclar agua y vino. El dibujo muestra el trágico momento en que el héroe Hércules pierde la razón."
+    },
+    {
+      "id": "obj_030",
+      "name": "Ataúd de Taremetchenbastet",
+      "room": "Sala 35",
+      "culture": "Egipto",
+      "lore_text": "¡La espada del héroe ha asustado al Eclipse! Han huido del museo. Ardanza nos espera en la Sala 35. '¡Lo logramos! La Llave del Tiempo está a salvo dentro del sarcófago egipcio. Has salvado la historia'.",
+      "action_prompt": "Busca el colorido ataúd egipcio con forma humana. Para asegurar la Llave del Tiempo, dime: ¿Qué insecto sagrado, que parece un escarabajo, está pintado en el pecho de la momia?",
+      "expected_format": "Una palabra",
+      "possible_answers": [
+        {
+          "type": "canonical",
+          "value": "escarabajo"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "un escarabajo"
+        }
+      ],
+      "hint_ladder_template": {
+        "hint_1": "Fíjate en los dibujos del pecho del ataúd.",
+        "hint_2": "Es un insecto negro que hace bolas de arena.",
+        "hint_3": "Es un...",
+        "hint_4": "La respuesta empieza por la letra 'E'.",
+        "hint_5": "La respuesta exacta que buscas es: ESCARABAJO"
+      },
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Ata%C3%BAd_de_Taremetchenbastet_%28M.A.N._Madrid%29_01.jpg/800px-Ata%C3%BAd_de_Taremetchenbastet_%28M.A.N._Madrid%29_01.jpg",
+      "success_description": "Para los egipcios, el escarabajo pelotero era un símbolo de resurrección y nueva vida. ¡Has completado la expedición y protegido los secretos del museo!"
+    }
+  ]
+}
