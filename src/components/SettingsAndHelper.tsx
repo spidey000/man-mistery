@@ -93,17 +93,17 @@ export function SettingsAndHelper() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[70] flex items-center justify-center bg-black/50 p-4"
+            className="fixed inset-0 z-[9999] overflow-y-auto bg-black/60 p-3 sm:p-4"
           >
             <motion.div 
               initial={{ scale: 0.9 }}
               animate={{ scale: 1 }}
               exit={{ scale: 0.9 }}
-              className="bg-[#fffcf5] rounded-xl shadow-2xl p-6 max-w-md w-full border-4 border-stone-400 relative text-left max-h-[90vh] overflow-y-auto"
+              className="relative mx-auto my-4 w-full max-w-md rounded-xl border-4 border-stone-400 bg-[#fffcf5] p-4 text-left shadow-2xl sm:my-8 sm:p-6 max-h-[calc(100vh-2rem)] overflow-y-auto"
             >
               <button 
                 onClick={() => setShowSettings(false)}
-                className="absolute top-3 right-3 text-stone-500 hover:text-stone-800"
+                className="sticky top-0 float-right ml-3 rounded-md bg-[#fffcf5] text-stone-500 hover:text-stone-800"
               >
                 <X size={24} />
               </button>
@@ -239,17 +239,17 @@ export function SettingsAndHelper() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[70] flex items-center justify-center bg-black/50 p-4"
+            className="fixed inset-0 z-[9999] overflow-y-auto bg-black/60 p-3 sm:p-4"
           >
             <motion.div 
               initial={{ scale: 0.9 }}
               animate={{ scale: 1 }}
               exit={{ scale: 0.9 }}
-              className="bg-[#fffcf5] rounded-xl shadow-2xl p-6 max-w-sm w-full border-4 border-stone-400 relative text-left"
+              className="relative mx-auto my-4 w-full max-w-sm rounded-xl border-4 border-stone-400 bg-[#fffcf5] p-4 text-left shadow-2xl sm:my-8 sm:p-6 max-h-[calc(100vh-2rem)] overflow-y-auto"
             >
               <button 
                 onClick={() => setShowHelper(false)}
-                className="absolute top-3 right-3 text-stone-500 hover:text-stone-800"
+                className="sticky top-0 float-right ml-3 rounded-md bg-[#fffcf5] text-stone-500 hover:text-stone-800"
               >
                 <X size={24} />
               </button>
