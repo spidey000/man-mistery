@@ -1,4 +1,4 @@
-const DEFAULT_DEEPGRAM_MODEL = 'aura-2-nestor-es';
+const DEFAULT_DEEPGRAM_MODEL = 'aura-2-alvaro-es';
 
 export interface DeepgramSpeakRequest {
   text?: string;

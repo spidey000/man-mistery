@@ -47,6 +47,33 @@ export function Quest({ onExit }: Props) {
 
   const currentObject = objects[currentStep];
 
+  const buildPromptText = (object: typeof currentObject) => {
+    if (!object) {
+      return '';
+    }
+
+    const greeting = settings.childName ? `¡Atención, ${settings.childName}! ` : '¡Atención, explorador! ';
+
+    return `${greeting} Escucha con atención el diario del profesor Ardanza...
+"${object.lore_text}"
+... Ahora, tu misión es la siguiente: ${object.action_prompt}`;
+  };
+
+  const preloadNarration = (object: typeof currentObject) => {
+    if (!deepgramApiKey || !object) {
+      return;
+    }
+
+    generateTTS(buildPromptText(object), deepgramApiKey).catch((error) => {
+      console.warn('No se pudo precargar una narracion', error);
+    });
+  };
+
+  useEffect(() => {
+    preloadNarration(currentObject);
+    preloadNarration(objects[currentStep + 1]);
+  }, [currentStep, deepgramApiKey, objects, settings.childName]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!currentObject) return;
@@ -120,12 +147,7 @@ export function Quest({ onExit }: Props) {
     setAudioError('');
 
     try {
-      const greeting = settings.childName ? `¡Atención, ${settings.childName}! ` : '¡Atención, explorador! ';
-      
-      const promptText = `${greeting} Escucha con atención el diario del profesor Ardanza...
-"${currentObject.lore_text}"
-... Ahora, tu misión es la siguiente: ${currentObject.action_prompt}`;
-      
+      const promptText = buildPromptText(currentObject);
       const audioUrl = await generateTTS(promptText, deepgramApiKey);
       
       const audio = new Audio(audioUrl);
