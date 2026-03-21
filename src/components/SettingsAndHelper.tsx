@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import React, { useEffect, useRef, useState } from 'react';
+import { motion } from 'motion/react';
 import { Settings as SettingsIcon, HelpCircle, X, Activity } from 'lucide-react';
+import { createPortal } from 'react-dom';
 import { useSettings } from '../contexts/SettingsContext';
 
 export function SettingsAndHelper() {
@@ -9,11 +10,48 @@ export function SettingsAndHelper() {
   const [apiUsage, setApiUsage] = useState<{ count: number, limit: number } | null>(null);
   const [checkingUsage, setCheckingUsage] = useState(false);
   const [usageError, setUsageError] = useState('');
+  const settingsDialogRef = useRef<HTMLDialogElement | null>(null);
+  const helperDialogRef = useRef<HTMLDialogElement | null>(null);
 
-  // Sync local state when context changes
-  React.useEffect(() => {
+  useEffect(() => {
     setLocalSettings(settings);
   }, [settings, showSettings]);
+
+  useEffect(() => {
+    const dialog = settingsDialogRef.current;
+    if (!dialog) {
+      return;
+    }
+
+    if (showSettings) {
+      if (!dialog.open) {
+        dialog.showModal();
+      }
+      return;
+    }
+
+    if (dialog.open) {
+      dialog.close();
+    }
+  }, [showSettings]);
+
+  useEffect(() => {
+    const dialog = helperDialogRef.current;
+    if (!dialog) {
+      return;
+    }
+
+    if (showHelper) {
+      if (!dialog.open) {
+        dialog.showModal();
+      }
+      return;
+    }
+
+    if (dialog.open) {
+      dialog.close();
+    }
+  }, [showHelper]);
 
   const handleSaveSettings = () => {
     setSettings(localSettings);
@@ -33,7 +71,7 @@ export function SettingsAndHelper() {
           'xi-api-key': localSettings.elevenLabsApiKey
         }
       });
-      if (!res.ok) throw new Error('API Key inválida o error de conexión');
+      if (!res.ok) throw new Error('API Key invalida o error de conexion');
       const data = await res.json();
       setApiUsage({ count: data.character_count, limit: data.character_limit });
     } catch (e: any) {
@@ -43,10 +81,18 @@ export function SettingsAndHelper() {
     }
   };
 
+  const renderInPortal = (content: React.ReactNode) => {
+    if (typeof document === 'undefined') {
+      return null;
+    }
+
+    return createPortal(content, document.body);
+  };
+
   return (
     <>
       <div className="flex items-center gap-2 sm:gap-3">
-        <button 
+        <button
           onClick={() => setShowSettings(true)}
           className="inline-flex items-center justify-center rounded-md border border-stone-500 bg-stone-200 p-2 text-stone-700 shadow-sm transition hover:bg-stone-300"
           title="Ajustes"
@@ -54,7 +100,7 @@ export function SettingsAndHelper() {
         >
           <SettingsIcon size={20} />
         </button>
-        <button 
+        <button
           onClick={() => setShowHelper(true)}
           className="inline-flex items-center justify-center rounded-md border border-stone-500 bg-stone-200 p-2 text-stone-700 shadow-sm transition hover:bg-stone-300"
           title="Ayuda"
@@ -64,143 +110,145 @@ export function SettingsAndHelper() {
         </button>
       </div>
 
-      {/* Settings Dialog */}
-      <AnimatePresence>
-        {showSettings && (
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[70] flex items-center justify-center bg-black/50 p-4"
+      {renderInPortal(
+        <dialog
+          ref={settingsDialogRef}
+          onClose={() => setShowSettings(false)}
+          onCancel={() => setShowSettings(false)}
+          onClick={(event) => {
+            if (event.target === event.currentTarget) {
+              setShowSettings(false);
+            }
+          }}
+          className="m-0 h-screen max-h-none w-screen max-w-none overflow-y-auto border-0 bg-transparent p-3 backdrop:bg-black/60 sm:p-4"
+        >
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            className="relative mx-auto my-4 w-full max-w-md rounded-xl border-4 border-stone-400 bg-[#fffcf5] p-6 text-left shadow-2xl sm:my-8 max-h-[90vh] overflow-y-auto"
           >
-            <motion.div 
-              initial={{ scale: 0.9 }}
-              animate={{ scale: 1 }}
-              exit={{ scale: 0.9 }}
-              className="bg-[#fffcf5] rounded-xl shadow-2xl p-6 max-w-md w-full border-4 border-stone-400 relative text-left max-h-[90vh] overflow-y-auto"
+            <button
+              onClick={() => setShowSettings(false)}
+              className="absolute top-3 right-3 text-stone-500 hover:text-stone-800"
             >
-              <button 
-                onClick={() => setShowSettings(false)}
-                className="absolute top-3 right-3 text-stone-500 hover:text-stone-800"
-              >
-                <X size={24} />
-              </button>
-              <h2 className="text-2xl font-bold text-stone-800 mb-4 flex items-center gap-2">
-                <SettingsIcon size={24} /> Ajustes
-              </h2>
-              
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-bold text-stone-700 mb-1">Nombre del niño/a</label>
-                  <input 
-                    type="text" 
-                    value={localSettings.childName}
-                    onChange={(e) => setLocalSettings({...localSettings, childName: e.target.value})}
-                    className="w-full p-2 border-2 border-stone-300 rounded-md bg-white focus:border-stone-500 focus:outline-none"
-                    placeholder="Ej: Leo"
-                  />
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-bold text-stone-700 mb-1">Edad</label>
-                  <input 
-                    type="number" 
-                    value={localSettings.childAge}
-                    onChange={(e) => setLocalSettings({...localSettings, childAge: e.target.value})}
-                    className="w-full p-2 border-2 border-stone-300 rounded-md bg-white focus:border-stone-500 focus:outline-none"
-                    placeholder="Ej: 8"
-                  />
-                </div>
+              <X size={24} />
+            </button>
+            <h2 className="mb-4 flex items-center gap-2 text-2xl font-bold text-stone-800">
+              <SettingsIcon size={24} /> Ajustes
+            </h2>
 
-                <div className="bg-stone-100 p-4 rounded-lg border border-stone-300">
-                  <label className="block text-sm font-bold text-stone-700 mb-1">API Key de ElevenLabs (TTS)</label>
-                  <input 
-                    type="password" 
-                    value={localSettings.elevenLabsApiKey}
-                    onChange={(e) => setLocalSettings({...localSettings, elevenLabsApiKey: e.target.value})}
-                    className="w-full p-2 border-2 border-stone-300 rounded-md bg-white focus:border-stone-500 focus:outline-none mb-3"
-                    placeholder="sk_..."
-                  />
-                  
-                  <div className="flex items-center justify-between mb-3">
-                    <button 
-                      onClick={checkApiUsage}
-                      disabled={checkingUsage}
-                      className="text-sm bg-stone-300 hover:bg-stone-400 text-stone-800 py-1 px-3 rounded flex items-center gap-1 transition disabled:opacity-50"
-                    >
-                      <Activity size={16} /> {checkingUsage ? 'Comprobando...' : 'Ver uso de API'}
-                    </button>
-                  </div>
-                  
-                  {apiUsage && (
-                    <div className="mb-3 p-2 bg-green-100 border border-green-300 rounded text-sm text-green-800">
-                      <strong>Uso:</strong> {apiUsage.count} / {apiUsage.limit} caracteres
-                    </div>
-                  )}
-                  {usageError && (
-                    <div className="mb-3 p-2 bg-red-100 border border-red-300 rounded text-sm text-red-800">
-                      {usageError}
-                    </div>
-                  )}
-
-                  <div className="text-xs text-stone-600 space-y-2">
-                    <p className="font-semibold text-stone-800 flex items-center gap-1">
-                      <HelpCircle size={14} /> ¿Cómo obtener la API Key?
-                    </p>
-                    <ol className="list-decimal pl-4 space-y-1">
-                      <li>Crea una cuenta gratuita en ElevenLabs (límite de 10.000 caracteres/mes).</li>
-                      <li>Accede a <a href="https://elevenlabs.io/app/developers/api-keys" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline font-medium">este enlace</a>.</li>
-                      <li>Crea una nueva API Key y cópiala aquí.</li>
-                    </ol>
-                  </div>
-                </div>
-
-                <button 
-                  onClick={handleSaveSettings}
-                  className="w-full py-3 bg-stone-800 hover:bg-stone-900 text-white font-bold rounded-lg shadow-md transition"
-                >
-                  Guardar Ajustes
-                </button>
+            <div className="space-y-4">
+              <div>
+                <label className="mb-1 block text-sm font-bold text-stone-700">Nombre del nino/a</label>
+                <input
+                  type="text"
+                  value={localSettings.childName}
+                  onChange={(e) => setLocalSettings({ ...localSettings, childName: e.target.value })}
+                  className="w-full rounded-md border-2 border-stone-300 bg-white p-2 focus:border-stone-500 focus:outline-none"
+                  placeholder="Ej: Leo"
+                />
               </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
 
-      {/* Helper Dialog */}
-      <AnimatePresence>
-        {showHelper && (
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[70] flex items-center justify-center bg-black/50 p-4"
+              <div>
+                <label className="mb-1 block text-sm font-bold text-stone-700">Edad</label>
+                <input
+                  type="number"
+                  value={localSettings.childAge}
+                  onChange={(e) => setLocalSettings({ ...localSettings, childAge: e.target.value })}
+                  className="w-full rounded-md border-2 border-stone-300 bg-white p-2 focus:border-stone-500 focus:outline-none"
+                  placeholder="Ej: 8"
+                />
+              </div>
+
+              <div className="rounded-lg border border-stone-300 bg-stone-100 p-4">
+                <label className="mb-1 block text-sm font-bold text-stone-700">API Key de ElevenLabs (TTS)</label>
+                <input
+                  type="password"
+                  value={localSettings.elevenLabsApiKey}
+                  onChange={(e) => setLocalSettings({ ...localSettings, elevenLabsApiKey: e.target.value })}
+                  className="mb-3 w-full rounded-md border-2 border-stone-300 bg-white p-2 focus:border-stone-500 focus:outline-none"
+                  placeholder="sk_..."
+                />
+
+                <div className="mb-3 flex items-center justify-between">
+                  <button
+                    onClick={checkApiUsage}
+                    disabled={checkingUsage}
+                    className="flex items-center gap-1 rounded bg-stone-300 px-3 py-1 text-sm text-stone-800 transition hover:bg-stone-400 disabled:opacity-50"
+                  >
+                    <Activity size={16} /> {checkingUsage ? 'Comprobando...' : 'Ver uso de API'}
+                  </button>
+                </div>
+
+                {apiUsage && (
+                  <div className="mb-3 rounded border border-green-300 bg-green-100 p-2 text-sm text-green-800">
+                    <strong>Uso:</strong> {apiUsage.count} / {apiUsage.limit} caracteres
+                  </div>
+                )}
+                {usageError && (
+                  <div className="mb-3 rounded border border-red-300 bg-red-100 p-2 text-sm text-red-800">
+                    {usageError}
+                  </div>
+                )}
+
+                <div className="space-y-2 text-xs text-stone-600">
+                  <p className="flex items-center gap-1 font-semibold text-stone-800">
+                    <HelpCircle size={14} /> Como obtener la API Key?
+                  </p>
+                  <ol className="list-decimal space-y-1 pl-4">
+                    <li>Crea una cuenta gratuita en ElevenLabs (limite de 10.000 caracteres/mes).</li>
+                    <li>Accede a <a href="https://elevenlabs.io/app/developers/api-keys" target="_blank" rel="noopener noreferrer" className="font-medium text-blue-600 hover:underline">este enlace</a>.</li>
+                    <li>Crea una nueva API Key y copiala aqui.</li>
+                  </ol>
+                </div>
+              </div>
+
+              <button
+                onClick={handleSaveSettings}
+                className="w-full rounded-lg bg-stone-800 py-3 font-bold text-white shadow-md transition hover:bg-stone-900"
+              >
+                Guardar Ajustes
+              </button>
+            </div>
+          </motion.div>
+        </dialog>
+      )}
+
+      {renderInPortal(
+        <dialog
+          ref={helperDialogRef}
+          onClose={() => setShowHelper(false)}
+          onCancel={() => setShowHelper(false)}
+          onClick={(event) => {
+            if (event.target === event.currentTarget) {
+              setShowHelper(false);
+            }
+          }}
+          className="m-0 h-screen max-h-none w-screen max-w-none overflow-y-auto border-0 bg-transparent p-3 backdrop:bg-black/60 sm:p-4"
+        >
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            className="relative mx-auto my-4 w-full max-w-sm rounded-xl border-4 border-stone-400 bg-[#fffcf5] p-6 text-left shadow-2xl"
           >
-            <motion.div 
-              initial={{ scale: 0.9 }}
-              animate={{ scale: 1 }}
-              exit={{ scale: 0.9 }}
-              className="bg-[#fffcf5] rounded-xl shadow-2xl p-6 max-w-sm w-full border-4 border-stone-400 relative text-left"
+            <button
+              onClick={() => setShowHelper(false)}
+              className="absolute top-3 right-3 text-stone-500 hover:text-stone-800"
             >
-              <button 
-                onClick={() => setShowHelper(false)}
-                className="absolute top-3 right-3 text-stone-500 hover:text-stone-800"
-              >
-                <X size={24} />
-              </button>
-              <h2 className="text-xl font-bold text-stone-800 mb-4 flex items-center gap-2">
-                <HelpCircle size={20} /> Guía del Arqueólogo
-              </h2>
-              <div className="space-y-3 text-stone-700 text-sm">
-                <p><strong>¿Cómo empezar?</strong> Pulsa "Jugar sin cuenta" para iniciar la aventura inmediatamente. Sigue las pistas para encontrar los objetos en el museo.</p>
-                <p><strong>¿Dónde se guarda?</strong> Tu progreso se guarda automáticamente en la memoria de este dispositivo (navegador). Puedes salir y volver más tarde.</p>
-                <p><strong>¿Cómo borrar?</strong> Si quieres empezar de cero, usa el texto rojo "Borrar datos" que aparece abajo a la izquierda en la pantalla principal.</p>
-                <p><strong>¿Voz misteriosa?</strong> Configura la API Key de ElevenLabs en los Ajustes (⚙️) para escuchar a nuestro arqueólogo narrador.</p>
-              </div>
-            </motion.div>
+              <X size={24} />
+            </button>
+            <h2 className="mb-4 flex items-center gap-2 text-xl font-bold text-stone-800">
+              <HelpCircle size={20} /> Guia del Arqueologo
+            </h2>
+            <div className="space-y-3 text-sm text-stone-700">
+              <p><strong>Como empezar?</strong> Pulsa "Jugar sin cuenta" para iniciar la aventura inmediatamente. Sigue las pistas para encontrar los objetos en el museo.</p>
+              <p><strong>Donde se guarda?</strong> Tu progreso se guarda automaticamente en la memoria de este dispositivo (navegador). Puedes salir y volver mas tarde.</p>
+              <p><strong>Como borrar?</strong> Si quieres empezar de cero, usa el texto rojo "Borrar datos" que aparece abajo a la izquierda en la pantalla principal.</p>
+              <p><strong>Voz misteriosa?</strong> Configura la API Key de ElevenLabs en los Ajustes (⚙️) para escuchar a nuestro arqueologo narrador.</p>
+            </div>
           </motion.div>
-        )}
-      </AnimatePresence>
+        </dialog>
+      )}
     </>
   );
 }
