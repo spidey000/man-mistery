@@ -6,8 +6,19 @@ import { useSettings } from '../contexts/SettingsContext';
 import { deepgramDefaults, validateDeepgramApiKey } from '../services/deepgram';
 
 export function SettingsAndHelper() {
-  const { settings, setSettings, showSettings, setShowSettings, showHelper, setShowHelper } = useSettings();
+  const {
+    settings,
+    setSettings,
+    deepgramApiKey,
+    setDeepgramApiKey,
+    clearDeepgramApiKey,
+    showSettings,
+    setShowSettings,
+    showHelper,
+    setShowHelper
+  } = useSettings();
   const [localSettings, setLocalSettings] = useState(settings);
+  const [localApiKey, setLocalApiKey] = useState(deepgramApiKey);
   const [apiUsage, setApiUsage] = useState<{ count: number, limit: number } | null>(null);
   const [checkingUsage, setCheckingUsage] = useState(false);
   const [usageError, setUsageError] = useState('');
@@ -16,7 +27,10 @@ export function SettingsAndHelper() {
 
   useEffect(() => {
     setLocalSettings(settings);
-  }, [settings, showSettings]);
+    setLocalApiKey(deepgramApiKey);
+    setUsageError('');
+    setApiUsage(null);
+  }, [settings, deepgramApiKey, showSettings]);
 
   useEffect(() => {
     const dialog = settingsDialogRef.current;
@@ -56,18 +70,24 @@ export function SettingsAndHelper() {
 
   const handleSaveSettings = () => {
     setSettings(localSettings);
+    setDeepgramApiKey(localApiKey.trim());
     setShowSettings(false);
   };
 
   const checkApiUsage = async () => {
-    if (!localSettings.deepgramApiKey) {
+    const apiKey = localApiKey.trim();
+
+    if (!apiKey) {
       setUsageError('Introduce una API Key primero');
       return;
     }
+
     setCheckingUsage(true);
     setUsageError('');
+    setApiUsage(null);
+
     try {
-      const data = await validateDeepgramApiKey(localSettings.deepgramApiKey);
+      const data = await validateDeepgramApiKey(apiKey);
       setApiUsage({ count: data.scopes.length, limit: data.scopes.length });
     } catch (e: any) {
       setUsageError(e.message);
@@ -159,11 +179,16 @@ export function SettingsAndHelper() {
                 <label className="mb-1 block text-sm font-bold text-stone-700">API Key de Deepgram (TTS)</label>
                 <input
                   type="password"
-                  value={localSettings.deepgramApiKey}
-                  onChange={(e) => setLocalSettings({ ...localSettings, deepgramApiKey: e.target.value })}
+                  value={localApiKey}
+                  onChange={(e) => setLocalApiKey(e.target.value)}
                   className="mb-3 w-full rounded-md border-2 border-stone-300 bg-white p-2 focus:border-stone-500 focus:outline-none"
                   placeholder="dg_..."
+                  autoComplete="off"
                 />
+
+                <div className="mb-3 rounded border border-amber-200 bg-amber-50 p-3 text-xs text-amber-900">
+                  La API Key solo se guarda en esta pestana y se borra al cerrar la pestana.
+                </div>
 
                 <div className="mb-3 rounded border border-blue-200 bg-blue-50 p-3 text-xs text-blue-900">
                   Voz por defecto: <strong>{deepgramDefaults.model}</strong><br />
@@ -178,6 +203,19 @@ export function SettingsAndHelper() {
                     className="flex items-center gap-1 rounded bg-stone-300 px-3 py-1 text-sm text-stone-800 transition hover:bg-stone-400 disabled:opacity-50"
                   >
                     <Activity size={16} /> {checkingUsage ? 'Comprobando...' : 'Validar API Key'}
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setLocalApiKey('');
+                      clearDeepgramApiKey();
+                      setApiUsage(null);
+                      setUsageError('API Key borrada de esta sesion');
+                    }}
+                    className="rounded border border-stone-300 bg-white px-3 py-1 text-sm text-stone-700 transition hover:bg-stone-100"
+                  >
+                    Olvidarla
                   </button>
                 </div>
 
@@ -201,6 +239,7 @@ export function SettingsAndHelper() {
                     <li>Abre <a href="https://console.deepgram.com/project/api-keys" target="_blank" rel="noopener noreferrer" className="font-medium text-blue-600 hover:underline">Project API Keys</a>.</li>
                     <li>Crea una API Key con permiso para TTS y copiala aqui.</li>
                     <li>La narracion usa la voz <strong>{deepgramDefaults.model}</strong> en espanol de Espana peninsular.</li>
+                    <li>La app la envia por HTTPS al proxy y no la guarda en almacenamiento permanente.</li>
                   </ol>
                 </div>
               </div>

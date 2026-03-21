@@ -22,7 +22,7 @@ export function Quest({ onExit }: Props) {
   const [isPlayingAudio, setIsPlayingAudio] = useState(false);
   const [audioError, setAudioError] = useState('');
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const { settings } = useSettings();
+  const { settings, deepgramApiKey } = useSettings();
 
   const objects = objectsData.objects;
 
@@ -110,8 +110,8 @@ export function Quest({ onExit }: Props) {
       return;
     }
 
-    if (!settings.deepgramApiKey) {
-      setAudioError('Configura la API Key en Ajustes (⚙️)');
+    if (!deepgramApiKey) {
+      setAudioError('Configura la API Key en Ajustes para esta sesion (⚙️)');
       setTimeout(() => setAudioError(''), 3000);
       return;
     }
@@ -126,7 +126,7 @@ export function Quest({ onExit }: Props) {
 "${currentObject.lore_text}"
 ... Ahora, tu misión es la siguiente: ${currentObject.action_prompt}`;
       
-      const audioUrl = await generateTTS(promptText, settings.deepgramApiKey);
+      const audioUrl = await generateTTS(promptText, deepgramApiKey);
       
       const audio = new Audio(audioUrl);
       audioRef.current = audio;

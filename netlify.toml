@@ -1,0 +1,12 @@
+[build]
+  functions = "netlify/functions"
+
+[[redirects]]
+  from = "/api/tts/deepgram"
+  to = "/.netlify/functions/tts-deepgram"
+  status = 200
+
+[[redirects]]
+  from = "/api/tts/deepgram/validate"
+  to = "/.netlify/functions/tts-deepgram-validate"
+  status = 200
