@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Settings as SettingsIcon, HelpCircle, X, Activity } from 'lucide-react';
+import { createPortal } from 'react-dom';
 import { useSettings } from '../contexts/SettingsContext';
 
 export function SettingsAndHelper() {
@@ -65,6 +66,14 @@ export function SettingsAndHelper() {
     }
   };
 
+  const renderInPortal = (content: React.ReactNode) => {
+    if (typeof document === 'undefined') {
+      return null;
+    }
+
+    return createPortal(content, document.body);
+  };
+
   return (
     <>
       <div className="flex items-center gap-2 sm:gap-3">
@@ -87,31 +96,32 @@ export function SettingsAndHelper() {
       </div>
 
       {/* Settings Dialog */}
-      <AnimatePresence>
-        {showSettings && (
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[9999] overflow-y-auto bg-black/60 p-3 sm:p-4"
-          >
-            <motion.div 
-              initial={{ scale: 0.9 }}
-              animate={{ scale: 1 }}
-              exit={{ scale: 0.9 }}
-              className="relative mx-auto my-4 w-full max-w-md rounded-xl border-4 border-stone-400 bg-[#fffcf5] p-4 text-left shadow-2xl sm:my-8 sm:p-6 max-h-[calc(100vh-2rem)] overflow-y-auto"
+      {renderInPortal(
+        <AnimatePresence>
+          {showSettings && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-[2147483647] overflow-y-auto bg-black/60 p-3 sm:p-4"
             >
-              <button 
-                onClick={() => setShowSettings(false)}
-                className="sticky top-0 float-right ml-3 rounded-md bg-[#fffcf5] text-stone-500 hover:text-stone-800"
+              <motion.div
+                initial={{ scale: 0.9 }}
+                animate={{ scale: 1 }}
+                exit={{ scale: 0.9 }}
+                className="relative mx-auto my-4 w-full max-w-md rounded-xl border-4 border-stone-400 bg-[#fffcf5] p-4 text-left shadow-2xl sm:my-8 sm:p-6 max-h-[calc(100vh-2rem)] overflow-y-auto"
               >
-                <X size={24} />
-              </button>
-              <h2 className="text-2xl font-bold text-stone-800 mb-4 flex items-center gap-2">
-                <SettingsIcon size={24} /> Ajustes
-              </h2>
-              
-              <div className="space-y-4">
+                <button
+                  onClick={() => setShowSettings(false)}
+                  className="sticky top-0 float-right ml-3 rounded-md bg-[#fffcf5] text-stone-500 hover:text-stone-800"
+                >
+                  <X size={24} />
+                </button>
+                <h2 className="text-2xl font-bold text-stone-800 mb-4 flex items-center gap-2">
+                  <SettingsIcon size={24} /> Ajustes
+                </h2>
+
+                <div className="space-y-4">
                 <div>
                   <label className="block text-sm font-bold text-stone-700 mb-1">Nombre del niño/a</label>
                   <input 
@@ -226,46 +236,49 @@ export function SettingsAndHelper() {
                 >
                   Guardar Ajustes
                 </button>
-              </div>
+                </div>
+              </motion.div>
             </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          )}
+        </AnimatePresence>
+      )}
 
       {/* Helper Dialog */}
-      <AnimatePresence>
-        {showHelper && (
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[9999] overflow-y-auto bg-black/60 p-3 sm:p-4"
-          >
+      {renderInPortal(
+        <AnimatePresence>
+          {showHelper && (
             <motion.div 
-              initial={{ scale: 0.9 }}
-              animate={{ scale: 1 }}
-              exit={{ scale: 0.9 }}
-              className="relative mx-auto my-4 w-full max-w-sm rounded-xl border-4 border-stone-400 bg-[#fffcf5] p-4 text-left shadow-2xl sm:my-8 sm:p-6 max-h-[calc(100vh-2rem)] overflow-y-auto"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-[2147483647] overflow-y-auto bg-black/60 p-3 sm:p-4"
             >
-              <button 
-                onClick={() => setShowHelper(false)}
-                className="sticky top-0 float-right ml-3 rounded-md bg-[#fffcf5] text-stone-500 hover:text-stone-800"
+              <motion.div
+                initial={{ scale: 0.9 }}
+                animate={{ scale: 1 }}
+                exit={{ scale: 0.9 }}
+                className="relative mx-auto my-4 w-full max-w-sm rounded-xl border-4 border-stone-400 bg-[#fffcf5] p-4 text-left shadow-2xl sm:my-8 sm:p-6 max-h-[calc(100vh-2rem)] overflow-y-auto"
               >
-                <X size={24} />
-              </button>
-              <h2 className="text-xl font-bold text-stone-800 mb-4 flex items-center gap-2">
-                <HelpCircle size={20} /> Guía del Arqueólogo
-              </h2>
-              <div className="space-y-3 text-stone-700 text-sm">
-                <p><strong>¿Cómo empezar?</strong> Pulsa "Jugar sin cuenta" para iniciar la aventura inmediatamente. Sigue las pistas para encontrar los objetos en el museo.</p>
-                <p><strong>¿Dónde se guarda?</strong> Tu progreso se guarda automáticamente en la memoria de este dispositivo (navegador). Puedes salir y volver más tarde.</p>
-                <p><strong>¿Cómo borrar?</strong> Si quieres empezar de cero, usa el texto rojo "Borrar datos" que aparece abajo a la izquierda en la pantalla principal.</p>
-                <p><strong>¿Voz misteriosa?</strong> Configura la API Key de ElevenLabs en los Ajustes (⚙️) para escuchar a nuestro arqueólogo narrador.</p>
-              </div>
+                <button
+                  onClick={() => setShowHelper(false)}
+                  className="sticky top-0 float-right ml-3 rounded-md bg-[#fffcf5] text-stone-500 hover:text-stone-800"
+                >
+                  <X size={24} />
+                </button>
+                <h2 className="text-xl font-bold text-stone-800 mb-4 flex items-center gap-2">
+                  <HelpCircle size={20} /> Guía del Arqueólogo
+                </h2>
+                <div className="space-y-3 text-stone-700 text-sm">
+                  <p><strong>¿Cómo empezar?</strong> Pulsa "Jugar sin cuenta" para iniciar la aventura inmediatamente. Sigue las pistas para encontrar los objetos en el museo.</p>
+                  <p><strong>¿Dónde se guarda?</strong> Tu progreso se guarda automáticamente en la memoria de este dispositivo (navegador). Puedes salir y volver más tarde.</p>
+                  <p><strong>¿Cómo borrar?</strong> Si quieres empezar de cero, usa el texto rojo "Borrar datos" que aparece abajo a la izquierda en la pantalla principal.</p>
+                  <p><strong>¿Voz misteriosa?</strong> Configura la API Key de ElevenLabs en los Ajustes (⚙️) para escuchar a nuestro arqueólogo narrador.</p>
+                </div>
+              </motion.div>
             </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          )}
+        </AnimatePresence>
+      )}
     </>
   );
 }
