@@ -4,6 +4,7 @@ import { Shield, Key, Star, LogOut, HelpCircle, CheckCircle, XCircle, Volume2, P
 import objectsData from '../data/man_exposicion_permanente_objetos.json';
 import { useSettings } from '../contexts/SettingsContext';
 import { generateTTS } from '../services/elevenlabs';
+import { SettingsAndHelper } from '../components/SettingsAndHelper';
 
 interface Props {
   onExit: () => void;
@@ -205,16 +206,17 @@ export function Quest({ onExit }: Props) {
       <div className="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none" style={{ backgroundImage: 'radial-gradient(#8a7350 1.5px, transparent 1.5px)', backgroundSize: '24px 24px' }}></div>
       
       {/* Header */}
-      <header className="bg-stone-800 text-stone-100 p-4 flex justify-between items-center shadow-md relative z-10 border-b-4 border-stone-900">
+      <header className="relative z-10 flex flex-wrap items-center justify-between gap-3 border-b-4 border-stone-900 bg-stone-800 p-4 text-stone-100 shadow-md">
         <div className="flex items-center gap-2">
           <Pickaxe size={24} />
           <span className="font-bold text-lg">Arqueólogo: Invitado</span>
         </div>
-        <div className="flex items-center gap-4">
-          <span className="font-bold bg-stone-700 px-3 py-1 rounded-md text-sm border border-stone-600">
+        <div className="flex flex-wrap items-center justify-end gap-2 sm:gap-3">
+          <SettingsAndHelper />
+          <span className="rounded-md border border-stone-600 bg-stone-700 px-3 py-1 text-sm font-bold">
             {currentStep + 1} / {objects.length}
           </span>
-          <button onClick={handleExit} className="p-2 hover:bg-stone-700 rounded-md transition">
+          <button onClick={handleExit} className="rounded-md p-2 transition hover:bg-stone-700" aria-label="Salir de la expedicion">
             <LogOut size={20} />
           </button>
         </div>

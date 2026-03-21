@@ -45,21 +45,22 @@ export function SettingsAndHelper() {
 
   return (
     <>
-      {/* Always visible floating buttons */}
-      <div className="fixed top-4 right-4 z-[60] flex gap-2">
+      <div className="flex items-center gap-2 sm:gap-3">
         <button 
           onClick={() => setShowSettings(true)}
-          className="p-2 bg-stone-200 text-stone-700 rounded-full hover:bg-stone-300 transition shadow-md border-2 border-stone-400"
+          className="inline-flex items-center justify-center rounded-md border border-stone-500 bg-stone-200 p-2 text-stone-700 shadow-sm transition hover:bg-stone-300"
           title="Ajustes"
+          aria-label="Abrir ajustes"
         >
-          <SettingsIcon size={24} />
+          <SettingsIcon size={20} />
         </button>
         <button 
           onClick={() => setShowHelper(true)}
-          className="p-2 bg-stone-200 text-stone-700 rounded-full hover:bg-stone-300 transition shadow-md border-2 border-stone-400"
+          className="inline-flex items-center justify-center rounded-md border border-stone-500 bg-stone-200 p-2 text-stone-700 shadow-sm transition hover:bg-stone-300"
           title="Ayuda"
+          aria-label="Abrir ayuda"
         >
-          <HelpCircle size={24} />
+          <HelpCircle size={20} />
         </button>
       </div>
 

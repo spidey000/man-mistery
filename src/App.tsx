@@ -4,7 +4,6 @@ import { Welcome } from './screens/Welcome';
 import { Quest } from './screens/Quest';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { SettingsProvider } from './contexts/SettingsContext';
-import { SettingsAndHelper } from './components/SettingsAndHelper';
 
 export default function App() {
   const [isGuest, setIsGuest] = useState(false);
@@ -12,7 +11,6 @@ export default function App() {
   return (
     <ErrorBoundary>
       <SettingsProvider>
-        <SettingsAndHelper />
         <BrowserRouter>
           <Routes>
             <Route path="/" element={isGuest ? <Navigate to="/quest" /> : <Welcome onGuest={() => setIsGuest(true)} />} />
