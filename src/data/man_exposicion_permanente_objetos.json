@@ -69,11 +69,75 @@
       "success_description": "Hace miles de años, esta forma de vasija se puso de moda en toda Europa. ¡Fue la primera gran tendencia internacional de la historia!"
     },
     {
+      "id": "obj_009",
+      "name": "Tesoro de Aliseda",
+      "room": "Sala 10",
+      "culture": "Tartésica",
+      "lore_text": "¡Una campana! Exacto. Su eco nos guía hacia la Sala 10. Ardanza dice que allí brilla el oro de un reino perdido llamado Tartessos. Busca las joyas de una antigua princesa.",
+      "action_prompt": "Encuentra una vitrina llena de joyas de oro muy detalladas (collares, pulseras...). Hay un cinturón de oro con pequeños dibujos. ¿Qué animal que da leche y hace 'beee' aparece en el cinturón?",
+      "expected_format": "Una palabra",
+      "possible_answers": [
+        {
+          "type": "canonical",
+          "value": "oveja"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "cabra"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "carnero"
+        }
+      ],
+      "hint_ladder_template": {
+        "hint_1": "Mira de cerca los cuadraditos del cinturón de oro.",
+        "hint_2": "Es un animal con cuernos enrollados o lana.",
+        "hint_3": "Parece una...",
+        "hint_4": "La respuesta empieza por la letra 'O'.",
+        "hint_5": "La respuesta exacta que buscas es: OVEJA"
+      },
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Tesoro_de_Aliseda_%28M.A.N._Madrid%29_01.jpg/800px-Tesoro_de_Aliseda_%28M.A.N._Madrid%29_01.jpg",
+      "success_description": "Este tesoro perteneció a una mujer muy rica de Tartessos. Las joyas están hechas con técnicas increíbles, soldando bolitas de oro minúsculas."
+    },
+    {
+      "id": "obj_006",
+      "name": "Monumento de Pozo Moro",
+      "room": "Sala 11",
+      "culture": "Íbera",
+      "lore_text": "El oro nos ha señalado el siguiente tramo del recorrido. Subimos a la Sala 11, donde nos espera un monumento gigante en forma de torre. Ardanza dice que en sus paredes hay monstruos tallados.",
+      "action_prompt": "Busca una torre de piedra muy alta sostenida por leones. En uno de sus relieves hay un monstruo con dos cabezas que saca la lengua. ¿Qué animal parece?",
+      "expected_format": "Una palabra",
+      "possible_answers": [
+        {
+          "type": "canonical",
+          "value": "serpiente"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "culebra"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "dragon"
+        }
+      ],
+      "hint_ladder_template": {
+        "hint_1": "Busca los dibujos tallados en la piedra de la torre.",
+        "hint_2": "Es un reptil largo que repta por el suelo.",
+        "hint_3": "Tiene lengua bífida y hace 'hssss'. Es una...",
+        "hint_4": "La respuesta empieza por la letra 'S'.",
+        "hint_5": "La respuesta exacta que buscas es: SERPIENTE"
+      },
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Monumento_de_Pozo_Moro_%28M.A.N._Madrid%29_01.jpg/800px-Monumento_de_Pozo_Moro_%28M.A.N._Madrid%29_01.jpg",
+      "success_description": "Este monumento es una tumba gigante de un rey íbero. Los relieves cuentan historias mitológicas para proteger el alma del difunto en su viaje."
+    },
+    {
       "id": "obj_003",
       "name": "Bicha de Balazote",
       "room": "Sala 12",
       "culture": "Íbera",
-      "lore_text": "¡Una campana! Exacto. Su sonido imaginario nos advierte: los malos se dirigen a la Sala 12. Ardanza dice que allí hay un guardián de piedra que protege el siguiente fragmento del mapa. Es un ser mitológico que asusta a los intrusos.",
+      "lore_text": "La serpiente nos indica que seguimos la pista correcta. Avanzamos a la Sala 12. Ardanza nos avisa de que allí hay un guardián de piedra, un ser mitológico que protege el siguiente fragmento del mapa.",
       "action_prompt": "Busca una estatua gris con cabeza de hombre barbudo. Su cuerpo pertenece a un animal con cuernos muy fuerte. ¿De qué animal es el cuerpo?",
       "expected_format": "Una palabra (ej. toro)",
       "possible_answers": [
@@ -97,11 +161,39 @@
       "success_description": "Los íberos creían en criaturas mágicas que protegían las tumbas importantes. Esta mezcla de hombre y toro daba mucho miedo a los ladrones."
     },
     {
+      "id": "obj_007",
+      "name": "Esfinge de Agost",
+      "room": "Sala 12",
+      "culture": "Íbera",
+      "lore_text": "¡El toro nos deja pasar! Pero en esta misma sala se oculta otra criatura aún más extraña. Ardanza susurra por el comunicador: 'Busca a la criatura de los enigmas; tiene cuerpo de león y alas, pero no es un pájaro'.",
+      "action_prompt": "Encuentra una estatua de piedra que parece un león sentado, pero tiene alas y cabeza humana. ¿Qué le falta en la cara porque se ha roto con el tiempo?",
+      "expected_format": "Una palabra",
+      "possible_answers": [
+        {
+          "type": "canonical",
+          "value": "nariz"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "la nariz"
+        }
+      ],
+      "hint_ladder_template": {
+        "hint_1": "Mírale bien a la cara.",
+        "hint_2": "Está justo en el centro del rostro y sirve para oler.",
+        "hint_3": "Le falta la...",
+        "hint_4": "La respuesta empieza por la letra 'N'.",
+        "hint_5": "La respuesta exacta que buscas es: NARIZ"
+      },
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Esfinge_de_Agost_%28M.A.N._Madrid%29_01.jpg/800px-Esfinge_de_Agost_%28M.A.N._Madrid%29_01.jpg",
+      "success_description": "Las esfinges eran criaturas mágicas que los íberos copiaron de los griegos y egipcios. Se colocaban en las tumbas para asustar a los malos espíritus."
+    },
+    {
       "id": "obj_004",
       "name": "Dama de Elche",
       "room": "Sala 13",
       "culture": "Íbera",
-      "lore_text": "¡El toro nos ha dejado pasar! Pero la Sociedad del Eclipse ha bloqueado la puerta principal. El diario de Ardanza revela un pasadizo secreto en la Sala 13, custodiado por la gran reina de piedra. Ella tiene el poder de 'hacer rodar' el tiempo.",
+      "lore_text": "Sin nariz no pueden olernos. ¡Aprovechemos la ventaja! Pasamos a la Sala 13. El diario de Ardanza revela que allí nos espera la gran reina de piedra, capaz de 'hacer rodar' el tiempo.",
       "action_prompt": "Busca el busto de una mujer íbera muy detallado. Fíjate en los dos grandes adornos redondos que lleva a los lados de la cara. ¿A qué parte de un coche se parecen?",
       "expected_format": "Una palabra en plural (ej. ruedas)",
       "possible_answers": [
@@ -133,7 +225,7 @@
       "name": "Dama de Baza",
       "room": "Sala 13",
       "culture": "Íbera",
-      "lore_text": "Las ruedas de la Dama han abierto el pasadizo. Ardanza nos avisa: 'La Sociedad del Eclipse busca a la hermana de la Dama de Elche en esta misma sala'. Ella está sentada en un trono y guarda un secreto bajo su asiento.",
+      "lore_text": "Las ruedas de la Dama han abierto el pasadizo. Ardanza nos avisa: 'La Sociedad del Eclipse busca a la hermana de la Dama de Elche en esta misma sala'. Está sentada en un trono y guarda un secreto bajo su asiento.",
       "action_prompt": "Encuentra a la otra gran dama de piedra que está sentada en una silla con alas. ¿Qué animal tiene las alas que decoran su trono?",
       "expected_format": "Una palabra",
       "possible_answers": [
@@ -165,71 +257,11 @@
       "success_description": "A diferencia de la Dama de Elche, esta conserva sus colores originales. Era una tumba: debajo de su silla encontraron armas y tesoros quemados."
     },
     {
-      "id": "obj_006",
-      "name": "Monumento de Pozo Moro",
-      "room": "Sala 11",
-      "culture": "Íbera",
-      "lore_text": "¡Un pájaro! Ese es el símbolo de la libertad. Los agentes del Eclipse han huido hacia la Sala 11, buscando un monumento gigante en forma de torre. Ardanza dice que en sus paredes hay monstruos tallados.",
-      "action_prompt": "Busca una torre de piedra muy alta sostenida por leones. En uno de sus relieves hay un monstruo con dos cabezas que saca la lengua. ¿Qué animal parece?",
-      "expected_format": "Una palabra",
-      "possible_answers": [
-        {
-          "type": "canonical",
-          "value": "serpiente"
-        },
-        {
-          "type": "accepted_variant",
-          "value": "culebra"
-        },
-        {
-          "type": "accepted_variant",
-          "value": "dragon"
-        }
-      ],
-      "hint_ladder_template": {
-        "hint_1": "Busca los dibujos tallados en la piedra de la torre.",
-        "hint_2": "Es un reptil largo que repta por el suelo.",
-        "hint_3": "Tiene lengua bífida y hace 'hssss'. Es una...",
-        "hint_4": "La respuesta empieza por la letra 'S'.",
-        "hint_5": "La respuesta exacta que buscas es: SERPIENTE"
-      },
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Monumento_de_Pozo_Moro_%28M.A.N._Madrid%29_01.jpg/800px-Monumento_de_Pozo_Moro_%28M.A.N._Madrid%29_01.jpg",
-      "success_description": "Este monumento es una tumba gigante de un rey íbero. Los relieves cuentan historias mitológicas para proteger el alma del difunto en su viaje."
-    },
-    {
-      "id": "obj_007",
-      "name": "Esfinge de Agost",
-      "room": "Sala 12",
-      "culture": "Íbera",
-      "lore_text": "La serpiente nos indica el camino venenoso que han tomado. Han vuelto a la Sala 12. 'Busca a la criatura de los enigmas', susurra Ardanza por el comunicador. 'Tiene cuerpo de león y alas, pero no es un pájaro'.",
-      "action_prompt": "Encuentra una estatua de piedra que parece un león sentado, pero tiene alas y cabeza humana. ¿Qué le falta en la cara porque se ha roto con el tiempo?",
-      "expected_format": "Una palabra",
-      "possible_answers": [
-        {
-          "type": "canonical",
-          "value": "nariz"
-        },
-        {
-          "type": "accepted_variant",
-          "value": "la nariz"
-        }
-      ],
-      "hint_ladder_template": {
-        "hint_1": "Mírale bien a la cara.",
-        "hint_2": "Está justo en el centro del rostro y sirve para oler.",
-        "hint_3": "Le falta la...",
-        "hint_4": "La respuesta empieza por la letra 'N'.",
-        "hint_5": "La respuesta exacta que buscas es: NARIZ"
-      },
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Esfinge_de_Agost_%28M.A.N._Madrid%29_01.jpg/800px-Esfinge_de_Agost_%28M.A.N._Madrid%29_01.jpg",
-      "success_description": "Las esfinges eran criaturas mágicas que los íberos copiaron de los griegos y egipcios. Se colocaban en las tumbas para asustar a los malos espíritus."
-    },
-    {
       "id": "obj_008",
       "name": "Toro de Osuna",
       "room": "Sala 14",
       "culture": "Íbera",
-      "lore_text": "Sin nariz no pueden olernos. ¡Aprovechemos la ventaja! Avanzamos a la Sala 14. La Sociedad del Eclipse busca un animal de piedra que representa la fuerza bruta. Ardanza nos advierte que está herido.",
+      "lore_text": "¡Un pájaro! Ese es el símbolo de que vamos por buen camino. Los agentes del Eclipse han corrido hacia la Sala 14, donde buscan un animal de piedra que representa la fuerza bruta. Ardanza nos advierte que está herido.",
       "action_prompt": "Busca una gran estatua de un toro de piedra. Míralo de cerca. ¿Qué le falta en la cabeza que lo haría muy peligroso?",
       "expected_format": "Una palabra en plural",
       "possible_answers": [
@@ -253,43 +285,11 @@
       "success_description": "Este toro decoraba un monumento funerario. Los íberos adoraban a los toros porque representaban la fuerza, la valentía y la protección."
     },
     {
-      "id": "obj_009",
-      "name": "Tesoro de Aliseda",
-      "room": "Sala 10",
-      "culture": "Tartésica",
-      "lore_text": "Los cuernos rotos simbolizan que el Eclipse está perdiendo fuerza. Ardanza nos envía a la Sala 10. 'Allí brilla el oro de un reino perdido llamado Tartessos. Busca las joyas de una antigua princesa'.",
-      "action_prompt": "Encuentra una vitrina llena de joyas de oro muy detalladas (collares, pulseras...). Hay un cinturón de oro con pequeños dibujos. ¿Qué animal que da leche y hace 'beee' aparece en el cinturón?",
-      "expected_format": "Una palabra",
-      "possible_answers": [
-        {
-          "type": "canonical",
-          "value": "oveja"
-        },
-        {
-          "type": "accepted_variant",
-          "value": "cabra"
-        },
-        {
-          "type": "accepted_variant",
-          "value": "carnero"
-        }
-      ],
-      "hint_ladder_template": {
-        "hint_1": "Mira de cerca los cuadraditos del cinturón de oro.",
-        "hint_2": "Es un animal con cuernos enrollados o lana.",
-        "hint_3": "Parece una...",
-        "hint_4": "La respuesta empieza por la letra 'O'.",
-        "hint_5": "La respuesta exacta que buscas es: OVEJA"
-      },
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Tesoro_de_Aliseda_%28M.A.N._Madrid%29_01.jpg/800px-Tesoro_de_Aliseda_%28M.A.N._Madrid%29_01.jpg",
-      "success_description": "Este tesoro perteneció a una mujer muy rica de Tartessos. Las joyas están hechas con técnicas increíbles, soldando bolitas de oro minúsculas."
-    },
-    {
       "id": "obj_010",
       "name": "Cuenco de Axtroki",
       "room": "Sala 15",
       "culture": "Edad del Bronce",
-      "lore_text": "El oro nos guía. Los secuaces del Eclipse han sido vistos en la Sala 15, buscando unos cuencos mágicos que parecen sombreros de oro. Ardanza dice que los usaban en ceremonias secretas.",
+      "lore_text": "Los cuernos rotos simbolizan que el Eclipse pierde fuerza. Seguimos hasta la Sala 15. Ardanza dice que allí buscan unos cuencos mágicos que parecen sombreros de oro y se usaban en ceremonias secretas.",
       "action_prompt": "Busca dos cuencos de oro brillante con decoraciones geométricas. Si te los pusieras en la cabeza, ¿qué prenda de vestir parecerían?",
       "expected_format": "Una palabra",
       "possible_answers": [
@@ -321,7 +321,7 @@
       "name": "Lex Flavia Malacitana",
       "room": "Sala 20",
       "culture": "Roma",
-      "lore_text": "¡Sombreros de oro! Qué elegantes. Pero la aventura se pone seria. Hemos entrado en la zona de Roma (Sala 20). La Sociedad del Eclipse quiere alterar las leyes antiguas. Ardanza nos pide que encontremos las tablas de bronce donde están escritas.",
+      "lore_text": "¡Sombreros de oro! Qué elegantes. Ahora entramos en la zona de Roma, en la Sala 20. La Sociedad del Eclipse quiere alterar las leyes antiguas. Ardanza nos pide encontrar las tablas de bronce donde están escritas.",
       "action_prompt": "Busca unas grandes tablas de metal verde/marrón llenas de letras grabadas. ¿En qué idioma antiguo, que usaban los romanos, están escritas?",
       "expected_format": "Una palabra",
       "possible_answers": [
@@ -345,11 +345,43 @@
       "success_description": "Estas tablas de bronce contienen las leyes de la ciudad de Málaga en la época romana. ¡Eran como la constitución de la ciudad!"
     },
     {
+      "id": "obj_015",
+      "name": "Estatua de Livia",
+      "room": "Sala 20",
+      "culture": "Roma",
+      "lore_text": "El latín nos ha abierto paso, pero aún no hemos terminado en esta sala. Ardanza ha detectado a la líder del Eclipse cerca de la estatua de la mujer más poderosa de Roma. 'Busca a la emperatriz sin cabeza', ordena.",
+      "action_prompt": "Encuentra la estatua de una mujer romana con un vestido lleno de pliegues. Como le falta la cabeza, ¿qué parte del cuerpo es la más alta que le queda?",
+      "expected_format": "Una palabra",
+      "possible_answers": [
+        {
+          "type": "canonical",
+          "value": "cuello"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "el cuello"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "hombros"
+        }
+      ],
+      "hint_ladder_template": {
+        "hint_1": "Mira la parte superior de la estatua rota.",
+        "hint_2": "Está justo debajo de donde iría la cabeza.",
+        "hint_3": "Le queda un trozo de...",
+        "hint_4": "La respuesta empieza por la letra 'C'.",
+        "hint_5": "La respuesta exacta que buscas es: CUELLO"
+      },
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Estatua_de_Livia_%28M.A.N._Madrid%29_01.jpg/800px-Estatua_de_Livia_%28M.A.N._Madrid%29_01.jpg",
+      "success_description": "Livia fue la esposa del primer emperador romano, Augusto. A menudo las cabezas de las estatuas se hacían aparte y se encajaban, por eso muchas se han perdido."
+    },
+    {
       "id": "obj_012",
       "name": "Mosaico de los Trabajos de Hércules",
       "room": "Sala 21",
       "culture": "Roma",
-      "lore_text": "El latín es la clave para descifrar el siguiente paso. Ardanza nos dirige a la Sala 21. 'Busca en el suelo', nos dice. 'Los romanos hacían alfombras de piedra con miles de cuadraditos'.",
+      "lore_text": "La emperatriz nos señala el siguiente tramo. Pasamos a la Sala 21. 'Busca en el suelo', nos dice Ardanza. 'Los romanos hacían alfombras de piedra con miles de cuadraditos'.",
       "action_prompt": "Encuentra un gran mosaico en el suelo que muestra a un héroe musculoso luchando contra monstruos. ¿Cómo se llaman los cuadraditos de piedra que forman el dibujo?",
       "expected_format": "Una palabra en plural",
       "possible_answers": [
@@ -381,7 +413,7 @@
       "name": "Puteal de la Moncloa",
       "room": "Sala 21",
       "culture": "Roma",
-      "lore_text": "¡Teselas! Cada una es como un píxel de una pantalla antigua. Los del Eclipse están confundidos. Ardanza nos manda buscar un objeto cilíndrico en la misma sala. 'Era el brocal de un pozo mágico', afirma.",
+      "lore_text": "¡Teselas! Cada una es como un píxel de una pantalla antigua. En la misma sala, los del Eclipse buscan un objeto cilíndrico. Ardanza afirma: 'Era el brocal de un pozo mágico'.",
       "action_prompt": "Busca un cilindro de piedra decorado con figuras que servía para sacar agua de un pozo. ¿Qué herramienta necesitarías atar a una cuerda para sacar el agua de dentro?",
       "expected_format": "Una palabra",
       "possible_answers": [
@@ -409,11 +441,43 @@
       "success_description": "Un 'puteal' era el borde de piedra de un pozo. Este está decorado con escenas del nacimiento de la diosa Atenea. ¡Era un pozo muy lujoso!"
     },
     {
+      "id": "obj_027",
+      "name": "Cuadrante solar de Yecla",
+      "room": "Sala 21",
+      "culture": "Roma",
+      "lore_text": "Con el cubo sacamos agua y... una pista sobre el tiempo. Seguimos en la Sala 21. Ardanza grita por la radio: '¡El Eclipse está manipulando el reloj de sol antiguo! Detenlos antes de que cambien la hora'.",
+      "action_prompt": "Busca un bloque de piedra con líneas grabadas que servía para dar la hora con la sombra del sol. ¿Qué forma tiene la piedra?",
+      "expected_format": "Una palabra",
+      "possible_answers": [
+        {
+          "type": "canonical",
+          "value": "semicirculo"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "media luna"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "curva"
+        }
+      ],
+      "hint_ladder_template": {
+        "hint_1": "Mira la forma del hueco donde están las líneas.",
+        "hint_2": "Es la mitad de un círculo.",
+        "hint_3": "Tiene forma de...",
+        "hint_4": "La respuesta empieza por la letra 'S'.",
+        "hint_5": "La respuesta exacta que buscas es: SEMICIRCULO"
+      },
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Cuadrante_solar_de_Yecla_%28M.A.N._Madrid%29_01.jpg/800px-Cuadrante_solar_de_Yecla_%28M.A.N._Madrid%29_01.jpg",
+      "success_description": "Los romanos no tenían relojes de pulsera. Usaban estos cuadrantes solares donde una varilla de metal proyectaba una sombra que marcaba la hora."
+    },
+    {
       "id": "obj_014",
       "name": "Sarcófago de Husillos",
       "room": "Sala 22",
       "culture": "Roma",
-      "lore_text": "Con el cubo sacamos agua y... ¡una pista mojada! Nos lleva a la Sala 22. La Sociedad del Eclipse busca una tumba romana de mármol. Ardanza dice que cuenta una historia muy triste sobre un héroe y su amigo.",
+      "lore_text": "¡El tiempo vuelve a estar bajo control! Ahora avanzamos a la Sala 22. La Sociedad del Eclipse busca una tumba romana de mármol que cuenta una historia muy triste sobre un héroe y su amigo.",
       "action_prompt": "Encuentra un sarcófago de mármol blanco con muchas figuras talladas en relieve. En la escena, ¿qué están haciendo los personajes con sus espadas y escudos?",
       "expected_format": "Una palabra",
       "possible_answers": [
@@ -449,43 +513,39 @@
       "success_description": "Este sarcófago romano cuenta la historia de Orestes. Fue tan famoso que artistas del Renacimiento viajaban para copiar sus figuras perfectas."
     },
     {
-      "id": "obj_015",
-      "name": "Estatua de Livia",
-      "room": "Sala 20",
-      "culture": "Roma",
-      "lore_text": "La batalla nos recuerda que no debemos rendirnos. Volvemos a la Sala 20. Ardanza ha detectado a la líder del Eclipse cerca de la estatua de la mujer más poderosa de Roma. 'Busca a la emperatriz sin cabeza', ordena.",
-      "action_prompt": "Encuentra la estatua de una mujer romana con un vestido lleno de pliegues. Como le falta la cabeza, ¿qué parte del cuerpo es la más alta que le queda?",
-      "expected_format": "Una palabra",
+      "id": "obj_019",
+      "name": "Corona de Recesvinto",
+      "room": "Sala 23",
+      "culture": "Visigoda",
+      "lore_text": "La batalla nos recuerda que no debemos rendirnos. Seguimos el recorrido hasta la Sala 23. Ardanza nos informa: 'El Eclipse ha descubierto el Tesoro de Guarrazar. Quieren robar la corona del rey visigodo'. ¡Corre!",
+      "action_prompt": "Busca la corona de oro más grande que cuelga del techo. De ella cuelgan letras de oro. ¿De qué color son las grandes piedras preciosas redondas (zafiros) que la decoran?",
+      "expected_format": "Un color",
       "possible_answers": [
         {
           "type": "canonical",
-          "value": "cuello"
+          "value": "azul"
         },
         {
           "type": "accepted_variant",
-          "value": "el cuello"
-        },
-        {
-          "type": "accepted_variant",
-          "value": "hombros"
+          "value": "azules"
         }
       ],
       "hint_ladder_template": {
-        "hint_1": "Mira la parte superior de la estatua rota.",
-        "hint_2": "Está justo debajo de donde iría la cabeza.",
-        "hint_3": "Le queda un trozo de...",
-        "hint_4": "La respuesta empieza por la letra 'C'.",
-        "hint_5": "La respuesta exacta que buscas es: CUELLO"
+        "hint_1": "Mira las piedras grandes que adornan la corona.",
+        "hint_2": "Es el color del cielo y del mar.",
+        "hint_3": "Son de color...",
+        "hint_4": "La respuesta empieza por la letra 'A'.",
+        "hint_5": "La respuesta exacta que buscas es: AZUL"
       },
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Estatua_de_Livia_%28M.A.N._Madrid%29_01.jpg/800px-Estatua_de_Livia_%28M.A.N._Madrid%29_01.jpg",
-      "success_description": "Livia fue la esposa del primer emperador romano, Augusto. A menudo las cabezas de las estatuas se hacían aparte y se encajaban, por eso muchas se han perdido."
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Corona_de_Recesvinto_%28M.A.N._Madrid%29_01.jpg/800px-Corona_de_Recesvinto_%28M.A.N._Madrid%29_01.jpg",
+      "success_description": "Los reyes visigodos no se ponían estas coronas en la cabeza. Las regalaban a las iglesias para colgarlas sobre el altar como símbolo de devoción."
     },
     {
       "id": "obj_016",
       "name": "Bote de Zamora",
       "room": "Sala 24",
       "culture": "Al-Andalus",
-      "lore_text": "El cuello de la estatua señalaba hacia la zona de Al-Andalus (Sala 24). ¡El Eclipse nos lleva ventaja! Ardanza nos pide buscar un pequeño bote cilíndrico de marfil, tallado con una precisión increíble.",
+      "lore_text": "El azul zafiro nos da esperanza. Pasamos a la Sala 24, en la zona de Al-Andalus. Ardanza nos pide buscar un pequeño bote cilíndrico de marfil, tallado con una precisión increíble.",
       "action_prompt": "Busca un bote cilíndrico blanco con tapa, lleno de dibujos de hojas y animales. ¿De qué material, que viene de los colmillos de los elefantes, está hecho?",
       "expected_format": "Una palabra",
       "possible_answers": [
@@ -513,7 +573,7 @@
       "name": "Ciervo de Medina Azahara",
       "room": "Sala 24",
       "culture": "Al-Andalus",
-      "lore_text": "El marfil nos ha dado la pista. En la misma sala, los malos buscan un animal de bronce que escupía agua. Ardanza dice: 'Es un surtidor de una fuente mágica de un palacio destruido'.",
+      "lore_text": "El marfil nos ha dado otra pista. En esta misma sala, los malos buscan un animal de bronce que escupía agua. Ardanza dice: 'Es un surtidor de una fuente mágica de un palacio destruido'.",
       "action_prompt": "Encuentra la estatua de bronce de un animal con cuernos ramificados. Su cuerpo está cubierto de dibujos circulares. ¿Qué animal del bosque es?",
       "expected_format": "Una palabra",
       "possible_answers": [
@@ -577,39 +637,11 @@
       "success_description": "El astrolabio era el 'smartphone' de los astrónomos antiguos. Servía para saber la hora, la posición de las estrellas y orientarse en los viajes."
     },
     {
-      "id": "obj_019",
-      "name": "Corona de Recesvinto",
-      "room": "Sala 23",
-      "culture": "Visigoda",
-      "lore_text": "El círculo nos lleva de vuelta a la Sala 23. Ardanza nos informa: 'El Eclipse ha descubierto el Tesoro de Guarrazar. Quieren robar la corona del rey visigodo'. ¡Corre!",
-      "action_prompt": "Busca la corona de oro más grande que cuelga del techo. De ella cuelgan letras de oro. ¿De qué color son las grandes piedras preciosas redondas (zafiros) que la decoran?",
-      "expected_format": "Un color",
-      "possible_answers": [
-        {
-          "type": "canonical",
-          "value": "azul"
-        },
-        {
-          "type": "accepted_variant",
-          "value": "azules"
-        }
-      ],
-      "hint_ladder_template": {
-        "hint_1": "Mira las piedras grandes que adornan la corona.",
-        "hint_2": "Es el color del cielo y del mar.",
-        "hint_3": "Son de color...",
-        "hint_4": "La respuesta empieza por la letra 'A'.",
-        "hint_5": "La respuesta exacta que buscas es: AZUL"
-      },
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Corona_de_Recesvinto_%28M.A.N._Madrid%29_01.jpg/800px-Corona_de_Recesvinto_%28M.A.N._Madrid%29_01.jpg",
-      "success_description": "Los reyes visigodos no se ponían estas coronas en la cabeza. Las regalaban a las iglesias para colgarlas sobre el altar como símbolo de devoción."
-    },
-    {
       "id": "obj_020",
       "name": "Crucifijo de Don Fernando y Doña Sancha",
       "room": "Sala 26",
       "culture": "Románico",
-      "lore_text": "El azul zafiro nos da paz. Hemos salvado la corona. Ahora, a la Sala 26. Ardanza dice que la Llave del Tiempo está vinculada a una cruz de marfil muy antigua, regalo de unos reyes.",
+      "lore_text": "El círculo nos guía hacia la Sala 26. Ardanza dice que la Llave del Tiempo está vinculada a una cruz de marfil muy antigua, regalo de unos reyes.",
       "action_prompt": "Encuentra una cruz blanca tallada con muchísimo detalle. En la parte de abajo hay una figura pequeña de un hombre que parece estar saliendo de una tumba. ¿Qué está haciendo ese hombre?",
       "expected_format": "Una acción (ej. resucitar, salir)",
       "possible_answers": [
@@ -645,7 +677,7 @@
       "name": "Arqueta de las Bienaventuranzas",
       "room": "Sala 26",
       "culture": "Románico",
-      "lore_text": "La resurrección nos da esperanza. En la misma sala, los agentes del Eclipse intentan abrir una cajita mágica. Ardanza nos advierte: 'Solo el corazón puro puede ver lo que guarda la Arqueta'.",
+      "lore_text": "La resurrección nos da esperanza. En esta misma sala, los agentes del Eclipse intentan abrir una cajita mágica. Ardanza nos advierte: 'Solo el corazón puro puede ver lo que guarda la Arqueta'.",
       "action_prompt": "Busca una caja rectangular (arqueta) decorada con arcos y figuras de marfil. ¿Qué forma tiene el tejado o tapa de esta caja?",
       "expected_format": "Una forma (ej. piramide, triangular)",
       "possible_answers": [
@@ -717,7 +749,7 @@
       "name": "Sepulcro de Doña Aldonza de Mendoza",
       "room": "Sala 27",
       "culture": "Gótico",
-      "lore_text": "La Virgen protege nuestro camino. En esta misma sala descansa una noble dama. Ardanza nos susurra: 'El Eclipse quiere despertar a los muertos de alabastro. ¡Encuentra la tumba de Doña Aldonza!'",
+      "lore_text": "La Virgen protege nuestro camino. En esta misma sala descansa una noble dama. Ardanza nos susurra: 'El Eclipse quiere despertar a los muertos de alabastro. ¡Encuentra la tumba de Doña Aldonza!'.",
       "action_prompt": "Busca una gran tumba blanca donde hay una mujer esculpida tumbada leyendo un libro. A sus pies hay un animal que simboliza la fidelidad. ¿Qué animal es?",
       "expected_format": "Una palabra",
       "possible_answers": [
@@ -745,11 +777,43 @@
       "success_description": "En la Edad Media, esculpir un perro a los pies del difunto significaba lealtad, mientras que un león significaba valor."
     },
     {
+      "id": "obj_026",
+      "name": "Estatua orante de Pedro I",
+      "room": "Sala 27",
+      "culture": "Gótico",
+      "lore_text": "¡Un perro fiel! Seguimos en la Sala 27. Pero aún queda un último secreto medieval: el Eclipse busca a un rey rezando. Ardanza dice: 'Él sabe dónde está la cámara secreta'.",
+      "action_prompt": "Encuentra la estatua de alabastro de un rey arrodillado rezando. Le llamaban Pedro I 'El Cruel'. ¿Qué tiene en las manos mientras reza?",
+      "expected_format": "Una palabra",
+      "possible_answers": [
+        {
+          "type": "canonical",
+          "value": "nada"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "vacias"
+        },
+        {
+          "type": "accepted_variant",
+          "value": "juntas"
+        }
+      ],
+      "hint_ladder_template": {
+        "hint_1": "Fíjate bien en sus manos.",
+        "hint_2": "Están juntas en posición de rezo.",
+        "hint_3": "No sujeta...",
+        "hint_4": "La respuesta empieza por la letra 'N'.",
+        "hint_5": "La respuesta exacta que buscas es: NADA"
+      },
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Estatua_orante_de_Pedro_I_%28M.A.N._Madrid%29_01.jpg/800px-Estatua_orante_de_Pedro_I_%28M.A.N._Madrid%29_01.jpg",
+      "success_description": "Esta estatua muestra al rey Pedro I de Castilla. Aunque le apodaban 'El Cruel', aquí se le representa humilde y rezando por su alma."
+    },
+    {
       "id": "obj_024",
       "name": "Ábaco Neperiano",
       "room": "Sala 28",
       "culture": "Edad Moderna",
-      "lore_text": "¡Un perro fiel! Como nosotros con el Profesor Ardanza. Llegamos a la Sala 28. La Sociedad del Eclipse está usando una calculadora antigua de madera para descifrar el código final. ¡Tenemos que pararlos!",
+      "lore_text": "Manos vacías, mente abierta. Avanzamos a la Sala 28. La Sociedad del Eclipse está usando una calculadora antigua de madera para descifrar el código final. ¡Tenemos que pararlos!",
       "action_prompt": "Encuentra una caja de madera llena de varillas con números, que parece un juego de mesa. ¿Para qué asignatura del colegio crees que servía este invento?",
       "expected_format": "Una palabra",
       "possible_answers": [
@@ -781,7 +845,7 @@
       "name": "Momia Guanche",
       "room": "Sala 34",
       "culture": "Canarias",
-      "lore_text": "¡Matemáticas! El código está resuelto. El mapa nos lleva a las Islas Canarias (Sala 34). Ardanza advierte: 'El Eclipse busca los secretos de la vida eterna en los cuerpos conservados del pasado'.",
+      "lore_text": "¡Matemáticas! El código está resuelto. El mapa nos lleva a la Sala 34, donde Ardanza advierte: 'El Eclipse busca los secretos de la vida eterna en los cuerpos conservados del pasado'.",
       "action_prompt": "Busca el cuerpo envuelto en pieles de un antiguo habitante de Tenerife. ¿De qué animal crees que son las pieles que lo envuelven para protegerlo?",
       "expected_format": "Una palabra",
       "possible_answers": [
@@ -809,75 +873,71 @@
       "success_description": "Los guanches, antiguos habitantes de Canarias, momificaban a sus muertos más importantes envolviéndolos cuidadosamente en pieles de cabra cosidas."
     },
     {
-      "id": "obj_026",
-      "name": "Estatua orante de Pedro I",
-      "room": "Sala 27",
-      "culture": "Gótico",
-      "lore_text": "Las pieles nos protegen del frío, pero la persecución se calienta. Volvemos a la Sala 27. El Eclipse busca a un rey rezando. Ardanza dice: 'Él sabe dónde está la cámara secreta'.",
-      "action_prompt": "Encuentra la estatua de alabastro de un rey arrodillado rezando. Le llamaban Pedro I 'El Cruel'. ¿Qué tiene en las manos mientras reza?",
+      "id": "obj_030",
+      "name": "Ataúd de Taremetchenbastet",
+      "room": "Sala 35",
+      "culture": "Egipto",
+      "lore_text": "Las pieles nos protegen del frío, pero la persecución continúa. Llegamos a la Sala 35. Ardanza nos espera junto a un colorido ataúd egipcio: 'Aquí se esconde una clave esencial para cerrar el portal del tiempo'.",
+      "action_prompt": "Busca el colorido ataúd egipcio con forma humana. Para asegurar la Llave del Tiempo, dime: ¿Qué insecto sagrado, que parece un escarabajo, está pintado en el pecho de la momia?",
       "expected_format": "Una palabra",
       "possible_answers": [
         {
           "type": "canonical",
-          "value": "nada"
+          "value": "escarabajo"
         },
         {
           "type": "accepted_variant",
-          "value": "vacias"
-        },
-        {
-          "type": "accepted_variant",
-          "value": "juntas"
+          "value": "un escarabajo"
         }
       ],
       "hint_ladder_template": {
-        "hint_1": "Fíjate bien en sus manos.",
-        "hint_2": "Están juntas en posición de rezo.",
-        "hint_3": "No sujeta...",
-        "hint_4": "La respuesta empieza por la letra 'N'.",
-        "hint_5": "La respuesta exacta que buscas es: NADA"
+        "hint_1": "Fíjate en los dibujos del pecho del ataúd.",
+        "hint_2": "Es un insecto negro que hace bolas de arena.",
+        "hint_3": "Es un...",
+        "hint_4": "La respuesta empieza por la letra 'E'.",
+        "hint_5": "La respuesta exacta que buscas es: ESCARABAJO"
       },
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Estatua_orante_de_Pedro_I_%28M.A.N._Madrid%29_01.jpg/800px-Estatua_orante_de_Pedro_I_%28M.A.N._Madrid%29_01.jpg",
-      "success_description": "Esta estatua muestra al rey Pedro I de Castilla. Aunque le apodaban 'El Cruel', aquí se le representa humilde y rezando por su alma."
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Ata%C3%BAd_de_Taremetchenbastet_%28M.A.N._Madrid%29_01.jpg/800px-Ata%C3%BAd_de_Taremetchenbastet_%28M.A.N._Madrid%29_01.jpg",
+      "success_description": "Para los egipcios, el escarabajo pelotero era un símbolo de resurrección y nueva vida. La pista del ataúd nos acerca al desenlace de la expedición."
     },
     {
-      "id": "obj_027",
-      "name": "Cuadrante solar de Yecla",
-      "room": "Sala 21",
-      "culture": "Roma",
-      "lore_text": "Manos vacías, mente abierta. Regresamos a Roma (Sala 21). El tiempo se acaba. Ardanza grita por la radio: '¡El Eclipse está manipulando el reloj de sol antiguo! Detenlos antes de que cambien la hora'.",
-      "action_prompt": "Busca un bloque de piedra con líneas grabadas que servía para dar la hora con la sombra del sol. ¿Qué forma tiene la piedra?",
+      "id": "obj_029",
+      "name": "Crátera de la locura de Heracles",
+      "room": "Sala 36",
+      "culture": "Grecia",
+      "lore_text": "El escarabajo sagrado confirma que vamos bien. Corremos a la Sala 36. Ardanza avisa: 'El líder del Eclipse está acorralado junto al gran jarrón griego de la locura. ¡Es el momento de actuar!'.",
+      "action_prompt": "Encuentra un jarrón griego enorme pintado con figuras rojas sobre fondo negro. Muestra a un héroe volviéndose loco. ¿Qué arma lleva el héroe en la mano?",
       "expected_format": "Una palabra",
       "possible_answers": [
         {
           "type": "canonical",
-          "value": "semicirculo"
+          "value": "espada"
         },
         {
           "type": "accepted_variant",
-          "value": "media luna"
+          "value": "cuchillo"
         },
         {
           "type": "accepted_variant",
-          "value": "curva"
+          "value": "arma"
         }
       ],
       "hint_ladder_template": {
-        "hint_1": "Mira la forma del hueco donde están las líneas.",
-        "hint_2": "Es la mitad de un círculo.",
-        "hint_3": "Tiene forma de...",
-        "hint_4": "La respuesta empieza por la letra 'S'.",
-        "hint_5": "La respuesta exacta que buscas es: SEMICIRCULO"
+        "hint_1": "Mira al personaje principal en el centro.",
+        "hint_2": "Lleva algo afilado en la mano.",
+        "hint_3": "Es una...",
+        "hint_4": "La respuesta empieza por la letra 'E'.",
+        "hint_5": "La respuesta exacta que buscas es: ESPADA"
       },
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Cuadrante_solar_de_Yecla_%28M.A.N._Madrid%29_01.jpg/800px-Cuadrante_solar_de_Yecla_%28M.A.N._Madrid%29_01.jpg",
-      "success_description": "Los romanos no tenían relojes de pulsera. Usaban estos cuadrantes solares donde una varilla de metal proyectaba una sombra que marcaba la hora."
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Cr%C3%A1tera_de_la_locura_de_Heracles_%28M.A.N._Madrid%29_01.jpg/800px-Cr%C3%A1tera_de_la_locura_de_Heracles_%28M.A.N._Madrid%29_01.jpg",
+      "success_description": "Este jarrón (crátera) se usaba para mezclar agua y vino. El dibujo muestra el trágico momento en que el héroe Hércules pierde la razón."
     },
     {
       "id": "obj_028",
       "name": "Tesoro de los Quimbayas",
       "room": "Sala de América",
       "culture": "América Precolombina",
-      "lore_text": "¡El tiempo vuelve a fluir correctamente! El mapa nos lleva a un continente lejano. Ardanza nos guía a la exposición de América. 'El Eclipse busca el oro de los Quimbayas, figuras que brillan como el sol'.",
+      "lore_text": "¡La espada del héroe ha hecho huir al Eclipse! Pero antes de cerrar la misión, Ardanza nos guía a la Sala de América. 'Nos queda una última comprobación: encuentra el oro de los Quimbayas y asegura que la Llave del Tiempo está a salvo de verdad'.",
       "action_prompt": "Busca una vitrina llena de figuras humanas y vasijas de oro puro muy brillantes. Muchas de las figuras humanas están sentadas. ¿Qué tienen en las manos algunas de ellas?",
       "expected_format": "Una palabra en plural",
       "possible_answers": [
@@ -906,67 +966,7 @@
         "hint_5": "La respuesta exacta que buscas es: VASIJAS"
       },
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Tesoro_de_los_Quimbayas_%28M.A.N._Madrid%29_01.jpg/800px-Tesoro_de_los_Quimbayas_%28M.A.N._Madrid%29_01.jpg",
-      "success_description": "Este increíble tesoro de oro fue regalado a España por Colombia en el siglo XIX. Los Quimbayas eran maestros orfebres que hacían figuras perfectas."
-    },
-    {
-      "id": "obj_029",
-      "name": "Crátera de la locura de Heracles",
-      "room": "Sala 36",
-      "culture": "Grecia",
-      "lore_text": "Las vasijas de oro nos han dado la energía final. ¡Corremos a la Sala 36! Ardanza avisa: 'El líder del Eclipse está acorralado junto al gran jarrón griego de la locura. ¡Es el momento de actuar!'",
-      "action_prompt": "Encuentra un jarrón griego enorme pintado con figuras rojas sobre fondo negro. Muestra a un héroe volviéndose loco. ¿Qué arma lleva el héroe en la mano?",
-      "expected_format": "Una palabra",
-      "possible_answers": [
-        {
-          "type": "canonical",
-          "value": "espada"
-        },
-        {
-          "type": "accepted_variant",
-          "value": "cuchillo"
-        },
-        {
-          "type": "accepted_variant",
-          "value": "arma"
-        }
-      ],
-      "hint_ladder_template": {
-        "hint_1": "Mira al personaje principal en el centro.",
-        "hint_2": "Lleva algo afilado en la mano.",
-        "hint_3": "Es una...",
-        "hint_4": "La respuesta empieza por la letra 'E'.",
-        "hint_5": "La respuesta exacta que buscas es: ESPADA"
-      },
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Cr%C3%A1tera_de_la_locura_de_Heracles_%28M.A.N._Madrid%29_01.jpg/800px-Cr%C3%A1tera_de_la_locura_de_Heracles_%28M.A.N._Madrid%29_01.jpg",
-      "success_description": "Este jarrón (crátera) se usaba para mezclar agua y vino. El dibujo muestra el trágico momento en que el héroe Hércules pierde la razón."
-    },
-    {
-      "id": "obj_030",
-      "name": "Ataúd de Taremetchenbastet",
-      "room": "Sala 35",
-      "culture": "Egipto",
-      "lore_text": "¡La espada del héroe ha asustado al Eclipse! Han huido del museo. Ardanza nos espera en la Sala 35. '¡Lo logramos! La Llave del Tiempo está a salvo dentro del sarcófago egipcio. Has salvado la historia'.",
-      "action_prompt": "Busca el colorido ataúd egipcio con forma humana. Para asegurar la Llave del Tiempo, dime: ¿Qué insecto sagrado, que parece un escarabajo, está pintado en el pecho de la momia?",
-      "expected_format": "Una palabra",
-      "possible_answers": [
-        {
-          "type": "canonical",
-          "value": "escarabajo"
-        },
-        {
-          "type": "accepted_variant",
-          "value": "un escarabajo"
-        }
-      ],
-      "hint_ladder_template": {
-        "hint_1": "Fíjate en los dibujos del pecho del ataúd.",
-        "hint_2": "Es un insecto negro que hace bolas de arena.",
-        "hint_3": "Es un...",
-        "hint_4": "La respuesta empieza por la letra 'E'.",
-        "hint_5": "La respuesta exacta que buscas es: ESCARABAJO"
-      },
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Ata%C3%BAd_de_Taremetchenbastet_%28M.A.N._Madrid%29_01.jpg/800px-Ata%C3%BAd_de_Taremetchenbastet_%28M.A.N._Madrid%29_01.jpg",
-      "success_description": "Para los egipcios, el escarabajo pelotero era un símbolo de resurrección y nueva vida. ¡Has completado la expedición y protegido los secretos del museo!"
+      "success_description": "Este increíble tesoro de oro deslumbra incluso a los villanos más valientes. Con esta última comprobación, la expedición queda a salvo y los secretos del museo permanecen protegidos."
     }
   ]
 }
