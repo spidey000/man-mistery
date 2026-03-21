@@ -192,6 +192,7 @@ export function Quest({ onExit }: Props) {
   const [isError, setIsError] = useState(false);
   const [isPlayingAudio, setIsPlayingAudio] = useState(false);
   const [audioError, setAudioError] = useState('');
+  const [showArtifactHint, setShowArtifactHint] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const { settings } = useSettings();
 
@@ -213,6 +214,10 @@ export function Quest({ onExit }: Props) {
   }, []);
 
   const currentMission = objects[currentStep];
+
+  useEffect(() => {
+    setShowArtifactHint(false);
+  }, [currentStep, isSuccess]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -272,7 +277,7 @@ export function Quest({ onExit }: Props) {
     if (mission.riddle_prompt) {
       prompt += `\n... Aquí tienes el acertijo:\n"${mission.riddle_prompt}"`;
     }
-    if (mission.artifact_to_find) {
+    if (mission.artifact_to_find && showArtifactHint) {
       prompt += `\n... Lo que debes buscar:\n"${mission.artifact_to_find}"`;
     }
     if (mission.question_prompt) {
@@ -409,10 +414,25 @@ export function Quest({ onExit }: Props) {
     if (mission.artifact_to_find) {
       blocks.push(
         <div key="artifact" className="bg-[#e3f2fd] p-4 rounded-md border border-blue-300">
-          <h3 className="text-sm font-bold text-blue-700 uppercase tracking-wider mb-2 flex items-center gap-2">
-            <Search size={16} /> Qué Buscar
-          </h3>
-          <p className="text-stone-900 font-medium leading-relaxed">{mission.artifact_to_find}</p>
+          <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
+            <h3 className="text-sm font-bold text-blue-700 uppercase tracking-wider flex items-center gap-2">
+              <Search size={16} /> Qué Buscar
+            </h3>
+            <button
+              type="button"
+              onClick={() => setShowArtifactHint((value) => !value)}
+              className="rounded-md border border-blue-400 bg-white px-3 py-1 text-xs font-bold text-blue-700 transition hover:bg-blue-50"
+            >
+              {showArtifactHint ? 'Ocultar pista de objeto' : 'No encuentro el objeto'}
+            </button>
+          </div>
+          {showArtifactHint ? (
+            <p className="text-stone-900 font-medium leading-relaxed">{mission.artifact_to_find}</p>
+          ) : (
+            <p className="text-sm font-medium leading-relaxed text-stone-600">
+              Intenta resolver el acertijo primero. Si te atascas, despliega esta pista para ver que pieza debes localizar.
+            </p>
+          )}
         </div>
       );
     }
