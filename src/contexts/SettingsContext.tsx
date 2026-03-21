@@ -3,7 +3,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 export interface Settings {
   childName: string;
   childAge: string;
-  elevenLabsApiKey: string;
+  deepgramApiKey: string;
 }
 
 interface SettingsContextType {
@@ -18,7 +18,7 @@ interface SettingsContextType {
 const defaultSettings: Settings = {
   childName: '',
   childAge: '',
-  elevenLabsApiKey: ''
+  deepgramApiKey: ''
 };
 
 const SettingsContext = createContext<SettingsContextType | undefined>(undefined);
@@ -32,7 +32,12 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
     const saved = localStorage.getItem('man_quest_settings');
     if (saved) {
       try {
-        setSettingsState(JSON.parse(saved));
+        const parsed = JSON.parse(saved);
+        setSettingsState({
+          ...defaultSettings,
+          ...parsed,
+          deepgramApiKey: parsed.deepgramApiKey || ''
+        });
       } catch (e) {
         console.error("Error parsing settings", e);
       }

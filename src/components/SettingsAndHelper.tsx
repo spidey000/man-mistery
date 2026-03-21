@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { Settings as SettingsIcon, HelpCircle, X, Activity } from 'lucide-react';
 import { createPortal } from 'react-dom';
 import { useSettings } from '../contexts/SettingsContext';
+import { deepgramDefaults, validateDeepgramApiKey } from '../services/deepgram';
 
 export function SettingsAndHelper() {
   const { settings, setSettings, showSettings, setShowSettings, showHelper, setShowHelper } = useSettings();
@@ -59,21 +60,15 @@ export function SettingsAndHelper() {
   };
 
   const checkApiUsage = async () => {
-    if (!localSettings.elevenLabsApiKey) {
+    if (!localSettings.deepgramApiKey) {
       setUsageError('Introduce una API Key primero');
       return;
     }
     setCheckingUsage(true);
     setUsageError('');
     try {
-      const res = await fetch('https://api.elevenlabs.io/v1/user/subscription', {
-        headers: {
-          'xi-api-key': localSettings.elevenLabsApiKey
-        }
-      });
-      if (!res.ok) throw new Error('API Key invalida o error de conexion');
-      const data = await res.json();
-      setApiUsage({ count: data.character_count, limit: data.character_limit });
+      const data = await validateDeepgramApiKey(localSettings.deepgramApiKey);
+      setApiUsage({ count: data.scopes.length, limit: data.scopes.length });
     } catch (e: any) {
       setUsageError(e.message);
     } finally {
@@ -161,14 +156,20 @@ export function SettingsAndHelper() {
               </div>
 
               <div className="rounded-lg border border-stone-300 bg-stone-100 p-4">
-                <label className="mb-1 block text-sm font-bold text-stone-700">API Key de ElevenLabs (TTS)</label>
+                <label className="mb-1 block text-sm font-bold text-stone-700">API Key de Deepgram (TTS)</label>
                 <input
                   type="password"
-                  value={localSettings.elevenLabsApiKey}
-                  onChange={(e) => setLocalSettings({ ...localSettings, elevenLabsApiKey: e.target.value })}
+                  value={localSettings.deepgramApiKey}
+                  onChange={(e) => setLocalSettings({ ...localSettings, deepgramApiKey: e.target.value })}
                   className="mb-3 w-full rounded-md border-2 border-stone-300 bg-white p-2 focus:border-stone-500 focus:outline-none"
-                  placeholder="sk_..."
+                  placeholder="dg_..."
                 />
+
+                <div className="mb-3 rounded border border-blue-200 bg-blue-50 p-3 text-xs text-blue-900">
+                  Voz por defecto: <strong>{deepgramDefaults.model}</strong><br />
+                  Idioma: <strong>{deepgramDefaults.language}</strong><br />
+                  Acento: <strong>{deepgramDefaults.accent}</strong>
+                </div>
 
                 <div className="mb-3 flex items-center justify-between">
                   <button
@@ -176,13 +177,13 @@ export function SettingsAndHelper() {
                     disabled={checkingUsage}
                     className="flex items-center gap-1 rounded bg-stone-300 px-3 py-1 text-sm text-stone-800 transition hover:bg-stone-400 disabled:opacity-50"
                   >
-                    <Activity size={16} /> {checkingUsage ? 'Comprobando...' : 'Ver uso de API'}
+                    <Activity size={16} /> {checkingUsage ? 'Comprobando...' : 'Validar API Key'}
                   </button>
                 </div>
 
                 {apiUsage && (
                   <div className="mb-3 rounded border border-green-300 bg-green-100 p-2 text-sm text-green-800">
-                    <strong>Uso:</strong> {apiUsage.count} / {apiUsage.limit} caracteres
+                    <strong>API Key valida.</strong> Scopes detectados: {apiUsage.count}
                   </div>
                 )}
                 {usageError && (
@@ -196,9 +197,10 @@ export function SettingsAndHelper() {
                     <HelpCircle size={14} /> Como obtener la API Key?
                   </p>
                   <ol className="list-decimal space-y-1 pl-4">
-                    <li>Crea una cuenta gratuita en ElevenLabs (limite de 10.000 caracteres/mes).</li>
-                    <li>Accede a <a href="https://elevenlabs.io/app/developers/api-keys" target="_blank" rel="noopener noreferrer" className="font-medium text-blue-600 hover:underline">este enlace</a>.</li>
-                    <li>Crea una nueva API Key y copiala aqui.</li>
+                    <li>Crea una cuenta en Deepgram y entra en la consola.</li>
+                    <li>Abre <a href="https://console.deepgram.com/project/api-keys" target="_blank" rel="noopener noreferrer" className="font-medium text-blue-600 hover:underline">Project API Keys</a>.</li>
+                    <li>Crea una API Key con permiso para TTS y copiala aqui.</li>
+                    <li>La narracion usa la voz <strong>{deepgramDefaults.model}</strong> en espanol de Espana peninsular.</li>
                   </ol>
                 </div>
               </div>
@@ -244,7 +246,7 @@ export function SettingsAndHelper() {
               <p><strong>Como empezar?</strong> Pulsa "Jugar sin cuenta" para iniciar la aventura inmediatamente. Sigue las pistas para encontrar los objetos en el museo.</p>
               <p><strong>Donde se guarda?</strong> Tu progreso se guarda automaticamente en la memoria de este dispositivo (navegador). Puedes salir y volver mas tarde.</p>
               <p><strong>Como borrar?</strong> Si quieres empezar de cero, usa el texto rojo "Borrar datos" que aparece abajo a la izquierda en la pantalla principal.</p>
-              <p><strong>Voz misteriosa?</strong> Configura la API Key de ElevenLabs en los Ajustes (⚙️) para escuchar a nuestro arqueologo narrador.</p>
+               <p><strong>Voz misteriosa?</strong> Configura la API Key de Deepgram en los Ajustes (⚙️) para escuchar a nuestro arqueologo narrador con voz en espanol de Espana.</p>
             </div>
           </motion.div>
         </dialog>

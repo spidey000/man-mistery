@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Shield, Key, Star, LogOut, HelpCircle, CheckCircle, XCircle, Volume2, Pickaxe, Brush, Search, Gem, Map as MapIcon, BookOpen, Loader2 } from 'lucide-react';
 import objectsData from '../data/man_exposicion_permanente_objetos.json';
 import { useSettings } from '../contexts/SettingsContext';
-import { generateTTS } from '../services/elevenlabs';
+import { generateTTS } from '../services/deepgram';
 import { SettingsAndHelper } from '../components/SettingsAndHelper';
 
 interface Props {
@@ -110,7 +110,7 @@ export function Quest({ onExit }: Props) {
       return;
     }
 
-    if (!settings.elevenLabsApiKey) {
+    if (!settings.deepgramApiKey) {
       setAudioError('Configura la API Key en Ajustes (⚙️)');
       setTimeout(() => setAudioError(''), 3000);
       return;
@@ -122,14 +122,11 @@ export function Quest({ onExit }: Props) {
     try {
       const greeting = settings.childName ? `¡Atención, ${settings.childName}! ` : '¡Atención, explorador! ';
       
-      // Usamos el prompting guide de ElevenLabs:
-      // - Comillas "" para la parte hablada (el diario) para darle un tono distinto (diálogo/narración en primera persona).
-      // - Puntos suspensivos (...) para añadir pausas dramáticas entre la narración y el diario.
       const promptText = `${greeting} Escucha con atención el diario del profesor Ardanza...
 "${currentObject.lore_text}"
 ... Ahora, tu misión es la siguiente: ${currentObject.action_prompt}`;
       
-      const audioUrl = await generateTTS(promptText, settings.elevenLabsApiKey);
+      const audioUrl = await generateTTS(promptText, settings.deepgramApiKey);
       
       const audio = new Audio(audioUrl);
       audioRef.current = audio;
