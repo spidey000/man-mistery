@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Shield, Key, Star, LogOut, HelpCircle, CheckCircle, XCircle, Volume2, Pickaxe, Brush, Search, Gem, Map as MapIcon, BookOpen, Loader2 } from 'lucide-react';
+import { Star, LogOut, HelpCircle, CheckCircle, Volume2, Pickaxe, Brush, Search, Gem, Map as MapIcon, BookOpen, Loader2, MapPin, HelpCircle as RiddleIcon } from 'lucide-react';
 import objectsData from '../data/man_exposicion_permanente_objetos.json';
 import { useSettings } from '../contexts/SettingsContext';
 import { generateTTS } from '../services/elevenlabs';
@@ -8,6 +8,177 @@ import { SettingsAndHelper } from '../components/SettingsAndHelper';
 
 interface Props {
   onExit: () => void;
+}
+
+interface AnswerEntry {
+  type?: string;
+  value: string;
+}
+
+interface AnswerConcept {
+  required: string[];
+  optional?: string[];
+  forbidden?: string[];
+}
+
+type MissionType = 'action' | 'riddle' | 'mixed';
+type AnswerStrategy = 'exact' | 'semantic' | 'concepts';
+
+interface Mission {
+  id: string;
+  name: string;
+  room: string;
+  lore_text: string;
+  action_prompt?: string;
+  expected_format: string;
+  possible_answers: AnswerEntry[];
+  hint_ladder_template: Record<string, string>;
+  image_url?: string;
+  success_description: string;
+  mission_type?: MissionType;
+  artifact_to_find?: string;
+  riddle_prompt?: string;
+  question_prompt?: string;
+  answer_strategy?: AnswerStrategy;
+  answer_concepts?: AnswerConcept[];
+}
+
+const SPANISH_FILLER_WORDS = new Set([
+  'el', 'la', 'los', 'las', 'un', 'una', 'unos', 'unas',
+  'de', 'del', 'a', 'al', 'en', 'por', 'para', 'con', 'sin',
+  'que', 'y', 'e', 'o', 'u', 'pero', 'si', 'no', 'ni',
+  'es', 'son', 'esta', 'estan', 'este', 'esto', 'estos', 'estas',
+  'tiene', 'tienen', 'hay', 'como', 'cual', 'cuales', 'que',
+  'me', 'te', 'se', 'nos', 'os', 'le', 'les',
+  'mi', 'tu', 'su', 'nuestro', 'nuestra',
+  'muy', 'mas', 'menos', 'tan', 'tanto', 'bastante',
+  'ya', 'aun', 'ahora', 'aqui', 'alli', 'asi',
+]);
+
+const PLURAL_SINGULAR_MAP: Record<string, string> = {
+  'ojos': 'ojo', 'ojo': 'ojo',
+  'ruedas': 'rueda', 'rueda': 'rueda',
+  'cuernos': 'cuerno', 'cuerno': 'cuerno',
+  'teselas': 'tesela', 'tesela': 'tesela',
+  'piedras': 'piedra', 'piedra': 'piedra',
+  'vasijas': 'vasija', 'vasija': 'vasija',
+  'pajaros': 'pajaro', 'pajaro': 'pajaro',
+  'aves': 'ave', 'ave': 'ave',
+  'narices': 'nariz', 'nariz': 'nariz',
+  'cabras': 'cabra', 'cabra': 'cabra',
+  'libros': 'libro', 'libro': 'libro',
+  'manos': 'mano', 'mano': 'mano',
+  'astas': 'asta', 'asta': 'asta',
+  'sombreros': 'sombrero', 'sombrero': 'sombrero',
+  'campanas': 'campana', 'campana': 'campana',
+  'ovejas': 'oveja', 'oveja': 'oveja',
+  'toros': 'toro', 'toro': 'toro',
+  'culebras': 'culebra', 'culebra': 'culebra',
+};
+
+function normalizeSpanish(text: string): string {
+  return text
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[¿¡?!.,;:()[\]{}'"]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function simplifyWord(word: string): string {
+  const normalized = normalizeSpanish(word);
+
+  if (PLURAL_SINGULAR_MAP[normalized]) {
+    return PLURAL_SINGULAR_MAP[normalized];
+  }
+
+  if (normalized.endsWith('ces')) {
+    return `${normalized.slice(0, -3)}z`;
+  }
+
+  if (normalized.endsWith('es') && normalized.length > 4) {
+    return normalized.slice(0, -2);
+  }
+
+  if (normalized.endsWith('s') && normalized.length > 3) {
+    return normalized.slice(0, -1);
+  }
+
+  return normalized;
+}
+
+function tokenizeSpanish(text: string): string[] {
+  return normalizeSpanish(text)
+    .split(' ')
+    .map((word) => word.trim())
+    .filter((word) => word.length > 1 && !SPANISH_FILLER_WORDS.has(word))
+    .map(simplifyWord);
+}
+
+function wordsSimilar(w1: string, w2: string): boolean {
+  const left = simplifyWord(w1);
+  const right = simplifyWord(w2);
+
+  return left === right || left.includes(right) || right.includes(left);
+}
+
+function validateAnswerEntry(input: string, entry: AnswerEntry, strategy: AnswerStrategy): boolean {
+  if (strategy === 'exact') {
+    return normalizeSpanish(input) === normalizeSpanish(entry.value);
+  }
+
+  const inputWords = tokenizeSpanish(input);
+  const answerWords = tokenizeSpanish(entry.value);
+
+  if (answerWords.length === 0) {
+    return false;
+  }
+
+  return answerWords.every((answerWord) =>
+    inputWords.some((inputWord) => wordsSimilar(inputWord, answerWord))
+  );
+}
+
+function validateAnswerConcepts(input: string, concepts: AnswerConcept[]): boolean {
+  const inputWords = tokenizeSpanish(input);
+
+  return concepts.some(concept => {
+    const requiredWords = concept.required.flatMap(tokenizeSpanish);
+    const forbiddenWords = (concept.forbidden || []).flatMap(tokenizeSpanish);
+
+    const hasRequiredWords = requiredWords.every((requiredWord) =>
+      inputWords.some((inputWord) => wordsSimilar(inputWord, requiredWord))
+    );
+
+    const hasForbiddenWord = forbiddenWords.some((forbiddenWord) =>
+      inputWords.some((inputWord) => wordsSimilar(inputWord, forbiddenWord))
+    );
+
+    return hasRequiredWords && !hasForbiddenWord;
+  });
+}
+
+function getAnswerStrategy(mission: Mission): AnswerStrategy {
+  if (mission.answer_strategy === 'exact' || mission.answer_strategy === 'semantic' || mission.answer_strategy === 'concepts') {
+    return mission.answer_strategy;
+  }
+
+  return mission.answer_concepts && mission.answer_concepts.length > 0 ? 'concepts' : 'exact';
+}
+
+function validateAnswer(input: string, mission: Mission): boolean {
+  if (!input.trim()) return false;
+
+  const strategy = getAnswerStrategy(mission);
+
+  if (strategy === 'concepts' && mission.answer_concepts?.length) {
+    return validateAnswerConcepts(input, mission.answer_concepts);
+  }
+
+  return mission.possible_answers.some(
+    (ans) => validateAnswerEntry(input, ans, strategy)
+  );
 }
 
 export function Quest({ onExit }: Props) {
@@ -24,7 +195,7 @@ export function Quest({ onExit }: Props) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const { settings } = useSettings();
 
-  const objects = objectsData.objects;
+  const objects: Mission[] = objectsData.objects;
 
   useEffect(() => {
     const saved = localStorage.getItem('man_quest_progress');
@@ -41,20 +212,13 @@ export function Quest({ onExit }: Props) {
     setLoading(false);
   }, []);
 
-  const normalizeAnswer = (text: string) => {
-    return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
-  };
-
-  const currentObject = objects[currentStep];
+  const currentMission = objects[currentStep];
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!currentObject) return;
+    if (!currentMission) return;
 
-    const normalizedInput = normalizeAnswer(answer);
-    const isCorrect = currentObject.possible_answers.some(
-      (ans) => normalizeAnswer(ans.value) === normalizedInput
-    );
+    const isCorrect = validateAnswer(answer, currentMission);
 
     if (isCorrect) {
       setIsSuccess(true);
@@ -72,7 +236,7 @@ export function Quest({ onExit }: Props) {
   };
 
   const handleNextStep = async () => {
-    if (!currentObject) return;
+    if (!currentMission) return;
     
     if (audioRef.current) {
       audioRef.current.pause();
@@ -83,7 +247,7 @@ export function Quest({ onExit }: Props) {
 
     const nextStep = currentStep + 1;
     const isFinished = nextStep >= objects.length;
-    const newBadges = [...unlockedBadges, currentObject.id];
+    const newBadges = [...unlockedBadges, currentMission.id];
     
     localStorage.setItem('man_quest_progress', JSON.stringify({
       currentStep: nextStep,
@@ -98,8 +262,31 @@ export function Quest({ onExit }: Props) {
     setIsSuccess(false);
   };
 
+  /** Build spoken prompt for TTS including riddle/question blocks */
+  function buildSpokenPrompt(mission: Mission): string {
+    const greeting = settings.childName ? `¡Atención, ${settings.childName}! ` : '¡Atención, explorador! ';
+
+    let prompt = `${greeting} Escucha con atención el diario del profesor Ardanza...
+"${mission.lore_text}"`;
+
+    if (mission.riddle_prompt) {
+      prompt += `\n... Aquí tienes el acertijo:\n"${mission.riddle_prompt}"`;
+    }
+    if (mission.artifact_to_find) {
+      prompt += `\n... Lo que debes buscar:\n"${mission.artifact_to_find}"`;
+    }
+    if (mission.question_prompt) {
+      prompt += `\n... Tu pregunta es:\n"${mission.question_prompt}"`;
+    }
+    if (mission.action_prompt && !mission.question_prompt) {
+      prompt += `\n... Ahora, tu misión es la siguiente: ${mission.action_prompt}`;
+    }
+
+    return prompt;
+  }
+
   const playAudioHint = async () => {
-    if (!currentObject) return;
+    if (!currentMission) return;
     
     if (isPlayingAudio) {
       if (audioRef.current) {
@@ -120,14 +307,7 @@ export function Quest({ onExit }: Props) {
     setAudioError('');
 
     try {
-      const greeting = settings.childName ? `¡Atención, ${settings.childName}! ` : '¡Atención, explorador! ';
-      
-      // Usamos el prompting guide de ElevenLabs:
-      // - Comillas "" para la parte hablada (el diario) para darle un tono distinto (diálogo/narración en primera persona).
-      // - Puntos suspensivos (...) para añadir pausas dramáticas entre la narración y el diario.
-      const promptText = `${greeting} Escucha con atención el diario del profesor Ardanza...
-"${currentObject.lore_text}"
-... Ahora, tu misión es la siguiente: ${currentObject.action_prompt}`;
+      const promptText = buildSpokenPrompt(currentMission);
       
       const audioUrl = await generateTTS(promptText, settings.elevenLabsApiKey);
       
@@ -192,14 +372,86 @@ export function Quest({ onExit }: Props) {
     );
   }
 
-  if (!currentObject) return null;
+  if (!currentMission) return null;
 
   let currentHint = "";
-  if (hintLevel === 1) currentHint = currentObject.hint_ladder_template.hint_1;
-  else if (hintLevel === 2) currentHint = currentObject.hint_ladder_template.hint_2;
-  else if (hintLevel === 3) currentHint = currentObject.hint_ladder_template.hint_3;
-  else if (hintLevel === 4) currentHint = currentObject.hint_ladder_template.hint_4;
-  else if (hintLevel >= 5) currentHint = currentObject.hint_ladder_template.hint_5;
+  if (hintLevel === 1) currentHint = currentMission.hint_ladder_template.hint_1;
+  else if (hintLevel === 2) currentHint = currentMission.hint_ladder_template.hint_2;
+  else if (hintLevel === 3) currentHint = currentMission.hint_ladder_template.hint_3;
+  else if (hintLevel === 4) currentHint = currentMission.hint_ladder_template.hint_4;
+  else if (hintLevel >= 5) currentHint = currentMission.hint_ladder_template.hint_5;
+
+  /** Render mission content blocks for the challenge section */
+  function renderChallengeBlocks(mission: Mission) {
+    const blocks: React.ReactNode[] = [];
+
+    // Story block (always shown)
+    blocks.push(
+      <div key="story" className="mb-3">
+        <h3 className="text-sm font-bold text-stone-500 uppercase tracking-wider mb-1 flex items-center gap-2">
+          <BookOpen size={16} /> Historia
+        </h3>
+        <p className="text-stone-800 text-md italic leading-relaxed">"{mission.lore_text}"</p>
+      </div>
+    );
+
+    if (mission.riddle_prompt) {
+      blocks.push(
+        <div key="riddle" className="bg-[#fff8e1] p-4 rounded-md border border-amber-300">
+          <h3 className="text-sm font-bold text-amber-700 uppercase tracking-wider mb-2 flex items-center gap-2">
+            <RiddleIcon size={16} /> El Acertijo
+          </h3>
+          <p className="text-stone-900 font-medium leading-relaxed whitespace-pre-line">{mission.riddle_prompt}</p>
+        </div>
+      );
+    }
+
+    if (mission.artifact_to_find) {
+      blocks.push(
+        <div key="artifact" className="bg-[#e3f2fd] p-4 rounded-md border border-blue-300">
+          <h3 className="text-sm font-bold text-blue-700 uppercase tracking-wider mb-2 flex items-center gap-2">
+            <Search size={16} /> Qué Buscar
+          </h3>
+          <p className="text-stone-900 font-medium leading-relaxed">{mission.artifact_to_find}</p>
+        </div>
+      );
+    }
+
+    if (mission.question_prompt) {
+      blocks.push(
+        <div key="question" className="bg-[#f3e5f5] p-4 rounded-md border border-purple-300">
+          <h3 className="text-sm font-bold text-purple-700 uppercase tracking-wider mb-2 flex items-center gap-2">
+            <HelpCircle size={16} /> La Pregunta
+          </h3>
+          <p className="text-stone-900 font-medium leading-relaxed">{mission.question_prompt}</p>
+        </div>
+      );
+    }
+
+    if (mission.action_prompt && !mission.question_prompt) {
+      blocks.push(
+        <div key="action" className="bg-white/60 p-4 rounded-md border border-stone-300">
+          <h3 className="text-sm font-bold text-stone-700 uppercase tracking-wider mb-2 flex items-center gap-2">
+            <MapPin size={16} /> Tu Misión
+          </h3>
+          <p className="text-stone-900 font-medium leading-relaxed">{mission.action_prompt}</p>
+        </div>
+      );
+    }
+
+    if (!mission.riddle_prompt && !mission.artifact_to_find && !mission.question_prompt && mission.action_prompt) {
+      blocks.push(
+        <div key="action" className="bg-white/60 p-4 rounded-md border border-stone-300">
+          <h3 className="text-sm font-bold text-stone-700 uppercase tracking-wider mb-2 flex items-center gap-2">
+            <Search size={16} /> Tu Misión
+          </h3>
+          <p className="text-stone-900 font-medium leading-relaxed">{mission.action_prompt}</p>
+        </div>
+      );
+    }
+
+    return blocks;
+  }
 
   return (
     <div className="min-h-screen bg-[#f4f1ea] flex flex-col font-sans relative">
@@ -238,17 +490,17 @@ export function Quest({ onExit }: Props) {
               <h2 className="text-2xl font-extrabold text-green-800 mb-4 uppercase">¡Hallazgo Correcto!</h2>
               
               <div className="bg-white rounded-lg p-4 shadow-inner mb-6 w-full border-2 border-green-200">
-                <h3 className="text-xl font-bold text-stone-800 mb-3">{currentObject.name}</h3>
-                {currentObject.image_url && (
-                  <img 
-                    src={currentObject.image_url} 
-                    alt={currentObject.name} 
+                <h3 className="text-xl font-bold text-stone-800 mb-3">{currentMission.name}</h3>
+                {currentMission.image_url && (
+                  <img
+                    src={currentMission.image_url}
+                    alt={currentMission.name}
                     className="w-full h-48 object-cover rounded-md mb-4 border border-stone-200"
                     referrerPolicy="no-referrer"
                   />
                 )}
                 <p className="text-stone-700 text-md font-medium leading-relaxed">
-                  {currentObject.success_description}
+                  {currentMission.success_description}
                 </p>
               </div>
 
@@ -269,7 +521,7 @@ export function Quest({ onExit }: Props) {
             >
               <div className="bg-stone-200 p-6 text-center relative border-b-2 border-stone-300">
                 <h2 className="text-sm font-bold text-stone-600 uppercase tracking-widest mb-1 flex items-center justify-center gap-2">
-                  <MapIcon size={16} /> {currentObject.room}
+                  <MapIcon size={16} /> {currentMission.room}
                 </h2>
                 <h1 className="text-2xl font-extrabold text-stone-800">
                   Misterio {currentStep + 1}
@@ -296,30 +548,26 @@ export function Quest({ onExit }: Props) {
               </div>
 
               <div className="p-6">
-                <div className="bg-[#f0eade] border-l-4 border-stone-600 p-5 rounded-r-lg mb-6 shadow-inner space-y-4">
-                  <div>
-                    <h3 className="text-sm font-bold text-stone-500 uppercase tracking-wider mb-1 flex items-center gap-2">
-                      <BookOpen size={16} /> El Diario de Ardanza
-                    </h3>
-                    <p className="text-stone-800 text-md italic leading-relaxed">
-                      "{currentObject.lore_text}"
-                    </p>
-                  </div>
-                  <div className="bg-white/60 p-4 rounded-md border border-stone-300">
-                    <h3 className="text-sm font-bold text-stone-700 uppercase tracking-wider mb-2 flex items-center gap-2">
-                      <Search size={16} /> Tu Misión
-                    </h3>
-                    <p className="text-stone-900 font-medium text-lg leading-relaxed">
-                      {currentObject.action_prompt}
-                    </p>
+                {/* Tu Desafio Section with separate blocks */}
+                <div className="bg-[#f0eade] border-l-4 border-stone-600 p-5 rounded-r-lg mb-6 shadow-inner">
+                  <h3 className="text-sm font-bold text-stone-700 uppercase tracking-wider mb-4 flex items-center gap-2">
+                    <Star size={16} /> Tu Desafio
+                  </h3>
+                  <div className="space-y-3">
+                    {renderChallengeBlocks(currentMission)}
                   </div>
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div>
                     <label className="block text-stone-800 font-bold mb-2 text-lg">
-                      Respuesta esperada: <span className="text-stone-500 font-normal text-base">{currentObject.expected_format}</span>
+                      Respuesta esperada: <span className="text-stone-500 font-normal text-base">{currentMission.expected_format}</span>
                     </label>
+                    <p className="mb-2 text-sm text-stone-600">
+                      {getAnswerStrategy(currentMission) === 'exact'
+                        ? 'Escribe la respuesta exacta tal como aparece en la pista o en la cartela.'
+                        : 'Puedes responder con tus propias palabras. Entenderemos respuestas equivalentes.'}
+                    </p>
                     <input 
                       type="text" 
                       value={answer}

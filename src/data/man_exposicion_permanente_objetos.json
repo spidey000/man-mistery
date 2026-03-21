@@ -14,28 +14,39 @@
       "room": "Sala 5",
       "culture": "Prehistoria",
       "lore_text": "¡Rápido, joven arqueólogo! Soy el Profesor Ardanza. La malvada 'Sociedad del Eclipse' quiere robar los secretos del museo para reescribir la historia. Debemos encontrar la Llave del Tiempo antes que ellos. Nuestro primer contacto dejó un mensaje oculto en la mirada de piedra más antigua de la Sala 5.",
-      "action_prompt": "Busca una figura cilíndrica de piedra con dos enormes ojos grabados. Lee su tarjeta informativa para descubrir cuándo fue creada. ¿En qué milenio a.C. se talló?",
-      "expected_format": "Un número (ej. 3 o III)",
+      "mission_type": "mixed",
+      "artifact_to_find": "El Ídolo oculado, una figura cilíndrica de piedra con una cara muy extraña y dos ojos enormes.",
+      "riddle_prompt": "Tengo cuerpo pequeño y cara extraña,\ny unos ojos enormes que nadie engaña.\nNo soy persona de verdad,\npero me hicieron con mucha antigüedad.\n\nCuando lo encuentres en su rincón,\ndime qué destaca más en su expresión.",
+      "question_prompt": "Busca el Ídolo oculado en la Sala 5. Observa bien su rostro. ¿Qué rasgo llama más la atención?",
+      "answer_strategy": "concepts",
+      "answer_concepts": [
+        {
+          "required": ["ojo"],
+          "optional": ["grande", "enorme", "mirada"]
+        }
+      ],
+      "action_prompt": "Busca el Ídolo oculado en la Sala 5. Observa bien su rostro. ¿Qué rasgo llama más la atención?",
+      "expected_format": "Una parte de la cara",
       "possible_answers": [
         {
           "type": "canonical",
-          "value": "3"
+          "value": "ojos"
         },
         {
           "type": "accepted_variant",
-          "value": "tres"
+          "value": "ojos grandes"
         },
         {
           "type": "accepted_variant",
-          "value": "iii"
+          "value": "ojos enormes"
         }
       ],
       "hint_ladder_template": {
-        "hint_1": "Lee la cartela junto a la pieza.",
-        "hint_2": "Busca la fecha. Dice 'III milenio a.C.'.",
-        "hint_3": "El número romano III equivale al...",
-        "hint_4": "La respuesta empieza por la letra '3'.",
-        "hint_5": "La respuesta exacta que buscas es: 3"
+        "hint_1": "Fíjate en la cara del ídolo, no en el cuerpo.",
+        "hint_2": "Hay una parte de su rostro muchísimo más grande que las demás.",
+        "hint_3": "Ese detalle sirve para mirar.",
+        "hint_4": "La respuesta empieza por 'o'.",
+        "hint_5": "La respuesta que buscamos es: ojos"
       },
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Idolo_oculado.jpg/800px-Idolo_oculado.jpg",
       "success_description": "Este ídolo de piedra tiene más de 5000 años. Los antiguos habitantes de la Península Ibérica lo usaban en sus rituales mágicos. ¡Sus grandes ojos lo veían todo!"
@@ -45,7 +56,18 @@
       "name": "Vaso Campaniforme",
       "room": "Sala 5",
       "culture": "Prehistoria",
-      "lore_text": "¡Bien hecho! Los agentes del Eclipse nos pisan los talones. El milenio que descubriste es la clave: los antiguos usaban el sonido para comunicarse a largas distancias. Busca en esta misma sala un objeto de barro que serviría para dar la alarma.",
+      "lore_text": "¡Bien hecho! Esa mirada de piedra nos ha señalado la siguiente pista. Los agentes del Eclipse nos pisan los talones y debemos seguir en esta misma sala. Busca ahora un objeto de barro que, por su forma, parece dispuesto a sonar como una alarma.",
+      "mission_type": "mixed",
+      "artifact_to_find": "Vaso Campaniforme (vasija rojiza decorada con líneas y puntos)",
+      "riddle_prompt": "Soy de barro, rojo y bonito,\ncon puntos y rayas adornado.\nPónme boca abajo sin miedo,\ny 'ding-dong' habrás sonado.\n\n(¿Qué objeto de iglesia hace 'ding-dong' cuando le pegas la vuelta?)",
+      "question_prompt": "Encuentra una vasija rojiza decorada con líneas y puntos. Piensa en su forma invertida. ¿A qué objeto sonoro de las iglesias se parece?",
+      "answer_strategy": "concepts",
+      "answer_concepts": [
+        {
+          "required": ["campana"],
+          "optional": ["campanilla", "sonido", "iglesia"]
+        }
+      ],
       "action_prompt": "Encuentra una vasija rojiza decorada con líneas y puntos. Piensa en su forma invertida. ¿A qué objeto sonoro de las iglesias se parece?",
       "expected_format": "Una palabra",
       "possible_answers": [
@@ -74,6 +96,17 @@
       "room": "Sala 12",
       "culture": "Íbera",
       "lore_text": "¡Una campana! Exacto. Su sonido imaginario nos advierte: los malos se dirigen a la Sala 12. Ardanza dice que allí hay un guardián de piedra que protege el siguiente fragmento del mapa. Es un ser mitológico que asusta a los intrusos.",
+      "mission_type": "mixed",
+      "artifact_to_find": "Bicha de Balazote (estatua con cabeza de hombre barbudo y cuerpo de animal)",
+      "riddle_prompt": "Tengo cara de hombre barbudo y fuerte,\npero mi cuerpo es de bestia sin igual.\nCon cuernos en la testa, mugiendo estoy,\n¿qué animal soy? ¡Dímelo ya!\n\n(¿Qué animal tiene cuernos y hace 'muu'?)",
+      "question_prompt": "Busca una estatua gris con cabeza de hombre barbudo. Su cuerpo pertenece a un animal con cuernos muy fuerte. ¿De qué animal es el cuerpo?",
+      "answer_strategy": "concepts",
+      "answer_concepts": [
+        {
+          "required": ["toro"],
+          "optional": ["cuerno", "muu", "bovino"]
+        }
+      ],
       "action_prompt": "Busca una estatua gris con cabeza de hombre barbudo. Su cuerpo pertenece a un animal con cuernos muy fuerte. ¿De qué animal es el cuerpo?",
       "expected_format": "Una palabra (ej. toro)",
       "possible_answers": [
@@ -102,6 +135,17 @@
       "room": "Sala 13",
       "culture": "Íbera",
       "lore_text": "¡El toro nos ha dejado pasar! Pero la Sociedad del Eclipse ha bloqueado la puerta principal. El diario de Ardanza revela un pasadizo secreto en la Sala 13, custodiado por la gran reina de piedra. Ella tiene el poder de 'hacer rodar' el tiempo.",
+      "mission_type": "mixed",
+      "artifact_to_find": "Dama de Elche (busto de mujer íbera con rodetes/redondos a los lados de la cara)",
+      "riddle_prompt": "Soy reina de piedra, antigua y bella,\ncon dos discos redondos a cada lado de ella.\nNo son bollos ni lunas al pasar,\nse parecen a algo que en los coches no deja de girar.\n\n¿Qué parte del coche recuerdan esos adornos al mirar?",
+      "question_prompt": "Busca el busto de una mujer íbera muy detallado. Fíjate en los dos grandes adornos redondos que lleva a los lados de la cara. ¿A qué parte de un coche se parecen?",
+      "answer_strategy": "concepts",
+      "answer_concepts": [
+        {
+          "required": ["rueda"],
+          "optional": ["coche", "redonda", "girar"]
+        }
+      ],
       "action_prompt": "Busca el busto de una mujer íbera muy detallado. Fíjate en los dos grandes adornos redondos que lleva a los lados de la cara. ¿A qué parte de un coche se parecen?",
       "expected_format": "Una palabra en plural (ej. ruedas)",
       "possible_answers": [
@@ -134,6 +178,27 @@
       "room": "Sala 13",
       "culture": "Íbera",
       "lore_text": "Las ruedas de la Dama han abierto el pasadizo. Ardanza nos avisa: 'La Sociedad del Eclipse busca a la hermana de la Dama de Elche en esta misma sala'. Ella está sentada en un trono y guarda un secreto bajo su asiento.",
+      "mission_type": "mixed",
+      "artifact_to_find": "Dama de Baza (estatua sentada en trono con alas decorativas)",
+      "riddle_prompt": "En su trono sentada está la dama,\ncon alas a los lados como quien llama.\nNo vuelan de verdad, son piedra tallada,\npero parecen de un ser con plumas y mirada alada.\n\n¿Qué animal dirías que dejó esas alas marcadas?",
+      "question_prompt": "Encuentra a la otra gran dama de piedra que está sentada en una silla con alas. ¿Qué animal tiene las alas que decoran su trono?",
+      "answer_strategy": "concepts",
+      "answer_concepts": [
+        {
+          "required": ["pajaro"],
+          "optional": ["ala", "pluma", "volar"]
+        },
+        {
+          "required": ["ave"],
+          "optional": ["ala", "pluma", "volar"]
+        },
+        {
+          "required": ["paloma"]
+        },
+        {
+          "required": ["aguila"]
+        }
+      ],
       "action_prompt": "Encuentra a la otra gran dama de piedra que está sentada en una silla con alas. ¿Qué animal tiene las alas que decoran su trono?",
       "expected_format": "Una palabra",
       "possible_answers": [
@@ -170,6 +235,25 @@
       "room": "Sala 11",
       "culture": "Íbera",
       "lore_text": "¡Un pájaro! Ese es el símbolo de la libertad. Los agentes del Eclipse han huido hacia la Sala 11, buscando un monumento gigante en forma de torre. Ardanza dice que en sus paredes hay monstruos tallados.",
+      "mission_type": "mixed",
+      "artifact_to_find": "Monumento de Pozo Moro (torre de piedra con relieves de monstruos y leones)",
+      "riddle_prompt": "En la torre hay un bicho muy raro,\ncon dos cabezas sale de la piedra clara.\nSaca la lengua, ¡hsssss! No tiene patas,\n¿qué bicho es? ¡Adivina sin meter la pata!\n\n(¿Qué reptil largo se arrastra y saca la lengua bífida?)",
+      "question_prompt": "Busca una torre de piedra muy alta sostenida por leones. En uno de sus relieves hay un monstruo con dos cabezas que saca la lengua. ¿Qué animal parece?",
+      "answer_strategy": "concepts",
+      "answer_concepts": [
+        {
+          "required": ["serpiente"],
+          "optional": ["reptil", "lengua", "hssss"]
+        },
+        {
+          "required": ["culebra"],
+          "optional": ["reptil", "lengua", "hssss"]
+        },
+        {
+          "required": ["dragon"],
+          "optional": ["monstruo"]
+        }
+      ],
       "action_prompt": "Busca una torre de piedra muy alta sostenida por leones. En uno de sus relieves hay un monstruo con dos cabezas que saca la lengua. ¿Qué animal parece?",
       "expected_format": "Una palabra",
       "possible_answers": [
@@ -202,6 +286,17 @@
       "room": "Sala 12",
       "culture": "Íbera",
       "lore_text": "La serpiente nos indica el camino venenoso que han tomado. Han vuelto a la Sala 12. 'Busca a la criatura de los enigmas', susurra Ardanza por el comunicador. 'Tiene cuerpo de león y alas, pero no es un pájaro'.",
+      "mission_type": "mixed",
+      "artifact_to_find": "Esfinge de Agost (estatua con cuerpo de león, alas y cabeza humana)",
+      "riddle_prompt": "Soy criatura mágica con león en el cuerpo,\nalas tengo también, mas no soy un pájaro torvo.\nEn mi cara hay algo que se perdió con los años,\n¿qué falta? ¡Es la que está en el centro de los ojos!\n\n(¿Qué parte de tu cara está entre los dos ojos y te ayuda a oler?)",
+      "question_prompt": "Encuentra una estatua de piedra que parece un león sentado, pero tiene alas y cabeza humana. ¿Qué le falta en la cara porque se ha roto con el tiempo?",
+      "answer_strategy": "concepts",
+      "answer_concepts": [
+        {
+          "required": ["nariz"],
+          "optional": ["oler", "cara", "rota"]
+        }
+      ],
       "action_prompt": "Encuentra una estatua de piedra que parece un león sentado, pero tiene alas y cabeza humana. ¿Qué le falta en la cara porque se ha roto con el tiempo?",
       "expected_format": "Una palabra",
       "possible_answers": [
@@ -230,6 +325,21 @@
       "room": "Sala 14",
       "culture": "Íbera",
       "lore_text": "Sin nariz no pueden olernos. ¡Aprovechemos la ventaja! Avanzamos a la Sala 14. La Sociedad del Eclipse busca un animal de piedra que representa la fuerza bruta. Ardanza nos advierte que está herido.",
+      "mission_type": "mixed",
+      "artifact_to_find": "Toro de Osuna (gran estatua de toro de piedra)",
+      "riddle_prompt": "Soy fuerte y bruto, de piedra me hicieron,\nmi cabeza tiene algo que me hirieron.\nSin eso en la testa no puedo embestir,\n¿qué me falta? ¡Es lo que el toro ha de sentir!\n\n(¿Qué tiene el toro en la cabeza que usa para embestir y que está puntiagudo?)",
+      "question_prompt": "Busca una gran estatua de un toro de piedra. Míralo de cerca. ¿Qué le falta en la cabeza que lo haría muy peligroso?",
+      "answer_strategy": "concepts",
+      "answer_concepts": [
+        {
+          "required": ["cuerno"],
+          "optional": ["toro", "embestir", "punta"]
+        },
+        {
+          "required": ["asta"],
+          "optional": ["toro"]
+        }
+      ],
       "action_prompt": "Busca una gran estatua de un toro de piedra. Míralo de cerca. ¿Qué le falta en la cabeza que lo haría muy peligroso?",
       "expected_format": "Una palabra en plural",
       "possible_answers": [
@@ -258,6 +368,25 @@
       "room": "Sala 10",
       "culture": "Tartésica",
       "lore_text": "Los cuernos rotos simbolizan que el Eclipse está perdiendo fuerza. Ardanza nos envía a la Sala 10. 'Allí brilla el oro de un reino perdido llamado Tartessos. Busca las joyas de una antigua princesa'.",
+      "mission_type": "mixed",
+      "artifact_to_find": "Tesoro de Aliseda (vitrina con joyas de oro, incluyendo un cinturón con figuras)",
+      "riddle_prompt": "En el cinturón dorado busco con atención,\nun animalito que hace 'beee' con emoción.\nMe da leche, tiene lana y hace 'beee' sin parar,\n¿qué animal soy? ¡Lana me ha de dar!\n\n(¿Qué animal de granja hace 'beee' y tiene lana?)",
+      "question_prompt": "Encuentra una vitrina llena de joyas de oro muy detalladas (collares, pulseras...). Hay un cinturón de oro con pequeños dibujos. ¿Qué animal que da leche y hace 'beee' aparece en el cinturón?",
+      "answer_strategy": "concepts",
+      "answer_concepts": [
+        {
+          "required": ["oveja"],
+          "optional": ["lana", "beee", "granja"]
+        },
+        {
+          "required": ["cabra"],
+          "optional": ["granja", "cuerno"]
+        },
+        {
+          "required": ["carnero"],
+          "optional": ["lana", "cuerno"]
+        }
+      ],
       "action_prompt": "Encuentra una vitrina llena de joyas de oro muy detalladas (collares, pulseras...). Hay un cinturón de oro con pequeños dibujos. ¿Qué animal que da leche y hace 'beee' aparece en el cinturón?",
       "expected_format": "Una palabra",
       "possible_answers": [
@@ -290,6 +419,25 @@
       "room": "Sala 15",
       "culture": "Edad del Bronce",
       "lore_text": "El oro nos guía. Los secuaces del Eclipse han sido vistos en la Sala 15, buscando unos cuencos mágicos que parecen sombreros de oro. Ardanza dice que los usaban en ceremonias secretas.",
+      "mission_type": "mixed",
+      "artifact_to_find": "Cuencos de Axtroki (dos cuencos de oro con decoraciones geométricas)",
+      "riddle_prompt": "De oro brillante son estos cuencos,\ny si en la cabeza los colocas, parecen inventos.\nNo son platos ni coronas al mirar,\nsino algo que te pones arriba para el sol parar.\n\n¿Qué prenda de cabeza te hacen recordar?",
+      "question_prompt": "Busca dos cuencos de oro brillante con decoraciones geométricas. Si te los pusieras en la cabeza, ¿qué prenda de vestir parecerían?",
+      "answer_strategy": "concepts",
+      "answer_concepts": [
+        {
+          "required": ["sombrero"],
+          "optional": ["cabeza", "sol", "prenda"]
+        },
+        {
+          "required": ["gorro"],
+          "optional": ["cabeza", "prenda"]
+        },
+        {
+          "required": ["casco"],
+          "optional": ["cabeza"]
+        }
+      ],
       "action_prompt": "Busca dos cuencos de oro brillante con decoraciones geométricas. Si te los pusieras en la cabeza, ¿qué prenda de vestir parecerían?",
       "expected_format": "Una palabra",
       "possible_answers": [
