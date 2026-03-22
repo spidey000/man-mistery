@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Shield, Key, Star, LogOut, HelpCircle, CheckCircle, XCircle, Volume2, Pickaxe, Brush, Search, Gem, Map as MapIcon, BookOpen, Loader2 } from 'lucide-react';
+import { LogOut, CheckCircle, Volume2, Pickaxe, Brush, Search, Gem, Map as MapIcon, Loader2, Compass, Sparkles, ScrollText, ArrowRight, Headphones, NotebookPen } from 'lucide-react';
 import objectsData from '../data/man_exposicion_permanente_objetos.json';
 import { useSettings } from '../contexts/SettingsContext';
 import { generateTTS } from '../services/deepgram';
@@ -46,6 +46,7 @@ export function Quest({ onExit }: Props) {
   };
 
   const currentObject = objects[currentStep];
+  const progressPercent = objects.length > 0 ? ((currentStep + 1) / objects.length) * 100 : 0;
 
   const buildPromptText = (object: typeof currentObject) => {
     if (!object) {
@@ -176,36 +177,45 @@ export function Quest({ onExit }: Props) {
   };
 
   if (loading) {
-    return <div className="min-h-screen flex items-center justify-center bg-[#f4f1ea] text-stone-700 font-bold text-xl">Desenterrando pistas...</div>;
+    return <div className="expedition-shell flex min-h-screen items-center justify-center px-6 text-center text-[#f7ecd2]"><div className="topo-overlay" /><div className="expedition-panel rounded-[1.8rem] px-8 py-6 text-xl font-bold shadow-[0_28px_60px_rgba(0,0,0,0.35)]">Desenterrando pistas...</div></div>;
   }
 
   if (completed) {
     return (
-      <div className="min-h-screen bg-[#f4f1ea] flex flex-col items-center justify-center p-6 text-center">
-        <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none" style={{ backgroundImage: 'radial-gradient(#8a7350 1.5px, transparent 1.5px)', backgroundSize: '24px 24px' }}></div>
-        <motion.div 
+      <div className="expedition-shell flex min-h-screen items-center justify-center overflow-hidden px-4 py-8 text-center sm:px-6">
+        <div className="topo-overlay" />
+        <motion.div
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          className="max-w-md w-full bg-[#fffcf5] rounded-xl shadow-2xl p-8 border-4 border-stone-400 relative z-10"
+          className="expedition-panel relative z-10 w-full max-w-2xl overflow-hidden rounded-[2.2rem] border border-[#f0bc5942] p-8 text-[#f7ecd2] shadow-[0_40px_120px_rgba(0,0,0,0.42)] sm:p-10"
         >
-          <Gem size={64} className="text-stone-700 mx-auto mb-6" />
-          <h1 className="text-4xl font-extrabold text-stone-800 mb-4 uppercase">¡Excavación Completada!</h1>
-          <p className="text-lg text-stone-600 mb-8 font-medium">
-            ¡Has encontrado todos los artefactos y revelado los secretos del pasado! Eres un verdadero Arqueólogo Experto.
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(240,188,89,0.18),transparent_32%),radial-gradient(circle_at_bottom_right,rgba(19,111,99,0.18),transparent_30%)]" />
+          <div className="relative">
+            <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full border border-[#f0bc5957] bg-[rgba(240,188,89,0.14)] shadow-[0_0_40px_rgba(217,142,4,0.22)]">
+              <Gem size={44} className="text-[#f0bc59]" />
+            </div>
+            <p className="font-mono-expedition mt-6 text-xs uppercase tracking-[0.38em] text-[#f0bc59]">Expedicion completada</p>
+            <h1 className="font-display mt-3 text-5xl text-[#f7ecd2]">Camara final revelada</h1>
+            <p className="mx-auto mt-5 max-w-xl text-lg leading-8 text-[#dbe2d3]">
+              Has encontrado todos los artefactos y unido las notas del pasado. El museo ya te reconoce como arqueologo experto de esta expedicion.
           </p>
-          <div className="grid grid-cols-4 gap-3 mb-8">
-            {unlockedBadges.map((id, i) => (
-              <div key={i} className="bg-stone-200 rounded-lg p-2 flex items-center justify-center border-2 border-stone-300">
-                <Gem className="text-stone-600" size={24} />
-              </div>
-            ))}
+
+            <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
+              {unlockedBadges.map((id, i) => (
+                <div key={id} className="rounded-[1.2rem] border border-[#f5e6c824] bg-[rgba(245,230,200,0.08)] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]">
+                  <Gem className="mx-auto text-[#f0bc59]" size={24} />
+                  <p className="mt-2 font-mono-expedition text-[10px] uppercase tracking-[0.22em] text-[#d7d9cd]">Reliquia {i + 1}</p>
+                </div>
+              ))}
+            </div>
+
+            <button
+              onClick={handleExit}
+              className="expedition-cta mt-8 inline-flex w-full items-center justify-center gap-3 rounded-[1.25rem] px-5 py-4 text-lg font-black transition hover:-translate-y-0.5"
+            >
+              <Compass size={20} /> Volver al campamento
+            </button>
           </div>
-          <button 
-            onClick={handleExit}
-            className="w-full py-4 bg-stone-700 hover:bg-stone-800 text-white text-xl font-bold rounded-lg shadow-md border-b-4 border-stone-900"
-          >
-            Volver al campamento
-          </button>
         </motion.div>
       </div>
     );
@@ -221,169 +231,236 @@ export function Quest({ onExit }: Props) {
   else if (hintLevel >= 5) currentHint = currentObject.hint_ladder_template.hint_5;
 
   return (
-    <div className="min-h-screen bg-[#f4f1ea] flex flex-col font-sans relative">
-      <div className="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none" style={{ backgroundImage: 'radial-gradient(#8a7350 1.5px, transparent 1.5px)', backgroundSize: '24px 24px' }}></div>
-      
-      {/* Header */}
-      <header className="relative z-10 flex flex-wrap items-center justify-between gap-3 border-b-4 border-stone-900 bg-stone-800 p-4 text-stone-100 shadow-md">
-        <div className="flex items-center gap-2">
-          <Pickaxe size={24} />
-          <span className="font-bold text-lg">Arqueólogo: Invitado</span>
+    <div className="expedition-shell min-h-screen overflow-hidden">
+      <div className="topo-overlay" />
+
+      <header className="relative z-10 mx-auto flex w-full max-w-7xl flex-wrap items-center justify-between gap-4 px-4 py-5 sm:px-6 lg:px-8">
+        <div className="flex items-center gap-3 text-[#f5e6c8]">
+          <div className="flex h-11 w-11 items-center justify-center rounded-full border border-[#f0bc5940] bg-[rgba(240,188,89,0.12)]">
+            <Pickaxe size={20} />
+          </div>
+          <div>
+            <p className="font-mono-expedition text-[10px] uppercase tracking-[0.35em] text-[#f0bc59]">Explorador activo</p>
+            <p className="font-display text-2xl text-[#f7ecd2]">Arqueologo invitado</p>
+          </div>
         </div>
-        <div className="flex flex-wrap items-center justify-end gap-2 sm:gap-3">
+
+        <div className="flex flex-wrap items-center justify-end gap-3">
+          <div className="rounded-full border border-[#f5e6c824] bg-[rgba(245,230,200,0.08)] px-4 py-2 text-right shadow-[0_12px_30px_rgba(0,0,0,0.2)]">
+            <p className="font-mono-expedition text-[10px] uppercase tracking-[0.28em] text-[#f0bc59]">Ruta</p>
+            <p className="text-sm font-semibold text-[#f3eddc]">{currentStep + 1} / {objects.length}</p>
+          </div>
           <SettingsAndHelper />
-          <span className="rounded-md border border-stone-600 bg-stone-700 px-3 py-1 text-sm font-bold">
-            {currentStep + 1} / {objects.length}
-          </span>
-          <button onClick={handleExit} className="rounded-md p-2 transition hover:bg-stone-700" aria-label="Salir de la expedicion">
-            <LogOut size={20} />
+          <button onClick={handleExit} className="expedition-ghost inline-flex h-11 w-11 items-center justify-center rounded-full transition hover:bg-[rgba(245,230,200,0.14)]" aria-label="Salir de la expedicion">
+            <LogOut size={18} />
           </button>
         </div>
       </header>
 
-      {/* Main Content */}
-      <main className="flex-1 p-4 flex flex-col items-center justify-center max-w-lg mx-auto w-full relative z-10">
-        
+      <main className="relative z-10 mx-auto grid w-full max-w-7xl gap-6 px-4 pb-8 sm:px-6 lg:grid-cols-[290px_minmax(0,1fr)] lg:px-8">
+        <aside className="expedition-panel h-fit rounded-[2rem] p-5 text-[#f5e6c8] shadow-[0_28px_70px_rgba(0,0,0,0.34)] lg:sticky lg:top-6">
+          <div className="flex items-center justify-between gap-3">
+            <div>
+              <p className="font-mono-expedition text-[10px] uppercase tracking-[0.32em] text-[#f0bc59]">Mapa nocturno</p>
+              <h2 className="font-display mt-2 text-3xl">Ruta de sala</h2>
+            </div>
+            <MapIcon className="text-[#f0bc59]" size={24} />
+          </div>
+
+          <div className="mt-5 h-2 overflow-hidden rounded-full bg-[rgba(245,230,200,0.12)]">
+            <div className="h-full rounded-full bg-[linear-gradient(90deg,#f0bc59,#d98e04)]" style={{ width: `${progressPercent}%` }} />
+          </div>
+
+          <div className="mt-6 space-y-3">
+            {objects.map((object, index) => {
+              const state = index < currentStep ? 'done' : index === currentStep ? 'current' : 'next';
+              return (
+                <div
+                  key={object.id}
+                  className={`rounded-[1.2rem] border px-4 py-3 transition ${state === 'done' ? 'border-[#f0bc5957] bg-[rgba(240,188,89,0.14)] text-[#f5e6c8]' : state === 'current' ? 'border-[#59b4a5] bg-[rgba(19,111,99,0.2)] text-white shadow-[0_0_30px_rgba(19,111,99,0.18)]' : 'border-[#f5e6c81c] bg-[rgba(245,230,200,0.06)] text-[#d8ddcf]'}`}
+                >
+                  <div className="flex items-start gap-3">
+                    <div className={`mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border text-xs font-black ${state === 'done' ? 'border-[#f0bc59] bg-[rgba(240,188,89,0.2)] text-[#f0bc59]' : state === 'current' ? 'border-[#7be0cf] bg-[rgba(9,33,31,0.45)] text-[#d9fff7]' : 'border-[#f5e6c82a] bg-[rgba(255,255,255,0.03)] text-[#d8ddcf]'}`}>
+                      {index + 1}
+                    </div>
+                    <div className="min-w-0">
+                      <p className="font-mono-expedition text-[10px] uppercase tracking-[0.22em] text-inherit/80">{state === 'done' ? 'Resuelta' : state === 'current' ? 'En curso' : 'Pendiente'}</p>
+                      <p className="mt-1 text-sm font-semibold leading-5">{object.room}</p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="mt-6 rounded-[1.4rem] border border-[#f5e6c824] bg-[rgba(245,230,200,0.08)] p-4 text-sm leading-6 text-[#d8ddcf]">
+            <div className="flex items-center gap-2 text-[#f0bc59]"><Sparkles size={16} /><span className="font-mono-expedition text-[10px] uppercase tracking-[0.28em]">Consejo</span></div>
+            <p className="mt-2">Usa las pistas poco a poco. La mejor exploracion combina observacion, lectura y un poco de intuicion.</p>
+          </div>
+        </aside>
+
         <AnimatePresence mode="wait">
           {isSuccess ? (
-            <motion.div 
+            <motion.section
               key="success"
-              initial={{ scale: 0.5, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.5, opacity: 0 }}
-              className="bg-[#e8f0e1] border-4 border-green-600 rounded-xl p-6 text-center w-full shadow-xl flex flex-col items-center"
+              initial={{ scale: 0.85, opacity: 0, y: 24 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.96, opacity: 0, y: -16 }}
+              className="expedition-panel relative overflow-hidden rounded-[2.2rem] border border-[#68c27d66] p-6 shadow-[0_35px_90px_rgba(0,0,0,0.36)] sm:p-8"
             >
-              <CheckCircle size={64} className="text-green-600 mx-auto mb-2" />
-              <h2 className="text-2xl font-extrabold text-green-800 mb-4 uppercase">¡Hallazgo Correcto!</h2>
-              
-              <div className="bg-white rounded-lg p-4 shadow-inner mb-6 w-full border-2 border-green-200">
-                <h3 className="text-xl font-bold text-stone-800 mb-3">{currentObject.name}</h3>
-                {currentObject.image_url && (
-                  <img 
-                    src={currentObject.image_url} 
-                    alt={currentObject.name} 
-                    className="w-full h-48 object-cover rounded-md mb-4 border border-stone-200"
-                    referrerPolicy="no-referrer"
-                  />
-                )}
-                <p className="text-stone-700 text-md font-medium leading-relaxed">
-                  {currentObject.success_description}
-                </p>
-              </div>
-
-              <button 
-                onClick={handleNextStep}
-                className="w-full py-4 bg-green-600 hover:bg-green-700 text-white text-xl font-bold rounded-lg shadow-md transition active:scale-95 border-b-4 border-green-800"
-              >
-                Siguiente Misterio
-              </button>
-            </motion.div>
-          ) : (
-            <motion.div 
-              key="quest"
-              initial={{ x: 50, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              exit={{ x: -50, opacity: 0 }}
-              className="bg-[#fffcf5] rounded-xl shadow-xl w-full overflow-hidden border-4 border-stone-400"
-            >
-              <div className="bg-stone-200 p-6 text-center relative border-b-2 border-stone-300">
-                <h2 className="text-sm font-bold text-stone-600 uppercase tracking-widest mb-1 flex items-center justify-center gap-2">
-                  <MapIcon size={16} /> {currentObject.room}
-                </h2>
-                <h1 className="text-2xl font-extrabold text-stone-800">
-                  Misterio {currentStep + 1}
-                </h1>
-                <div className="absolute top-4 right-4 flex flex-col items-end">
-                  <button 
-                    onClick={playAudioHint}
-                    disabled={isPlayingAudio && !audioRef.current}
-                    className={`p-3 rounded-md transition shadow-sm flex items-center justify-center ${isPlayingAudio ? 'bg-stone-800 text-stone-100 hover:bg-stone-900' : 'bg-stone-300 text-stone-700 hover:bg-stone-400'}`}
-                    title={isPlayingAudio ? "Detener narración" : "Escuchar narración"}
-                  >
-                    {isPlayingAudio && !audioRef.current ? (
-                      <Loader2 size={24} className="animate-spin" />
-                    ) : (
-                      <Volume2 size={24} className={isPlayingAudio ? 'animate-pulse' : ''} />
-                    )}
-                  </button>
-                  {audioError && (
-                    <span className="text-xs text-red-600 font-bold mt-1 max-w-[120px] text-right bg-red-100 p-1 rounded">
-                      {audioError}
-                    </span>
-                  )}
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(98,179,111,0.22),transparent_34%),radial-gradient(circle_at_bottom_right,rgba(240,188,89,0.18),transparent_30%)]" />
+              <div className="relative flex flex-col items-center text-center text-[#eef7ee]">
+                <div className="flex h-20 w-20 items-center justify-center rounded-full border border-[#91de9e66] bg-[rgba(98,179,111,0.16)] shadow-[0_0_40px_rgba(98,179,111,0.18)]">
+                  <CheckCircle size={40} className="text-[#9ee8ab]" />
                 </div>
-              </div>
+                <p className="font-mono-expedition mt-5 text-xs uppercase tracking-[0.32em] text-[#bce7c4]">Hallazgo confirmado</p>
+                <h1 className="font-display mt-3 text-4xl text-white sm:text-5xl">{currentObject.name}</h1>
+                <p className="mt-4 max-w-2xl text-base leading-8 text-[#deecdf] sm:text-lg">{currentObject.success_description}</p>
 
-              <div className="p-6">
-                <div className="bg-[#f0eade] border-l-4 border-stone-600 p-5 rounded-r-lg mb-6 shadow-inner space-y-4">
-                  <div>
-                    <h3 className="text-sm font-bold text-stone-500 uppercase tracking-wider mb-1 flex items-center gap-2">
-                      <BookOpen size={16} /> El Diario de Ardanza
-                    </h3>
-                    <p className="text-stone-800 text-md italic leading-relaxed">
+                <div className="parchment-card relative mt-8 w-full max-w-2xl rounded-[1.8rem] p-5 text-left sm:p-6">
+                  <div className="flex items-center gap-3 text-[#8a6330]">
+                    <NotebookPen size={18} />
+                    <p className="font-mono-expedition text-[10px] uppercase tracking-[0.28em]">Registro de reliquia</p>
+                  </div>
+                  {currentObject.image_url && (
+                    <img
+                      src={currentObject.image_url}
+                      alt={currentObject.name}
+                      className="mt-4 h-56 w-full rounded-[1.25rem] border border-[rgba(122,88,43,0.18)] object-cover shadow-[0_18px_30px_rgba(0,0,0,0.18)]"
+                      referrerPolicy="no-referrer"
+                    />
+                  )}
+                  <p className="mt-4 text-sm leading-7 text-[#364241]">La expedicion anota el descubrimiento y abre una nueva camara para seguir investigando.</p>
+                </div>
+
+                <button
+                  onClick={handleNextStep}
+                  className="expedition-cta mt-8 inline-flex w-full max-w-md items-center justify-center gap-3 rounded-[1.25rem] px-5 py-4 text-lg font-black transition hover:-translate-y-0.5"
+                >
+                  <ArrowRight size={20} /> Siguiente misterio
+                </button>
+              </div>
+            </motion.section>
+          ) : (
+            <motion.section
+              key="quest"
+              initial={{ opacity: 0, x: 36 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -36 }}
+              className="grid gap-6"
+            >
+              <section className="expedition-panel overflow-hidden rounded-[2.2rem] border border-[#f0bc5940] shadow-[0_35px_90px_rgba(0,0,0,0.36)]">
+                <div className="border-b border-[#f5e6c818] bg-[linear-gradient(135deg,rgba(240,188,89,0.08),rgba(19,111,99,0.08))] px-6 py-6 sm:px-8">
+                  <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
+                    <div>
+                      <div className="inline-flex items-center gap-2 rounded-full border border-[#f5e6c824] bg-[rgba(245,230,200,0.08)] px-3 py-1.5 text-[#f0bc59]">
+                        <Compass size={14} />
+                        <span className="font-mono-expedition text-[10px] uppercase tracking-[0.28em]">{currentObject.room}</span>
+                      </div>
+                      <h1 className="font-display mt-4 text-4xl text-[#f7ecd2] sm:text-5xl">Misterio {currentStep + 1}</h1>
+                      <p className="mt-3 max-w-2xl text-base leading-8 text-[#d8ddcf]">Sigue el rastro del diario de Ardanza y examina el entorno antes de responder.</p>
+                    </div>
+
+                    <div className="flex flex-col items-start gap-2 lg:items-end">
+                      <button
+                        onClick={playAudioHint}
+                        disabled={isPlayingAudio && !audioRef.current}
+                        className={`inline-flex items-center gap-3 rounded-full border px-4 py-3 text-sm font-semibold transition ${isPlayingAudio ? 'border-[#f0bc5966] bg-[rgba(240,188,89,0.16)] text-[#f7ecd2]' : 'border-[#f5e6c824] bg-[rgba(245,230,200,0.08)] text-[#f5e6c8] hover:bg-[rgba(245,230,200,0.14)]'}`}
+                        title={isPlayingAudio ? 'Detener narracion' : 'Escuchar narracion'}
+                      >
+                        {isPlayingAudio && !audioRef.current ? <Loader2 size={18} className="animate-spin" /> : <Headphones size={18} className={isPlayingAudio ? 'animate-pulse' : ''} />}
+                        {isPlayingAudio ? 'Detener narracion' : 'Escuchar pista narrada'}
+                      </button>
+                      {audioError && <span className="rounded-full border border-[#f25c5448] bg-[rgba(68,16,18,0.82)] px-3 py-1 text-xs font-semibold text-[#ffc4bf]">{audioError}</span>}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="grid gap-6 p-6 sm:p-8 xl:grid-cols-[1.05fr_0.95fr]">
+                  <div className="parchment-card relative rounded-[1.8rem] p-5 sm:p-6">
+                    <div className="flex items-center gap-2 text-[#8a6330]">
+                      <ScrollText size={18} />
+                      <p className="font-mono-expedition text-[10px] uppercase tracking-[0.3em]">Diario de Ardanza</p>
+                    </div>
+                    <p className="mt-4 text-base leading-8 text-[#2d3a39] sm:text-lg">
                       "{currentObject.lore_text}"
                     </p>
                   </div>
-                  <div className="bg-white/60 p-4 rounded-md border border-stone-300">
-                    <h3 className="text-sm font-bold text-stone-700 uppercase tracking-wider mb-2 flex items-center gap-2">
-                      <Search size={16} /> Tu Misión
-                    </h3>
-                    <p className="text-stone-900 font-medium text-lg leading-relaxed">
-                      {currentObject.action_prompt}
-                    </p>
+
+                  <div className="rounded-[1.8rem] border border-[#f5e6c824] bg-[rgba(245,230,200,0.08)] p-5 text-[#f5e6c8] shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] sm:p-6">
+                    <div className="flex items-center gap-2 text-[#f0bc59]">
+                      <Search size={18} />
+                      <p className="font-mono-expedition text-[10px] uppercase tracking-[0.3em]">Tu mision</p>
+                    </div>
+                    <p className="mt-4 text-lg font-semibold leading-8 text-[#f4efdd]">{currentObject.action_prompt}</p>
+                    <div className="mt-6 rounded-[1.25rem] border border-[#f5e6c81f] bg-[rgba(8,20,21,0.3)] p-4">
+                      <div className="flex items-center gap-2 text-[#f0bc59]">
+                        <Brush size={16} />
+                        <span className="font-mono-expedition text-[10px] uppercase tracking-[0.28em]">Formato esperado</span>
+                      </div>
+                      <p className="mt-2 text-sm leading-6 text-[#dce1d5]">{currentObject.expected_format}</p>
+                    </div>
                   </div>
                 </div>
+              </section>
 
-                <form onSubmit={handleSubmit} className="space-y-4">
+              <section className="expedition-panel rounded-[2.2rem] border border-[#f5e6c822] p-6 shadow-[0_35px_90px_rgba(0,0,0,0.36)] sm:p-8">
+                <form onSubmit={handleSubmit} className="space-y-5">
                   <div>
-                    <label className="block text-stone-800 font-bold mb-2 text-lg">
-                      Respuesta esperada: <span className="text-stone-500 font-normal text-base">{currentObject.expected_format}</span>
+                    <label className="mb-3 block font-mono-expedition text-xs uppercase tracking-[0.3em] text-[#f0bc59]">
+                      Registro de respuesta
                     </label>
-                    <input 
-                      type="text" 
-                      value={answer}
-                      onChange={(e) => setAnswer(e.target.value)}
-                      className={`w-full text-xl p-4 border-4 rounded-lg outline-none transition ${isError ? 'border-red-400 bg-red-50' : 'border-stone-300 focus:border-stone-600 bg-white'}`}
-                      placeholder="Escribe aquí..."
-                      autoComplete="off"
-                    />
+                    <div className={`flex items-center gap-3 rounded-[1.5rem] border px-4 py-4 transition sm:px-5 ${isError ? 'border-[#f25c5466] bg-[rgba(72,18,20,0.72)]' : 'border-[#f5e6c826] bg-[rgba(245,230,200,0.08)] focus-within:border-[#f0bc5966] focus-within:bg-[rgba(245,230,200,0.12)]'}`}>
+                      <Volume2 size={20} className={isError ? 'text-[#ffb3ad]' : 'text-[#f0bc59]'} />
+                      <input
+                        type="text"
+                        value={answer}
+                        onChange={(e) => setAnswer(e.target.value)}
+                        className="w-full bg-transparent text-lg text-[#f8f2e3] outline-none placeholder:text-[#bfc7b9]"
+                        placeholder="Escribe tu hallazgo aqui..."
+                        autoComplete="off"
+                      />
+                    </div>
                   </div>
-                  
-                  <button 
-                    type="submit"
-                    disabled={!answer.trim()}
-                    className="w-full py-4 bg-stone-700 hover:bg-stone-800 disabled:bg-stone-300 disabled:text-stone-500 text-white text-xl font-bold rounded-lg shadow-md transition active:scale-95 border-b-4 border-stone-900 disabled:border-stone-400"
-                  >
-                    Examinar
-                  </button>
+
+                  <div className="flex flex-col gap-3 sm:flex-row">
+                    <button
+                      type="submit"
+                      disabled={!answer.trim()}
+                      className="expedition-cta inline-flex w-full items-center justify-center gap-3 rounded-[1.25rem] px-5 py-4 text-lg font-black transition hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-45 disabled:hover:translate-y-0"
+                    >
+                      <Search size={20} /> Examinar reliquia
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setHintLevel(prev => Math.min(prev + 1, 5))}
+                      disabled={hintLevel >= 5}
+                      className="expedition-ghost inline-flex w-full items-center justify-center gap-3 rounded-[1.25rem] px-5 py-4 text-base font-bold transition hover:bg-[rgba(245,230,200,0.14)] disabled:cursor-not-allowed disabled:opacity-45"
+                    >
+                      <Brush size={18} /> {hintLevel === 0 ? 'Pedir una pista' : hintLevel < 5 ? 'Pedir otra pista' : 'Sin mas pistas'}
+                    </button>
+                  </div>
                 </form>
 
                 {hintLevel > 0 && currentHint && (
-                  <motion.div 
-                    initial={{ opacity: 0, y: 10 }}
+                  <motion.div
+                    initial={{ opacity: 0, y: 14 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="mt-6 bg-[#fdfbf7] p-4 rounded-lg border-2 border-stone-300 flex gap-3 items-start"
+                    className="parchment-card relative mt-6 rounded-[1.8rem] p-5 sm:p-6"
                   >
-                    <Brush className="text-stone-600 shrink-0 mt-1" size={24} />
-                    <div className="flex-1">
-                      <h4 className="font-bold text-stone-700 text-sm uppercase">Pista {hintLevel}/5</h4>
-                      <p className="text-stone-800 font-medium">{currentHint}</p>
+                    <div className="flex items-start gap-4">
+                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[rgba(122,88,43,0.2)] bg-[rgba(217,142,4,0.08)] text-[#8a6330]">
+                        <Brush size={18} />
+                      </div>
+                      <div>
+                        <p className="font-mono-expedition text-[10px] uppercase tracking-[0.3em] text-[#8a6330]">Pista {hintLevel}/5</p>
+                        <p className="mt-2 text-base leading-7 text-[#31403f]">{currentHint}</p>
+                      </div>
                     </div>
                   </motion.div>
                 )}
-
-                <div className="mt-4 text-center">
-                  <button 
-                    type="button"
-                    onClick={() => setHintLevel(prev => Math.min(prev + 1, 5))}
-                    disabled={hintLevel >= 5}
-                    className="text-stone-600 font-bold underline text-sm hover:text-stone-800 disabled:opacity-50 disabled:no-underline"
-                  >
-                    {hintLevel === 0 ? "Pedir una pista" : hintLevel < 5 ? "Pedir otra pista" : "No hay más pistas"}
-                  </button>
-                </div>
-              </div>
-            </motion.div>
+              </section>
+            </motion.section>
           )}
         </AnimatePresence>
       </main>
